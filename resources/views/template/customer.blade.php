@@ -7,8 +7,6 @@
     <link rel="icon" href="{{ asset('images/logo.png') }}">
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
@@ -31,7 +29,7 @@
                     <a href="#" class="hover:text-red-500 transition text-sm font-semibold italic">Products</a>
                     <a href="#" class="hover:text-red-500 transition text-sm font-semibold italic">About Us</a>
                     <a href="#" class="hover:text-red-500 transition text-sm font-semibold italic">Contact</a>
-                    <a href="#" class="hover:text-red-500 transition text-sm font-semibold italic">Join Our Community</a>
+                    <a href="{{ url('/login') }}" class="hover:text-red-500 transition text-sm font-semibold italic">Join Our Community</a>
                 </div>
                 
                 <!-- Mobile Menu Button -->
@@ -50,7 +48,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex gap-3">
                 <form method="GET" action="#" class="flex-1 flex gap-2">
-                    <input type="text" name="query" placeholder="Search diecast models..."
+                    <input type="text" name="query" placeholder="Cari..."
                         value="{{ request('query', '') }}"
                         class="flex-1 px-4 py-2 rounded bg-gray-600 text-white text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
                     <button type="submit" class="bg-red-500 hover:bg-red-600 transition px-3 py-2 rounded">
@@ -92,7 +90,7 @@
     
     <!-- Main Content -->
     <main class="flex-1">
-        <div class="pb-8">
+        <div>
             
             <!-- Page Content -->
             @yield('content')

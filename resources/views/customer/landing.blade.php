@@ -14,13 +14,14 @@
         }
 
         .animate-marquee {
-            animation: marquee 20s linear infinite;
+            width: max-content;
+            animation: marquee 45s linear infinite;
             will-change: transform;
         }
     </style>
 
     <!-- Hero Section -->
-    <section class="mb-12">
+    <section>
         <div class="flex justify-center overflow-hidden"
             style="background-image: url('{{ asset('images/banner_hero.png') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
 
@@ -102,9 +103,58 @@
         </div>
     </section>
 
-    <!-- Featured Categories Section -->
-    <section class="mb-12 mx-7">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#000" fill-opacity="0.45"
+            d="M0,0L40,21.3C80,43,160,85,240,90.7C320,96,400,64,480,53.3C560,43,640,53,720,64C800,75,880,85,960,106.7C1040,128,1120,160,1200,154.7C1280,149,1360,107,1400,85.3L1440,64L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z">
+        </path>
+    </svg>
+
+    <!-- Stats Section -->
+    <section class="my-12 mx-7">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+            @yield('stats_title', 'Kenapa Memilih Kami?')
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Stat 1 -->
+            <div class="bg-white rounded-lg shadow p-6 text-center hover:shadow-lg transition">
+                <div class="text-4xl font-bold text-red-500 mb-2">@yield('stat1_number', '5000+')</div>
+                <p class="text-gray-600 font-semibold">@yield('stat1_label', 'Products')</p>
+                <p class="text-gray-500 text-sm mt-2">@yield('stat1_desc', 'Premium diecast models')</p>
+            </div>
+
+            <!-- Stat 2 -->
+            <div class="bg-white rounded-lg shadow p-6 text-center hover:shadow-lg transition">
+                <div class="text-4xl font-bold text-red-500 mb-2">@yield('stat2_number', '50K+')</div>
+                <p class="text-gray-600 font-semibold">@yield('stat2_label', 'Happy Customers')</p>
+                <p class="text-gray-500 text-sm mt-2">@yield('stat2_desc', 'Worldwide collectors')</p>
+            </div>
+
+            <!-- Stat 3 -->
+            <div class="bg-white rounded-lg shadow p-6 text-center hover:shadow-lg transition">
+                <div class="text-4xl font-bold text-red-500 mb-2">@yield('stat3_number', '100%')</div>
+                <p class="text-gray-600 font-semibold">@yield('stat3_label', 'Authentic')</p>
+                <p class="text-gray-500 text-sm mt-2">@yield('stat3_desc', 'Guaranteed genuine')</p>
+            </div>
+
+            <!-- Stat 4 -->
+            <div class="bg-white rounded-lg shadow p-6 text-center hover:shadow-lg transition">
+                <div class="text-4xl font-bold text-red-500 mb-2">@yield('stat4_number', '24/7')</div>
+                <p class="text-gray-600 font-semibold">@yield('stat4_label', 'Support')</p>
+                <p class="text-gray-500 text-sm mt-2">@yield('stat4_desc', 'Customer assistance')</p>
+            </div>
+        </div>
+    </section>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#000" fill-opacity="0.35"
+            d="M0,256L40,218.7C80,181,160,107,240,106.7C320,107,400,181,480,186.7C560,192,640,128,720,101.3C800,75,880,85,960,85.3C1040,85,1120,75,1200,106.7C1280,139,1360,213,1400,250.7L1440,288L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
+        </path>
+    </svg>
+
+    <!-- Featured Categories Section -->
+    <section class="py-12 px-7 bg-black/35">
+        <h2 class="text-5xl font-bold text-white mb-8 text-center italic underline">
             @yield('categories_title', 'Shop by Category')
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -112,7 +162,7 @@
             <!-- Category Card 1 -->
             <a href="#" class="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-64"
                 style="background-image: url('{{ asset('images/preview_sport.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                <div class="relative h-full flex flex-col justify-end p-6 bg-black/30 group-hover:bg-black/20 transition">
+                <div class="relative h-full flex flex-col justify-end p-6 bg-black/20 group-hover:bg-black/15 transition">
                     <h3 class="text-2xl font-bold text-white mb-2">
                         <i class="fas fa-car mr-2"></i>
                         Sports Car
@@ -127,10 +177,10 @@
             <!-- Category Card 2 -->
             <a href="#" class="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-64"
                 style="background-image: url('{{ asset('images/preview_vintage.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                <div class="relative h-full flex flex-col justify-end p-6 bg-black/30 group-hover:bg-black/20 transition">
+                <div class="relative h-full flex flex-col justify-end p-6 bg-black/20 group-hover:bg-black/15 transition">
                     <h3 class="text-2xl font-bold text-white mb-2">
                         <i class="fas fa-history mr-2"></i>
-                        Vintage Classic
+                        Vintage Classics
                     </h3>
                     <p class="text-white font-semibold text-sm">@yield('vintage_desc', 'Mobil klasik yang timeless dan penuh nostalgia')</p>
                     <div class="mt-3 inline-block text-white group-hover:translate-x-2 transition">
@@ -142,7 +192,7 @@
             <!-- Category Card 3 -->
             <a href="#" class="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-64"
                 style="background-image: url('{{ asset('images/preview_trucks.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                <div class="relative h-full flex flex-col justify-end p-6 bg-black/30 group-hover:bg-black/20 transition">
+                <div class="relative h-full flex flex-col justify-end p-6 bg-black/20 group-hover:bg-black/15 transition">
                     <h3 class="text-2xl font-bold text-white mb-2">
                         <i class="fas fa-truck mr-2"></i>
                         Truck & SUV
@@ -156,8 +206,14 @@
         </div>
     </section>
 
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#000" fill-opacity="0.35"
+            d="M0,256L40,250.7C80,245,160,235,240,202.7C320,171,400,117,480,101.3C560,85,640,107,720,122.7C800,139,880,149,960,176C1040,203,1120,245,1200,250.7C1280,256,1360,224,1400,208L1440,192L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z">
+        </path>
+    </svg>
+
     <!-- Featured Products Section -->
-    <section class="mb-12 mx-7">
+    <section class="mb-12 mx-7 py-12">
         <div class="flex justify-between items-center mb-8">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
                 @yield('featured_title', 'Produk Unggulan')
@@ -186,9 +242,11 @@
                 </svg>
             </a>
         </div>
+
+        <!-- Marquee Container -->
         <div class="w-full gap-6">
             <div class="overflow-hidden bg-gray-50">
-                <div class="flex animate-marquee">
+                <div class="flex w-max animate-marquee">
                     @php
                         $items = [
                             [
@@ -198,22 +256,43 @@
                                 'image' => asset('products/showcases/MGT-Penske.png'),
                             ],
                             [
-                                'title' => 'Porsche 963 #7',
+                                'title' => 'Land Rover Defender 110',
                                 'description' =>
-                                    'Porsche 963 #7 Porsche Penske Motorsport 2025 IMSA Daytona 24 Hrs Winner',
-                                'image' => asset('products/showcases/MGT-Penske.png'),
+                                    '1/64 Land Rover Defender 110 Brown Metallic - MIJO Special Edition - Tarmac Works GLOBAL64',
+                                'image' => asset('products/showcases/Tarmac-LandRover.png'),
                             ],
                             [
-                                'title' => 'Porsche 963 #7',
-                                'description' =>
-                                    'Porsche 963 #7 Porsche Penske Motorsport 2025 IMSA Daytona 24 Hrs Winner',
-                                'image' => asset('products/showcases/MGT-Penske.png'),
+                                'title' => 'Toyota Tundra Black',
+                                'description' => 'Colourful Model 1/64 Toyota Tundra Black',
+                                'image' => asset('products/showcases/cm-toyota.png'),
                             ],
                             [
-                                'title' => 'Porsche 963 #7',
+                                'title' => 'Porsche 911 GT3 R (992) #77',
                                 'description' =>
-                                    'Porsche 963 #7 Porsche Penske Motorsport 2025 IMSA Daytona 24 Hrs Winner',
-                                'image' => asset('products/showcases/MGT-Penske.png'),
+                                    'Porsche 911 GT3 R (992) #77 AO Racing 2025 IMSA Sebring 12 Hrs Class Winner',
+                                'image' => asset('products/showcases/MGT-Rexy.png'),
+                            ],
+                            [
+                                'title' => 'Nissan SILVIA (S15)',
+                                'description' => 'Nissan SILVIA (S15) LB-Super Silhouette AMOCULTURE',
+                                'image' => asset('products/showcases/MGT-LB-S15.png'),
+                            ],
+                            [
+                                'title' => 'Nissan Fairlady Z S30',
+                                'description' =>
+                                    '1/64 Nissan Fairlady Z S30 Widebody Blue - Designed by Jon Sibal - Tarmac Works GLOBAL64',
+                                'image' => asset('products/showcases/Tarmac-Fairlady.png'),
+                            ],
+                            [
+                                'title' => 'Mercedes-AMG F1',
+                                'description' =>
+                                    '1/64 Mercedes-AMG F1 W14 E Performance Italian Grand Prix 2023 #63 George Russell - Tarmac Works GLOBAL64',
+                                'image' => asset('products/showcases/Tarmac-F1.png'),
+                            ],
+                            [
+                                'title' => 'MAZDA 787B No.18',
+                                'description' => 'MAZDA 787B No.18 59th 24 Hours Le Mans 1991',
+                                'image' => asset('products/showcases/inno64-787b.png'),
                             ],
                         ];
                     @endphp
@@ -245,8 +324,9 @@
     </section>
 
     <!-- Call to Action Section -->
-    <section class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg shadow-lg overflow-hidden mx-7">
-        <div class="relative px-6 sm:px-12 py-16 md:py-20">
+    <section class="shadow-lg overflow-hidden"
+        style="background-image: url('{{ asset('images/banner_community.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="relative px-6 sm:px-12 py-16 md:py-20 bg-black/60">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
                 <!-- Left Content -->
@@ -372,44 +452,11 @@
                             class="w-full bg-red-500 hover:bg-red-600 transition text-white font-bold py-3 rounded">
                             Gabung Sekarang
                         </button>
-                        <p class="text-gray-400 text-sm text-center">Sudah Punya Akun? <a href="#"
-                                class="text-red-500 hover:underline">Login</a></p>
+                        <p class="text-gray-400 text-sm text-center">Sudah Punya Akun?
+                            <a href="{{ url('/login') }}" class="text-red-500 hover:underline">Login</a>
+                        </p>
                     </form>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="mt-12 mb-8 mx-7">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-            <!-- Stat 1 -->
-            <div class="bg-white rounded-lg shadow p-6 text-center hover:shadow-lg transition">
-                <div class="text-4xl font-bold text-red-500 mb-2">@yield('stat1_number', '5000+')</div>
-                <p class="text-gray-600 font-semibold">@yield('stat1_label', 'Products')</p>
-                <p class="text-gray-500 text-sm mt-2">@yield('stat1_desc', 'Premium diecast models')</p>
-            </div>
-
-            <!-- Stat 2 -->
-            <div class="bg-white rounded-lg shadow p-6 text-center hover:shadow-lg transition">
-                <div class="text-4xl font-bold text-red-500 mb-2">@yield('stat2_number', '50K+')</div>
-                <p class="text-gray-600 font-semibold">@yield('stat2_label', 'Happy Customers')</p>
-                <p class="text-gray-500 text-sm mt-2">@yield('stat2_desc', 'Worldwide collectors')</p>
-            </div>
-
-            <!-- Stat 3 -->
-            <div class="bg-white rounded-lg shadow p-6 text-center hover:shadow-lg transition">
-                <div class="text-4xl font-bold text-red-500 mb-2">@yield('stat3_number', '100%')</div>
-                <p class="text-gray-600 font-semibold">@yield('stat3_label', 'Authentic')</p>
-                <p class="text-gray-500 text-sm mt-2">@yield('stat3_desc', 'Guaranteed genuine')</p>
-            </div>
-
-            <!-- Stat 4 -->
-            <div class="bg-white rounded-lg shadow p-6 text-center hover:shadow-lg transition">
-                <div class="text-4xl font-bold text-red-500 mb-2">@yield('stat4_number', '24/7')</div>
-                <p class="text-gray-600 font-semibold">@yield('stat4_label', 'Support')</p>
-                <p class="text-gray-500 text-sm mt-2">@yield('stat4_desc', 'Customer assistance')</p>
             </div>
         </div>
     </section>
