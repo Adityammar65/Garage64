@@ -13,8 +13,4 @@ class AuthController extends Controller
     public function register() {
         return view('auth.register');
     }
-
-    public function syaratKetentuan() {
-        return view('auth.syarat_ketentuan');
-    }
 }

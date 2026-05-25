@@ -1,10 +1,12 @@
-@extends('template.auth')
+@extends('template.service')
 @section('title', 'Syarat dan Ketentuan')
 @section('content')
-    <div class="flex gap-2 min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <div class="max-w-4xl mx-auto px-4 py-16">
+    <h1 class="text-4xl italic font-bold font-archivo text-white text-center leading-tight p-8">
+        @yield('hero_title', 'Syarat dan Ketentuan')
+    </h1>
+    <div class="flex gap-2 min-h-full flex-col justify-center px-6">
+        <div class="max-w-4xl mx-auto px-4 pb-8">
             <div class="bg-white rounded-2xl shadow-xl p-8">
-                <h1 class="text-3xl font-bold text-gray-900 mb-8">Syarat dan Ketentuan</h1>
                 <p class="mb-8">
                     Selamat datang di Garage64. Dengan mengakses dan menggunakan website ini, Anda dianggap telah membaca,
                     memahami, dan menyetujui seluruh syarat dan ketentuan berikut.
@@ -107,7 +109,7 @@
                 <section>
                     <h2 class="text-xl font-semibold text-gray-800 mb-4">6. Kontak</h2>
                     <div class="bg-gray-50 rounded-lg p-6 flex items-center justify-between">
-                        <p class="text-gray-600">Punya pertanyaan mengenai Syarat Layanan atau Disclaimer?</p>
+                        <p class="text-gray-600">Punya pertanyaan mengenai Syarat Ketentuan atau yang lainnya?</p>
                         <a href="mailto:legal@example.com"
                             class="inline-flex items-center text-blue-600 hover:text-blue-500">
                             <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -117,12 +119,18 @@
                             Contact Us
                         </a>
                     </div>
+                    <p class="text-gray-600 mt-8">
+                        <a href="#" class="hover:text-red-200 transition-colors">
+                            Kembali ke atas
+                        </a>
+                    </p>
                 </section>
             </div>
         </div>
 
-        <a href="{{ url('/register') }}" class="text-center text-green-400 hover:text-green-300 font-semibold">
-            Kembali ke Halaman Register
+        <a href="{{ url()->previous() }}"
+            class="text-center text-white hover:text-red-200 hover:underline font-archivo italic text-xl pb-8">
+            Tutup
         </a>
     </div>
 @endsection

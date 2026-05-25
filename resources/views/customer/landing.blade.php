@@ -28,22 +28,22 @@
             <!-- Content -->
             <div
                 class="flex justify-center w-full h-full z-10 px-6 sm:px-12 py-24 md:py-32 flex flex-col justify-center items-center text-center bg-black/45">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+                <h1 class="text-6xl italic font-bold font-archivo text-white mb-4 leading-tight">
                     @yield('hero_title', 'Premium Diecast Models')
                 </h1>
 
-                <p class="text-lg md:text-xl text-white font-bold mb-8 max-w-2xl">
+                <p class="text-2xl text-white font-medium font-archivo italic mb-8 max-w-2xl">
                     @yield('hero_subtitle', 'Discover an exclusive collection of rare and authentic diecast vehicles. Perfect for collectors and enthusiasts.')
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a href="#"
-                        class="bg-transparent border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-red-600 transition">
-                        <i class="fas fa-info-circle mr-2"></i>
+                        class="bg-transparent border-2 border-white text-white font-archivo px-8 py-3 rounded-lg hover:bg-white hover:text-red-600 transition">
+                        <i class="fas fa-info-circle"></i>
                         Shop Now
                     </a>
                     <a href="#"
-                        class="bg-transparent border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-red-600 transition">
-                        <i class="fas fa-info-circle mr-2"></i>
+                        class="bg-transparent border-2 border-white text-white font-archivo px-8 py-3 rounded-lg hover:bg-white hover:text-red-600 transition">
+                        <i class="fas fa-info-circle"></i>
                         Learn More
                     </a>
                 </div>
@@ -61,7 +61,7 @@
                                     fill="#fff"></path>
                             </g>
                         </svg>
-                        <span class="text-sm font-semibold">100% Authentic</span>
+                        <span class="text-sm font-archivo">100% Authentic</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <svg width="20px" height="20px" viewBox="-2 0 20 20" version="1.1"
@@ -83,7 +83,7 @@
                                 </g>
                             </g>
                         </svg>
-                        <span class="text-sm font-semibold">Fast Shipping</span>
+                        <span class="text-sm font-archivo">Fast Shipping</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +96,7 @@
                                     style="fill:#fff"></path>
                             </g>
                         </svg>
-                        <span class="text-sm font-semibold">Secure Checkout</span>
+                        <span class="text-sm font-archivo">Secure Checkout</span>
                     </div>
                 </div>
             </div>
@@ -110,10 +110,18 @@
     </svg>
 
     <!-- Stats Section -->
-    <section class="my-12 mx-7">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+    <section class="my-5 mx-7">
+        <h2 class="text-5xl font-archivo italic text-gray-900 mb-8 text-center">
             @yield('stats_title', 'Kenapa Memilih Kami?')
         </h2>
+        <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto font-archivo">
+            Garage64 hadir untuk para pecinta diecast yang mencari koleksi berkualitas, original, dan terpercaya. Kami
+            memahami bahwa setiap diecast bukan sekadar miniatur, tetapi bagian dari passion dan koleksi berharga para
+            enthusiast otomotif.
+            <br></br>
+            Dengan pilihan produk yang terus diperbarui, packaging aman untuk kolektor, serta pelayanan yang responsif, kami
+            berkomitmen memberikan pengalaman belanja yang nyaman dan menyenangkan bagi setiap customer.
+        </p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
             <!-- Stat 1 -->
@@ -147,14 +155,14 @@
     </section>
 
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#000" fill-opacity="0.35"
+        <path fill="oklch(63.7% 0.237 25.331)"
             d="M0,256L40,218.7C80,181,160,107,240,106.7C320,107,400,181,480,186.7C560,192,640,128,720,101.3C800,75,880,85,960,85.3C1040,85,1120,75,1200,106.7C1280,139,1360,213,1400,250.7L1440,288L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
         </path>
     </svg>
 
-    <!-- Featured Categories Section -->
-    <section class="py-12 px-7 bg-black/35">
-        <h2 class="text-5xl font-bold text-white mb-8 text-center italic underline">
+    <!-- Categories Section -->
+    <section class="py-12 px-7 bg-red-500">
+        <h2 class="text-5xl font-archivo text-white mb-8 text-center italic underline">
             @yield('categories_title', 'Shop by Category')
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -162,52 +170,48 @@
             <!-- Category Card 1 -->
             <a href="#" class="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-64"
                 style="background-image: url('{{ asset('images/preview_sport.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                <div class="relative h-full flex flex-col justify-end p-6 bg-black/20 group-hover:bg-black/15 transition">
-                    <h3 class="text-2xl font-bold text-white mb-2">
+                <div class="relative h-full flex flex-col justify-end p-6 bg-black/30 group-hover:bg-black/15 transition">
+                    <h3 class="text-2xl font-archivo text-white mb-2">
                         <i class="fas fa-car mr-2"></i>
                         Sports Car
                     </h3>
-                    <p class="text-white font-semibold text-sm">@yield('sports_desc', 'Model sport berperforma tinggi dengan desain agresif dan detail autentik')</p>
-                    <div class="mt-3 inline-block text-white group-hover:translate-x-2 transition">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
+                    <p class="text-white font-archivo italic text-sm">@yield('sports_desc', 'Model sport berperforma tinggi dengan desain agresif dan detail autentik')</p>
                 </div>
             </a>
 
             <!-- Category Card 2 -->
             <a href="#" class="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-64"
                 style="background-image: url('{{ asset('images/preview_vintage.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                <div class="relative h-full flex flex-col justify-end p-6 bg-black/20 group-hover:bg-black/15 transition">
-                    <h3 class="text-2xl font-bold text-white mb-2">
+                <div class="relative h-full flex flex-col justify-end p-6 bg-black/30 group-hover:bg-black/15 transition">
+                    <h3 class="text-2xl font-archivo text-white mb-2">
                         <i class="fas fa-history mr-2"></i>
                         Vintage Classics
                     </h3>
-                    <p class="text-white font-semibold text-sm">@yield('vintage_desc', 'Mobil klasik yang timeless dan penuh nostalgia')</p>
-                    <div class="mt-3 inline-block text-white group-hover:translate-x-2 transition">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
+                    <p class="text-white font-archivo italic text-sm">@yield('vintage_desc', 'Mobil klasik yang timeless dan penuh nostalgia')</p>
                 </div>
             </a>
 
             <!-- Category Card 3 -->
             <a href="#" class="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-64"
                 style="background-image: url('{{ asset('images/preview_trucks.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                <div class="relative h-full flex flex-col justify-end p-6 bg-black/20 group-hover:bg-black/15 transition">
-                    <h3 class="text-2xl font-bold text-white mb-2">
+                <div class="relative h-full flex flex-col justify-end p-6 bg-black/30 group-hover:bg-black/15 transition">
+                    <h3 class="text-2xl font-archivo text-white mb-2">
                         <i class="fas fa-truck mr-2"></i>
                         Truck & SUV
                     </h3>
-                    <p class="text-white font-semibold text-sm">@yield('trucks_desc', 'SUV dan truck dengan tampilan tangguh dan powerful')</p>
-                    <div class="mt-3 inline-block text-white group-hover:translate-x-2 transition">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
+                    <p class="text-white font-archivo italic text-sm">@yield('trucks_desc', 'SUV dan truck dengan tampilan tangguh dan powerful')</p>
                 </div>
             </a>
         </div>
+        <p class="text-white text-2xl text-center mt-8 max-w-2xl mx-auto font-archivo italic">
+            Temukan berbagai kategori diecast pilihan yang dirancang untuk memenuhi selera setiap kolektor. Mulai dari mobil
+            balap modern, klasik legendaris, hingga SUV dan truck dengan detail autentik, Garage64 menghadirkan koleksi
+            terbaik untuk melengkapi display impianmu.
+        </p>
     </section>
 
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#000" fill-opacity="0.35"
+        <path fill="oklch(63.7% 0.237 25.331)"
             d="M0,256L40,250.7C80,245,160,235,240,202.7C320,171,400,117,480,101.3C560,85,640,107,720,122.7C800,139,880,149,960,176C1040,203,1120,245,1200,250.7C1280,256,1360,224,1400,208L1440,192L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z">
         </path>
     </svg>
@@ -215,7 +219,7 @@
     <!-- Featured Products Section -->
     <section class="mb-12 mx-7 py-12">
         <div class="flex justify-between items-center mb-8">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+            <h2 class="text-5xl font-archivo italic underline text-gray-900">
                 @yield('featured_title', 'Produk Unggulan')
             </h2>
             <a href="#" class="flex items-center text-red-500 hover:text-red-600 transition font-semibold">
@@ -298,22 +302,22 @@
                     @endphp
                     @foreach ($items as $item)
                         <div class="flex-shrink-0">
-                            <div class="border border-gray-200 rounded-lg mx-2 w-100 h-45 shadow-sm"
+                            <div class="border border-gray-200 rounded-lg mx-2 w-100 h-65 shadow-sm"
                                 style="background-image: url('{{ $item['image'] }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                                <div class="wrapper bg-black/25 h-full p-2 rounded flex flex-col justify-end">
-                                    <h3 class="font-semibold text-white">{{ $item['title'] }}</h3>
-                                    <p class="text-sm text-white">{{ $item['description'] }}</p>
+                                <div class="wrapper bg-black/35 h-full p-2 rounded flex flex-col justify-end">
+                                    <h3 class="font-archivo text-white">{{ $item['title'] }}</h3>
+                                    <p class="text-xs font-archivo italic text-white">{{ $item['description'] }}</p>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                     @foreach ($items as $item)
                         <div class="flex-shrink-0">
-                            <div class="border border-gray-200 rounded-lg mx-2 w-100 h-45 shadow-sm"
+                            <div class="border border-gray-200 rounded-lg mx-2 w-100 h-65 shadow-sm"
                                 style="background-image: url('{{ $item['image'] }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                                <div class="wrapper bg-black/25 h-full p-2 rounded flex flex-col justify-end">
-                                    <h3 class="font-semibold text-white">{{ $item['title'] }}</h3>
-                                    <p class="text-sm text-white">{{ $item['description'] }}</p>
+                                <div class="wrapper bg-black/35 h-full p-2 rounded flex flex-col justify-end">
+                                    <h3 class="font-archivo text-white">{{ $item['title'] }}</h3>
+                                    <p class="text-xs font-archivo italic text-white">{{ $item['description'] }}</p>
                                 </div>
                             </div>
                         </div>
@@ -321,23 +325,46 @@
                 </div>
             </div>
         </div>
+        <p class="text-right text-2xl text-black font-archivo italic my-22">
+            Jelajahi koleksi unggulan pilihan yang paling diminati oleh para collector. Setiap model dipilih berdasarkan
+            kualitas detail, popularitas, dan keunikan desain untuk memberikan pengalaman koleksi terbaik bagi para pecinta
+            otomotif miniature.
+        </p>
+        <p class="text-center text-black/70 font-archivo italic my-10">
+            <a href="#" class="hover:text-red-500 hover:underline flex items-center gap-2 justify-center">
+                Kembali ke atas
+                <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path opacity="0.4"
+                            d="M15.4807 10.7702L11.6907 15.8202H6.08072C5.12072 15.8202 4.64073 14.6602 5.32073 13.9802L10.5007 8.80023C11.3307 7.97023 12.6807 7.97023 13.5107 8.80023L15.4807 10.7702Z"
+                            fill="#ff0000"></path>
+                        <path
+                            d="M17.9195 15.82H11.6895L15.4795 10.77L18.6895 13.98C19.3595 14.66 18.8795 15.82 17.9195 15.82Z"
+                            fill="#ff0000"></path>
+                    </g>
+                </svg>
+            </a>
+        </p>
     </section>
 
     <!-- Call to Action Section -->
     <section class="shadow-lg overflow-hidden"
         style="background-image: url('{{ asset('images/banner_community.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-        <div class="relative px-6 sm:px-12 py-16 md:py-20 bg-black/60">
+        <div class="relative px-6 py-16 bg-black/60">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
                 <!-- Left Content -->
                 <div class="text-white">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    <h2 class="text-4xl font-archivo italic mb-4">
                         @yield('cta_title', 'Gabung dengan Komunitas Kolektor Kami!')
                     </h2>
-                    <p class="text-gray-300 mb-6">
+                    <p class="text-gray-300 mb-6 font-archivo">
                         @yield('cta_description', 'Mengapa bergabung dalam komunitas kami?')
                     </p>
-                    <ul class="space-y-3 mb-8">
+                    <ul class="space-y-3 mb-8 font-archivo">
                         <li class="flex items-center gap-3">
                             <svg height="20px" width="20px" version="1.1" id="Layer_1"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -427,10 +454,10 @@
                             <span>Dan benefit lainnya</span>
                         </li>
                     </ul>
-                    <h2 class="text-2xl font-bold mb-4">
+                    <h2 class="text-3xl font-archivo italic mb-4">
                         @yield('cta_title', 'Build Your Dream Collection with Garage64')
                     </h2>
-                    <p class="text-gray-300 mb-6">
+                    <p class="text-gray-300 mb-6 font-archivo">
                         @yield('cta_description', 'Mulai perjalanan koleksimu hari ini dan jadilah bagian dari komunitas collector yang terus berkembang. Dari daily hunt sampai rare collectibles, semuanya ada di Garage64!')
                     </p>
                 </div>
@@ -439,17 +466,17 @@
                 <div class="bg-gray-700 rounded-lg p-8">
                     <form class="space-y-4">
                         <div>
-                            <label for="email" class="block text-white font-semibold mb-2">Email</label>
+                            <label for="email" class="block text-white font-archivo italic mb-2">Email</label>
                             <input type="email" id="email" placeholder="your@email.com"
                                 class="w-full px-4 py-3 rounded bg-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500">
                         </div>
                         <div>
-                            <label for="name" class="block text-white font-semibold mb-2">Username</label>
+                            <label for="name" class="block text-white font-archivo italic mb-2">Username</label>
                             <input type="text" id="name" placeholder="John Doe"
                                 class="w-full px-4 py-3 rounded bg-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500">
                         </div>
                         <button type="submit"
-                            class="w-full bg-red-500 hover:bg-red-600 transition text-white font-bold py-3 rounded">
+                            class="italic w-full bg-red-500 hover:bg-red-600 transition text-white font-bold py-3 rounded">
                             Gabung Sekarang
                         </button>
                         <p class="text-gray-400 text-sm text-center">Sudah Punya Akun?
