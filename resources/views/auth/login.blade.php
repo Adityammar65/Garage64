@@ -85,17 +85,18 @@
                     </label>
                 </div>
 
-                <button type="submit"
-                    class="flex w-full justify-center rounded-md bg-green-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-green-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500">
-                    Login
-                </button>
-        </div>
-        </form>
+                <div>
+                    <button type="submit"
+                        class="flex w-full justify-center rounded-md bg-green-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-green-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500">
+                        Login
+                    </button>
+                </div>
+            </form>
 
-        <p class="mt-10 text-center text-sm/6 text-gray-400">
-            Belum punya akun?
-            <a href="{{ url('/register') }}" class="font-semibold text-red-400 hover:text-red-300">Daftar Sekarang</a>
-        </p>
-    </div>
+            <p class="mt-10 text-center text-sm/6 text-gray-400">
+                Belum punya akun?
+                <a href="{{ url('/register') }}" class="font-semibold text-red-400 hover:text-red-300">Daftar Sekarang</a>
+            </p>
+        </div>
     </div>
 @endsection

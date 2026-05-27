@@ -179,11 +179,12 @@
                     <h4 class="text-white font-bold mb-4">Informasi dan Kontak</h4>
                     <div class="space-y-3 text-sm">
                         <p>
-                            <i class="fas fa-phone text-red-500 w-5"></i>
+                            Jl. Lorem No.123, Yogyakarta, Indonesia
+                        </p>
+                        <p>
                             +62 812-3456-7890
                         </p>
                         <p>
-                            <i class="fas fa-envelope text-red-500 w-5"></i>
                             <a href="#" class="hover:text-red-500 transition">support@garage64.com</a>
                         </p>
                         <p>
