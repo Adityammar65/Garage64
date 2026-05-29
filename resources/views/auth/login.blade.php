@@ -96,6 +96,9 @@
             <p class="mt-10 text-center text-sm/6 text-gray-400">
                 Belum punya akun?
                 <a href="{{ url('/register') }}" class="font-semibold text-red-400 hover:text-red-300">Daftar Sekarang</a>
+                <br>
+                Kesulitan login? <a href="{{ url('/support-center') }}"
+                    class="font-semibold text-red-400 hover:text-red-300">Hubungi Kami</a>
             </p>
         </div>
     </div>

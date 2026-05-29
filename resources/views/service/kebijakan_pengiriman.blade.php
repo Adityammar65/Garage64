@@ -24,6 +24,10 @@
                             <li>
                                 Pengiriman dilakukan melalui jasa ekspedisi yang tersedia pada sistem
                             </li>
+                            <li>
+                                Pesanan dikirim pada hari kerja (Maksimal pukul 16.00 WIB), termasuk hari libur
+                                nasional dan akhir pekan (Maksimal pukul 12.00 WIB)
+                            </li>
                         </ul>
                     </div>
                 </section>

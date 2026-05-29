@@ -37,34 +37,74 @@
         </div>
 
         <!-- Product List -->
-        <div class="w-full">
-            <table class="table-auto text-white text-center w-full">
-                <thead>
+        <div class="overflow-x-auto text-white">
+            <table class="min-w-full text-left text-sm whitespace-nowrap">
+                <thead class="uppercase tracking-wider border-b-2 dark:border-neutral-600">
                     <tr>
-                        <th>Song</th>
-                        <th>Artist</th>
-                        <th>Year</th>
+                        <th scope="col" class="px-6 py-4">
+                            ID-Produk
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Nama Produk
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Harga
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Stok
+                        </th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr>
-                        <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                        <td>Malcolm Lockyer</td>
-                        <td>1961</td>
+                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
+                        <th scope="row" class="px-6 py-4">
+                            MGT-001
+                        </th>
+                        <td class="px-6 py-4">
+                            Porsche 963 #7
+                        </td>
+                        <td class="px-6 py-4">Rp240.000</td>
+                        <td class="px-6 py-4">30</td>
                     </tr>
-                    <tr>
-                        <td>Witchy Woman</td>
-                        <td>The Eagles</td>
-                        <td>1972</td>
+
+                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
+                        <th scope="row" class="px-6 py-4">
+                            MGT-002
+                        </th>
+                        <td class="px-6 py-4">Porsche 911 GT3 R (992) #77</td>
+                        <td class="px-6 py-4">Rp250.000</td>
+                        <td class="px-6 py-4">25</td>
                     </tr>
-                    <tr>
-                        <td>Shining Star</td>
-                        <td>Earth, Wind, and Fire</td>
-                        <td>1975</td>
+
+                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
+                        <th scope="row" class="px-6 py-4">
+                            TMW-001
+                        </th>
+                        <td class="px-6 py-4">Nissan Fairlady Z S30</td>
+                        <td class="px-6 py-4">Rp400.000</td>
+                        <td class="px-6 py-4">30</td>
+                    </tr>
+
+                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
+                        <th scope="row" class="px-6 py-4">
+                            COM-001
+                        </th>
+                        <td class="px-6 py-4">Toyota Tundra Black</td>
+                        <td class="px-6 py-4">Rp500.000</td>
+                        <td class="px-6 py-4">5</td>
+                    </tr>
+
+                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
+                        <th scope="row" class="px-6 py-4">
+                            INO-001
+                        </th>
+                        <td class="px-6 py-4">MAZDA 787B No.18</td>
+                        <td class="px-6 py-4">Rp50.000</td>
+                        <td class="px-6 py-4">30</td>
                     </tr>
                 </tbody>
             </table>
-
         </div>
     </div>
 @endsection

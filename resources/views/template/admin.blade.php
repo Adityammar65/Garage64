@@ -10,7 +10,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body>
+<body class="bg-gradient-to-r from-gray-900 to-gray-800">
     <div class="min-h-full">
         <nav class="bg-gradient-to-r from-gray-900 to-gray-800">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -47,7 +47,7 @@
             </div>
         </header>
         <main>
-            <div class="px-4 px-8 h-screen bg-gradient-to-r from-gray-900 to-gray-800 py-6">
+            <div class="px-4 px-8 h-full py-6">
                 @yield('content')
             </div>
         </main>

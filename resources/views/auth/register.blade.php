@@ -93,7 +93,8 @@
                     </label>
                     <label class="cursor-pointer ml-2 text-white text-sm" for="check-2">
                         Saya setuju dengan
-                        <a href="{{ url('/syarat-ketentuan') }}" class="text-green-400 hover:text-green-300 font-semibold">Syarat dan
+                        <a href="{{ url('/syarat-ketentuan') }}"
+                            class="text-green-400 hover:text-green-300 font-semibold">Syarat dan
                             Ketentuan</a>
                     </label>
                 </div>
@@ -109,6 +110,9 @@
             <p class="mt-10 text-center text-sm/6 text-gray-400">
                 Sudah punya akun?
                 <a href="{{ url('/login') }}" class="font-semibold text-red-400 hover:text-red-300">Login Sekarang</a>
+                <br>
+                Kesulitan daftar? <a href="{{ url('/support-center') }}"
+                    class="font-semibold text-red-400 hover:text-red-300">Hubungi Kami</a>
             </p>
         </div>
     </div>

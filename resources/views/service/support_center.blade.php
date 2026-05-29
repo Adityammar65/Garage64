@@ -107,7 +107,7 @@
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Pesan
+                                    Keluhan
                                 </label>
 
                                 <textarea rows="5" placeholder="Tulis pertanyaan atau kendala Anda..."
