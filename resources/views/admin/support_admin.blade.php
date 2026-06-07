@@ -22,6 +22,9 @@
                         <th scope="col" class="px-6 py-4">
                             Status
                         </th>
+                        <th scope="col" class="px-6 py-4">
+                            Aksi
+                        </th>
                     </tr>
                 </thead>
 
@@ -39,6 +42,9 @@
                         <td class="px-6 py-4">
                             Belum Ditangani
                         </td>
+                        <td class="px-6 py-4">
+                            <a href="{{ url('/admin/support/reply') }}" class="text-blue-500 hover:text-blue-700 font-bold">Lihat Detail</a>
+                        </td>
                     </tr>
 
                     <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
@@ -53,6 +59,9 @@
                         </td>
                         <td class="px-6 py-4">
                             Sedang Ditangani
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="#" class="text-blue-500 hover:text-blue-700 font-bold">Lihat Detail</a>
                         </td>
                     </tr>
 
@@ -69,6 +78,9 @@
                         <td class="px-6 py-4">
                             Sudah Ditangani
                         </td>
+                        <td class="px-6 py-4">
+                            <a href="#" class="text-blue-500 hover:text-blue-700 font-bold">Lihat Detail</a>
+                        </td>
                     </tr>
 
                     <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
@@ -84,6 +96,9 @@
                         <td class="px-6 py-4">
                             Sudah Ditangani
                         </td>
+                        <td class="px-6 py-4">
+                            <a href="#" class="text-blue-500 hover:text-blue-700 font-bold">Lihat Detail</a>
+                        </td>
                     </tr>
 
                     <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
@@ -98,6 +113,9 @@
                         </td>
                         <td class="px-6 py-4">
                             Sudah Ditangani
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="#" class="text-blue-500 hover:text-blue-700 font-bold">Lihat Detail</a>
                         </td>
                     </tr>
                 </tbody>

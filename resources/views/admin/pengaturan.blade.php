@@ -19,7 +19,7 @@
                         <div class="flex items-center justify-between">
                             <label for="password" class="block text-sm/6 font-medium text-gray-100">Password Admin</label>
                             <div class="text-sm">
-                                <a href="#" class="font-semibold text-red-400 hover:text-red-300">
+                                <a href="{{ url('/admin/pengaturan/reset-password') }}" class="font-semibold text-red-400 hover:text-red-300">
                                     Lupa password?
                                 </a>
                             </div>
@@ -188,7 +188,7 @@
                     Sabtu-Minggu: 10.00-16.00 WIB
                 </p>
                 <p>
-                    <a href="#" class="font-bold text-sm text-red-400 hover:text-red-300">
+                    <a href="{{ url('/admin/pengaturan/edit-info-toko') }}" class="font-bold text-sm text-red-400 hover:text-red-300">
                         Perbarui Informasi Toko
                     </a>
                 </p>

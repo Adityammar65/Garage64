@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FormController;
 
 Route::get('/', [CustomerController::class, 'index']);
 Route::get('/login', [AuthController::class, 'login']);
@@ -19,3 +20,9 @@ Route::get('/admin/produk', [AdminController::class, 'produk']);
 Route::get('/admin/order', [AdminController::class, 'order']);
 Route::get('/admin/support', [AdminController::class, 'support']);
 Route::get('/admin/pengaturan', [AdminController::class, 'pengaturan']);
+Route::get('/admin/produk/tambah', [FormController::class, 'tambahProduk']);
+Route::get('/admin/produk/edit', [FormController::class, 'editProduk']);
+Route::get('/admin/pengaturan/edit-info-toko', [FormController::class, 'editInfoToko']);
+Route::get('/admin/support/reply', [FormController::class, 'supportReply']);
+Route::get('/admin/pengaturan/reset-password', [FormController::class, 'resetPassword']);
+Route::get('/reset-password', [FormController::class, 'resetPassword']);
