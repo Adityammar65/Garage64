@@ -16,14 +16,19 @@ class AdminController extends Controller
         return view('admin.produk_admin');
     }
 
-    public function order()
+    public function pesanan()
     {
-        return view('admin.order');
+        return view('admin.pesanan');
     }
 
     public function support()
     {
         return view('admin.support_admin');
+    }
+
+    public function laporan()
+    {
+        return view('admin.laporan');
     }
 
     public function pengaturan()

@@ -38,8 +38,8 @@
 
         <!-- Product List -->
         <div class="overflow-x-auto text-white">
-            <table class="min-w-full text-left text-sm whitespace-nowrap">
-                <thead class="uppercase tracking-wider border-b-2 dark:border-neutral-600">
+            <table class="min-w-full text-center text-sm whitespace-nowrap">
+                <thead class="uppercase tracking-wider border-b-2">
                     <tr class="text-center">
                         <th scope="col" class="px-6 py-4">
                             ID-Produk
@@ -60,7 +60,7 @@
                 </thead>
 
                 <tbody>
-                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
+                    <tr class="border-b hover:bg-gray-700">
                         <th scope="row" class="px-6 py-4">
                             MGT-001
                         </th>
@@ -109,7 +109,7 @@
                         </td>
                     </tr>
 
-                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
+                    <tr class="border-b hover:bg-gray-700">
                         <th scope="row" class="px-6 py-4">
                             MGT-002
                         </th>
@@ -156,7 +156,7 @@
                         </td>
                     </tr>
 
-                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
+                    <tr class="border-b hover:bg-gray-700">
                         <th scope="row" class="px-6 py-4">
                             TMW-001
                         </th>
@@ -203,7 +203,7 @@
                         </td>
                     </tr>
 
-                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
+                    <tr class="border-b hover:bg-gray-700">
                         <th scope="row" class="px-6 py-4">
                             COM-001
                         </th>
@@ -250,7 +250,7 @@
                         </td>
                     </tr>
 
-                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
+                    <tr class="border-b hover:bg-gray-700">
                         <th scope="row" class="px-6 py-4">
                             INO-001
                         </th>
