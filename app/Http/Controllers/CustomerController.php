@@ -10,4 +10,14 @@ class CustomerController extends Controller
     {
         return view('customer.landing', ['items' => '$items']);
     }
+
+    public function order_saya()
+    {
+        return view('customer.orders');
+    }
+    public function produk()
+    {
+        
+        return view('customer.produk');
+    }
 }
