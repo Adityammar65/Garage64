@@ -25,10 +25,12 @@
                                     class="font-semibold italic rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-red-500">Dashboard</a>
                                 <a href="{{ url('/admin/produk') }}"
                                     class="font-semibold italic rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-red-500">Produk</a>
-                                <a href="{{ url('/admin/order') }}"
-                                    class="font-semibold italic rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-red-500">Order</a>
+                                <a href="{{ url('/admin/pesanan') }}"
+                                    class="font-semibold italic rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-red-500">Pesanan</a>
                                 <a href="{{ url('/admin/support') }}"
                                     class="font-semibold italic rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-red-500">Support</a>
+                                <a href="{{ url('/admin/laporan') }}"
+                                    class="font-semibold italic rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-red-500">Laporan</a>
                                 <a href="{{ url('/admin/pengaturan') }}"
                                     class="font-semibold italic rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-red-500">Pengaturan</a>
                             </div>
