@@ -1,20 +1,36 @@
 @extends('template.customer')
 
-@section('title', 'Home')
+@section('title', 'Produk')
 
 @section('content')
 
 {{-- CATEGORY --}}
-<section class="max-w-7xl mx-auto px-6 pt-6">
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
 
 <div class="flex gap-3 overflow-x-auto pb-4">
+
+<a
+href="/products"
+class="
+px-5
+py-2
+rounded-full
+bg-[#111]
+border
+border-white/10
+text-gray-300
+hover:text-yellow-400
+transition">
+
+Semua
+
+</a>
 
 @foreach(($categories ?? collect()) as $cat)
 
 <a
 href="/products?category={{ $cat->slug }}"
 class="
-shrink-0
 px-5
 py-2
 rounded-full
@@ -38,231 +54,147 @@ transition">
 
 
 
-{{-- PRODUCT --}}
-<section class="max-w-7xl mx-auto px-6 py-8">
+{{-- PRODUCTS --}}
+{{-- Products Section --}}
+<section id="products" class="max-w-7xl mx-auto px-4 py-10">
 
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">
+            Produk Terbaru
+        </h2>
 
-@forelse(($products ?? collect()) as $product)
+        <a href="/products"
+            class="text-red-500 hover:underline">
+            Lihat Semua
+        </a>
+    </div>
 
-<div
-class="
-bg-[#111]
-rounded-2xl
-overflow-hidden
-border
-border-white/5
-hover:border-yellow-500/40
-hover:-translate-y-1
-hover:shadow-2xl
-hover:shadow-yellow-500/10
-transition
-duration-300
-group">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
 
+        @forelse(($products ?? collect()) as $product)
 
+        <div
+            class="bg-white rounded-xl overflow-hidden shadow hover:shadow-xl transition">
 
+            {{-- Gambar bisa dipencet --}}
+            <a href="/products/{{ $product->id }}">
 
-{{-- IMAGE --}}
-<a
-href="/products/{{ $product->id }}"
-class="
-block
-aspect-[4/5]
-overflow-hidden
-bg-[#181818]">
+                <div class="aspect-square bg-gray-100">
 
-<img
-src="{{ $product->image_url ?? '/images/no-image.png' }}"
-alt="{{ $product->name }}"
-class="
-w-full
-h-full
-object-cover
-group-hover:scale-105
-transition
-duration-500">
+                    <img
+                        src="{{ $product->image_url }}"
+                        alt="{{ $product->name }}"
+                        class="w-full h-full object-cover hover:scale-105 transition">
 
-</a>
+                </div>
 
+            </a>
 
+            <div class="p-4">
 
+                <p class="text-xs text-gray-500">
+                    {{ $product->brand }}
+                </p>
 
-{{-- CONTENT --}}
-<div class="p-4">
+                {{-- Nama bisa dipencet --}}
+                <a
+                    href="/products/{{ $product->id }}"
+                    class="block font-semibold hover:text-red-500">
 
-<p
-class="
-text-xs
-uppercase
-tracking-widest
-text-gray-500">
+                    {{ $product->name }}
 
-{{ $product->brand ?? '-' }}
+                </a>
 
-</p>
+                <p class="text-red-500 font-bold mt-2">
 
+                    Rp {{ number_format($product->price,0,',','.') }}
 
+                </p>
 
-<h3
-class="
-text-white
-font-semibold
-text-lg
-mt-1">
+                {{-- Tombol keranjang --}}
+                <form action="/cart/add" method="POST">
 
-{{ $product->name }}
+                    @csrf
 
-</h3>
+                    <input
+                        type="hidden"
+                        name="product_id"
+                        value="{{ $product->id }}">
 
+                    <input
+                        type="hidden"
+                        name="quantity"
+                        value="1">
 
+                    <button
+                        type="submit"
+                        class="mt-3 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg">
 
-<div class="mt-2">
+                        + Keranjang
 
-<span
-class="
-text-sm
-text-gray-500">
+                    </button>
 
-{{ $product->category?->name }}
+                </form>
 
-</span>
+            </div>
 
-</div>
+        </div>
 
+        @empty
 
+        {{-- Contoh produk --}}
+        @for($i=1;$i<=8;$i++)
 
-{{-- HARGA --}}
-<p
-class="
-mt-4
-text-yellow-500
-text-2xl
-font-bold">
+        <div
+            class="bg-white rounded-xl overflow-hidden shadow hover:shadow-xl transition">
 
-Rp {{ number_format($product->price ?? 0,0,',','.') }}
+            <a href="#">
 
-</p>
+                <div
+                    class="aspect-square bg-gray-200 flex items-center justify-center">
 
+                    <i class="fas fa-car text-6xl text-gray-400"></i>
 
+                </div>
 
-{{-- BUTTON BELI --}}
-<a
-href="{{ auth()->check()
-? '/checkout?product_id='.$product->id
-: '/login' }}"
+            </a>
 
-class="
-mt-4
-w-full
-flex
-justify-center
-items-center
-py-3
-rounded-xl
-bg-yellow-500
-hover:bg-yellow-400
-text-black
-font-bold
-transition">
+            <div class="p-4">
 
-+ Keranjang
+                <p class="text-xs text-gray-500">
+                    HOT WHEELS
+                </p>
 
-</a>
+                <a
+                    href="#"
+                    class="block font-semibold">
 
-</div>
+                    Nissan GT-R R34 {{ $i }}
 
-</div>
+                </a>
 
+                <p class="text-red-500 font-bold mt-2">
 
-@empty
+                    Rp 149.000
 
+                </p>
 
+                <button
+                    class="mt-3 w-full bg-red-500 text-white py-2 rounded-lg">
 
-{{-- DUMMY CARD --}}
-@for($i=1;$i<=8;$i++)
+                    + Keranjang
 
-<div
-class="
-bg-[#111]
-rounded-2xl
-overflow-hidden
-border
-border-white/5">
+                </button>
 
-<div
-class="
-aspect-[4/5]
-bg-[#181818]
-flex
-items-center
-justify-center">
+            </div>
 
-<i class="fas fa-car text-6xl text-gray-700"></i>
+        </div>
 
-</div>
+        @endfor
 
-<div class="p-4">
+        @endforelse
 
-<p
-class="
-text-xs
-uppercase
-text-gray-500">
-
-DIECAST
-
-</p>
-
-<h3
-class="
-text-white
-font-semibold
-mt-1">
-
-Produk Contoh {{ $i }}
-
-</h3>
-
-<p
-class="
-mt-4
-text-yellow-500
-text-2xl
-font-bold">
-
-Rp 150.000
-
-</p>
-
-<a
-href="/login"
-class="
-mt-4
-w-full
-flex
-justify-center
-items-center
-py-3
-rounded-xl
-bg-yellow-500
-hover:bg-yellow-400
-text-black
-font-bold">
-
-+ Keranjang
-
-</a>
-
-</div>
-
-</div>
-
-@endfor
-
-@endforelse
-
-</div>
+    </div>
 
 </section>
 

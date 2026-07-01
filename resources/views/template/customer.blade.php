@@ -27,7 +27,6 @@
                 <div class="hidden md:flex items-center gap-8">
                     <a href="{{ url('/') }}" class="hover:text-red-500 transition text-sm font-semibold italic">Home</a>
                     <a href="{{ url ('/produk')}}" class="hover:text-red-500 transition text-sm font-semibold italic">Products</a>
-                    <a href="#" class="hover:text-red-500 transition text-sm font-semibold italic">About Us</a>
                     <a href="{{ url('/support-center') }}" class="hover:text-red-500 transition text-sm font-semibold italic">Contact</a>
                     <a href="{{ url('/login') }}"
                         class="hover:text-red-500 transition text-sm font-semibold italic">Join Our Community

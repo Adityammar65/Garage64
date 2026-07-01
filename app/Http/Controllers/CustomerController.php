@@ -17,7 +17,8 @@ class CustomerController extends Controller
     }
     public function produk()
     {
-        
+
         return view('customer.produk');
     }
+    
 }

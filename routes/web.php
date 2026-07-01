@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\ProdukController;
 
 // CUSTOMER ROUTES
 Route::get('/', [CustomerController::class, 'index']);
@@ -18,6 +19,8 @@ Route::get('/kebijakan-retur', [ServiceController::class, 'kebijakanRetur']);
 Route::get('/support-center', [ServiceController::class, 'supportCenter']);
 Route::get('/orders', [CustomerController::class, 'order_saya']);
 Route::get('/produk', [CustomerController::class, 'produk']);
+Route::get('/produk/detail', [ProdukController::class, 'produkDetail']);
+
 
 // ADMIN ROUTES
 Route::get('/admin', [AdminController::class, 'dashboard']);
