@@ -1,7 +1,6 @@
 @extends('template.customer')
 @section('title', 'Home')
 @section('content')
-
     <style>
         @keyframes marquee {
             0% {

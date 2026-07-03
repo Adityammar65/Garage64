@@ -1,201 +1,183 @@
 @extends('template.customer')
-
 @section('title', 'Produk')
-
 @section('content')
+    <style>
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
 
-{{-- CATEGORY --}}
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+            100% {
+                transform: translateX(-50%);
+            }
+        }
 
-<div class="flex gap-3 overflow-x-auto pb-4">
+        .animate-marquee {
+            width: max-content;
+            animation: marquee 100s linear infinite;
+            will-change: transform;
+        }
+    </style>
 
-<a
-href="/products"
-class="
-px-5
-py-2
-rounded-full
-bg-[#111]
-border
-border-white/10
-text-gray-300
-hover:text-yellow-400
-transition">
-
-Semua
-
-</a>
-
-@foreach(($categories ?? collect()) as $cat)
-
-<a
-href="/products?category={{ $cat->slug }}"
-class="
-px-5
-py-2
-rounded-full
-bg-[#111]
-border
-border-white/10
-text-gray-300
-hover:text-yellow-400
-hover:border-yellow-500
-transition">
-
-{{ $cat->name }}
-
-</a>
-
-@endforeach
-
-</div>
-
-</section>
-
-
-
-{{-- PRODUCTS --}}
-{{-- Products Section --}}
-<section id="products" class="max-w-7xl mx-auto px-4 py-10">
-
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold">
-            Produk Terbaru
-        </h2>
-
-        <a href="/products"
-            class="text-red-500 hover:underline">
-            Lihat Semua
-        </a>
-    </div>
-
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-
-        @forelse(($products ?? collect()) as $product)
-
-        <div
-            class="bg-white rounded-xl overflow-hidden shadow hover:shadow-xl transition">
-
-            {{-- Gambar bisa dipencet --}}
-            <a href="/products/{{ $product->id }}">
-
-                <div class="aspect-square bg-gray-100">
-
-                    <img
-                        src="{{ $product->image_url }}"
-                        alt="{{ $product->name }}"
-                        class="w-full h-full object-cover hover:scale-105 transition">
-
+    <div class="p-6">
+        <div class="w-full gap-6">
+            <h1 class="text-2xl text-black font-archivo italic p-4">Produk Unggulan</h1>
+            <div class="overflow-hidden bg-gray-50">
+                <div class="flex w-max animate-marquee">
+                    @php
+                        $items = [
+                            [
+                                'title' => 'Porsche 963 #7',
+                                'description' =>
+                                    'Porsche 963 #7 Porsche Penske Motorsport 2025 IMSA Daytona 24 Hrs Winner',
+                                'image' => asset('products/showcases/MGT-Penske.png'),
+                                'price' => 250000,
+                            ],
+                            [
+                                'title' => 'Land Rover Defender 110',
+                                'description' =>
+                                    '1/64 Land Rover Defender 110 Brown Metallic - MIJO Special Edition - Tarmac Works GLOBAL64',
+                                'image' => asset('products/showcases/Tarmac-LandRover.png'),
+                                'price' => 250000,
+                            ],
+                            [
+                                'title' => 'Toyota Tundra Black',
+                                'description' => 'Colourful Model 1/64 Toyota Tundra Black',
+                                'image' => asset('products/showcases/cm-toyota.png'),
+                                'price' => 250000,
+                            ],
+                            [
+                                'title' => 'Porsche 911 GT3 R (992) #77',
+                                'description' =>
+                                    'Porsche 911 GT3 R (992) #77 AO Racing 2025 IMSA Sebring 12 Hrs Class Winner',
+                                'image' => asset('products/showcases/MGT-Rexy.png'),
+                                'price' => 550000,
+                            ],
+                            [
+                                'title' => 'Nissan SILVIA (S15)',
+                                'description' => 'Nissan SILVIA (S15) LB-Super Silhouette AMOCULTURE',
+                                'image' => asset('products/showcases/MGT-LB-S15.png'),
+                                'price' => 150000,
+                            ],
+                            [
+                                'title' => 'Nissan Fairlady Z S30',
+                                'description' =>
+                                    '1/64 Nissan Fairlady Z S30 Widebody Blue - Designed by Jon Sibal - Tarmac Works GLOBAL64',
+                                'image' => asset('products/showcases/Tarmac-Fairlady.png'),
+                                'price' => 150000,
+                            ],
+                            [
+                                'title' => 'Mercedes-AMG F1',
+                                'description' =>
+                                    '1/64 Mercedes-AMG F1 W14 E Performance Italian Grand Prix 2023 #63 George Russell - Tarmac Works GLOBAL64',
+                                'image' => asset('products/showcases/Tarmac-F1.png'),
+                                'price' => 550000,
+                            ],
+                            [
+                                'title' => 'MAZDA 787B No.18',
+                                'description' => 'MAZDA 787B No.18 59th 24 Hours Le Mans 1991',
+                                'image' => asset('products/showcases/inno64-787b.png'),
+                                'price' => 250000,
+                            ],
+                        ];
+                    @endphp
+                    @foreach ($items as $item)
+                        <div
+                            class="max-w-sm w-80 h-[480px] rounded overflow-hidden shadow-lg mx-2 my-4 bg-white flex flex-col">
+                            <img class="w-full h-56 object-cover" src="{{ $item['image'] }}">
+                            <div class="px-6 py-4 flex-1 flex flex-col">
+                                <div>
+                                    <div class="font-bold text-xl mb-2">
+                                        {{ $item['title'] }}
+                                    </div>
+                                    <p class="text-gray-700 text-base h-16 overflow-hidden">
+                                        {{ $item['description'] }}
+                                    </p>
+                                    <p class="text-gray-700 text-base mt-2 font-semibold">
+                                        Rp {{ number_format($item['price'], 0, ',', '.') }}
+                                    </p>
+                                </div>
+                                <div class="mt-auto pt-4 flex justify-evenly">
+                                    <a href="#" class="text-red-600">Beli</a>
+                                    <a href="#" class="text-blue-600">Tambah Ke Keranjang</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    @foreach ($items as $item)
+                        <div
+                            class="max-w-sm w-80 h-[480px] rounded overflow-hidden shadow-lg mx-2 my-4 bg-white flex flex-col">
+                            <img class="w-full h-56 object-cover" src="{{ $item['image'] }}">
+                            <div class="px-6 py-4 flex-1 flex flex-col">
+                                <div>
+                                    <div class="font-bold text-xl mb-2">
+                                        {{ $item['title'] }}
+                                    </div>
+                                    <p class="text-gray-700 text-base h-16 overflow-hidden">
+                                        {{ $item['description'] }}
+                                    </p>
+                                    <p class="text-gray-700 text-base mt-2 font-semibold">
+                                        Rp {{ number_format($item['price'], 0, ',', '.') }}
+                                    </p>
+                                </div>
+                                <div class="mt-auto pt-4 flex justify-evenly">
+                                    <a href="#" class="text-red-600">Beli</a>
+                                    <a href="#" class="text-blue-600">Tambah Ke Keranjang</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-
-            </a>
-
-            <div class="p-4">
-
-                <p class="text-xs text-gray-500">
-                    {{ $product->brand }}
-                </p>
-
-                {{-- Nama bisa dipencet --}}
-                <a
-                    href="/products/{{ $product->id }}"
-                    class="block font-semibold hover:text-red-500">
-
-                    {{ $product->name }}
-
-                </a>
-
-                <p class="text-red-500 font-bold mt-2">
-
-                    Rp {{ number_format($product->price,0,',','.') }}
-
-                </p>
-
-                {{-- Tombol keranjang --}}
-                <form action="/cart/add" method="POST">
-
-                    @csrf
-
-                    <input
-                        type="hidden"
-                        name="product_id"
-                        value="{{ $product->id }}">
-
-                    <input
-                        type="hidden"
-                        name="quantity"
-                        value="1">
-
-                    <button
-                        type="submit"
-                        class="mt-3 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg">
-
-                        + Keranjang
-
-                    </button>
-
-                </form>
-
-            </div>
-
-        </div>
-
-        @empty
-
-        {{-- Contoh produk --}}
-        @for($i=1;$i<=8;$i++)
-
-        <div
-            class="bg-white rounded-xl overflow-hidden shadow hover:shadow-xl transition">
-
-            <a href="#">
-
-                <div
-                    class="aspect-square bg-gray-200 flex items-center justify-center">
-
-                    <i class="fas fa-car text-6xl text-gray-400"></i>
-
+                <h1 class="text-2xl text-black font-archivo italic p-4">Produk terbaru</h1>
+                <div class="flex flex-wrap justify-center w-full">
+                    @foreach ($items as $item)
+                        <div
+                            class="max-w-sm w-80 h-[480px] rounded overflow-hidden shadow-lg mx-2 my-4 bg-white flex flex-col">
+                            <img class="w-full h-56 object-cover" src="{{ $item['image'] }}">
+                            <div class="px-6 py-4 flex-1 flex flex-col">
+                                <div>
+                                    <div class="font-bold text-xl mb-2">
+                                        {{ $item['title'] }}
+                                    </div>
+                                    <p class="text-gray-700 text-base h-16 overflow-hidden">
+                                        {{ $item['description'] }}
+                                    </p>
+                                    <p class="text-gray-700 text-base mt-2 font-semibold">
+                                        Rp {{ number_format($item['price'], 0, ',', '.') }}
+                                    </p>
+                                </div>
+                                <div class="mt-auto pt-4 flex justify-evenly">
+                                    <a href="#" class="text-red-600">Beli</a>
+                                    <a href="#" class="text-blue-600">Tambah Ke Keranjang</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    @foreach ($items as $item)
+                        <div
+                            class="max-w-sm w-80 h-[480px] rounded overflow-hidden shadow-lg mx-2 my-4 bg-white flex flex-col">
+                            <img class="w-full h-56 object-cover" src="{{ $item['image'] }}">
+                            <div class="px-6 py-4 flex-1 flex flex-col">
+                                <div>
+                                    <div class="font-bold text-xl mb-2">
+                                        {{ $item['title'] }}
+                                    </div>
+                                    <p class="text-gray-700 text-base h-16 overflow-hidden">
+                                        {{ $item['description'] }}
+                                    </p>
+                                    <p class="text-gray-700 text-base mt-2 font-semibold">
+                                        Rp {{ number_format($item['price'], 0, ',', '.') }}
+                                    </p>
+                                </div>
+                                <div class="mt-auto pt-4 flex justify-evenly">
+                                    <a href="#" class="text-red-600">Beli</a>
+                                    <a href="#" class="text-blue-600">Tambah Ke Keranjang</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-
-            </a>
-
-            <div class="p-4">
-
-                <p class="text-xs text-gray-500">
-                    HOT WHEELS
-                </p>
-
-                <a
-                    href="#"
-                    class="block font-semibold">
-
-                    Nissan GT-R R34 {{ $i }}
-
-                </a>
-
-                <p class="text-red-500 font-bold mt-2">
-
-                    Rp 149.000
-
-                </p>
-
-                <button
-                    class="mt-3 w-full bg-red-500 text-white py-2 rounded-lg">
-
-                    + Keranjang
-
-                </button>
-
             </div>
-
         </div>
-
-        @endfor
-
-        @endforelse
-
     </div>
-
-</section>
-
 @endsection
