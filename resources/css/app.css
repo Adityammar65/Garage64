@@ -13,3 +13,21 @@
 
     --font-archivo: 'Archivo Black', sans-serif;
 }
+
+@layer components {
+    .tooltip-parent {
+        @apply relative;
+    }
+
+    .tooltip {
+        @apply absolute bottom-full left-1/2 -translate-x-1/2 mb-2
+               px-2 py-1 rounded bg-gray-900 text-white text-xs
+               whitespace-nowrap z-50
+               opacity-0 invisible
+               transition-all duration-200;
+    }
+
+    .group:hover .tooltip {
+        @apply opacity-100 visible;
+    }
+}
