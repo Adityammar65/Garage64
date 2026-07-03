@@ -8,10 +8,14 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProdukController;
 
-// CUSTOMER ROUTES
+// AUTH ROUTES
 Route::get('/', [CustomerController::class, 'index']);
 Route::get('/login', [AuthController::class, 'login']);
+Route::post('/login/verify', [AuthController::class, 'cekLogin']);
 Route::get('/register', [AuthController::class, 'register']);
+Route::post('/register/save', [AuthController::class, 'saveRegister']);
+Route::get('/logout', [AuthController::class, 'logout']);
+
 Route::get('/syarat-ketentuan', [ServiceController::class, 'syaratKetentuan']);
 Route::get('/kebijakan-privasi', [ServiceController::class, 'kebijakanPrivasi']);
 Route::get('/kebijakan-pengiriman', [ServiceController::class, 'kebijakanPengiriman']);

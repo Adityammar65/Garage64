@@ -11,22 +11,39 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaksis', function (Blueprint $table) {
+        Schema::create('transaksi', function (Blueprint $table) {
             $table->id('id_transaksi');
-        
-            $table->foreignId('user_id')
-                ->constrained()
+
+            $table->foreignId('id_user')
+                ->constrained('users','id_user')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-        
-            $table->integer('jumlah_qty');
+
+            $table->unsignedInteger('total_qty');
+
             $table->decimal('total_harga', 12, 2);
-        
-            $table->dateTime('tanggal');
-        
-            $table->text('tujuan');
-            $table->string('metode_bayar');
-        
+
+            $table->text('alamat_tujuan');
+
+            $table->text('catatan')->nullable();
+
+            $table->enum('metode_bayar', [
+                'Virtual Account',
+                'QRIS',
+                'COD'
+            ]);
+
+            $table->enum('status', [
+                'diproses',
+                'dikirim',
+                'selesai',
+                'dibatalkan'
+            ])->default('diproses');
+
+            $table->string('resi');
+
+            $table->timestamp('dibayar_pada');
+
             $table->timestamps();
         });
     }
