@@ -26,7 +26,7 @@
                     <div class="flex items-center justify-between">
                         <label for="password" class="block text-sm/6 font-medium text-gray-100">Password</label>
                         <div class="text-sm">
-                            <a href="#" class="font-semibold text-red-400 hover:text-red-300">
+                            <a href="{{ url('/reset-password') }}" class="font-semibold text-red-400 hover:text-red-300">
                                 Lupa password?
                             </a>
                         </div>

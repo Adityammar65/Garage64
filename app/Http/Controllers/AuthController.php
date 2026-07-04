@@ -55,7 +55,7 @@ class AuthController extends Controller
                 60 * 24 * 30
             );
         } else {
-            Cookie::queue(Cookie::forget('remember_login'));
+            Cookie::queue(Cookie::forget('remember_token'));
         }
 
         if ($user->role === 'admin') {
@@ -129,5 +129,53 @@ class AuthController extends Controller
         Session::flush();
 
         return redirect('/login');
+    }
+
+    // RESET PASSWORD
+    public function resetPassword(Request $request)
+    {
+        $rules = [
+            'password_new' => 'required|min:8',
+            'password_confirm' => 'required|same:password_new',
+        ];
+
+        if (!session('login')) {
+            $rules['email'] = 'required|email';
+        }
+
+        $request->validate($rules, [
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Format email tidak valid',
+
+            'password_new.required' => 'Password baru harus diisi',
+            'password_new.min' => 'Password baru minimal 8 karakter',
+
+            'password_confirm.required' => 'Konfirmasi password harus diisi',
+            'password_confirm.same' => 'Konfirmasi password tidak sama',
+        ]);
+
+        if (session('login')) {
+            $user = UserModel::find(session('id_user'));
+        } else {
+            $user = UserModel::where('email', $request->email)->first();
+
+            if (!$user) {
+                return back()->withErrors([
+                    'email' => 'Email tidak ditemukan.',
+                ]);
+            }
+        }
+
+        if (Hash::check($request->password_new, $user->password)) {
+            return back()->withErrors([
+                'password_new' => 'Password baru tidak boleh sama dengan password lama.',
+            ]);
+        }
+
+        $user->password = Hash::make($request->password_new);
+        $user->save();
+
+        return redirect(session()->pull('redirect_after_reset'))
+            ->with('success', 'Password berhasil diubah.');
     }
 }

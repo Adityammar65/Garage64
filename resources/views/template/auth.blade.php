@@ -16,12 +16,12 @@
 <body class="bg-gray-900">
     
     <!-- ERROR ALERT -->
-    @if ($errors->any())
+    @if (session('error') || $errors->any())
         <div x-data="{ show: true }"
             x-show="show"
             x-transition
             x-init="setTimeout(() => show = false, 4000)"
-            class="fixed top-5 right-5 z-50 max-w-sm">
+            class="fixed top-5 right-5 z-60 max-w-sm">
 
             <div class="rounded-lg bg-red-600 text-white shadow-lg p-4 flex items-start gap-3">
 
@@ -38,6 +38,10 @@
 
                 <div class="flex-1">
                     <h3 class="font-semibold">Validasi Gagal</h3>
+
+                    @if (session('error'))
+                        <p class="pt-3">{{ session('error') }}</p>
+                    @endif
 
                     <ul class="mt-1 text-sm list-disc list-inside">
                         @foreach ($errors->all() as $error)
@@ -61,7 +65,7 @@
             x-show="show"
             x-transition
             x-init="setTimeout(() => show = false, 3000)"
-            class="fixed top-5 right-5 z-50 max-w-sm">
+            class="fixed top-5 right-5 z-60 max-w-sm">
 
             <div class="rounded-lg bg-green-600 text-white shadow-lg p-4 flex items-center justify-between">
 

@@ -26,8 +26,10 @@ class FormController extends Controller
         return view('form.support_reply');
     }
     
-    public function resetPassword()
+    public function resetPasswordForm()
     {
+        session()->put('redirect_after_reset', url()->previous());
+
         return view('form.reset_password');
     }
 }
