@@ -3,14 +3,35 @@
 @section('content')
     <div class="flex min-h-full flex-col justify-center px-6 my-auto">
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form action="#" method="POST" class="space-y-6">
+            <form action="{{ url('/save-new-password') }}" method="POST" class="space-y-6">
+                @csrf
+                
+                @if (!session('login'))
+                    <div>
+                        <label for="email" class="block text-sm/6 font-medium text-gray-100">
+                            Email
+                        </label>
+
+                        <div class="mt-2">
+                            <input
+                                id="email"
+                                type="email"
+                                name="email"
+                                value="{{ old('email') }}"
+                                required
+                                class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-red-500 sm:text-sm/6">
+                        </div>
+                    </div>
+                @endif
+
                 <div x-data="{ showPassword: false }">
                     <div class="flex items-center justify-between">
                         <label for="password" class="block text-sm/6 font-medium text-gray-100">Password Baru</label>
                     </div>
                     <div class="mt-2 relative">
+
+                        <!-- PASS BARU -->
                         <input id="password" :type="showPassword ? 'text' : 'password'" name="password_new" required
-                            autocomplete="current-password"
                             class="block w-full rounded-md bg-white/5 px-3 py-1.5 pr-10 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-red-500 sm:text-sm/6" />
                         <button type="button" @click="showPassword = !showPassword"
                             class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200 transition-colors">
@@ -48,13 +69,14 @@
                 </div>
 
                 <div x-data="{ showPassword: false }">
+
+                    <!-- VERIFIKASI PASS BARU -->
                     <div class="flex items-center justify-between">
                         <label for="password" class="block text-sm/6 font-medium text-gray-100">Verifikasi Password
                             Baru</label>
                     </div>
                     <div class="mt-2 relative">
                         <input id="password" :type="showPassword ? 'text' : 'password'" name="password_confirm" required
-                            autocomplete="current-password"
                             class="block w-full rounded-md bg-white/5 px-3 py-1.5 pr-10 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-red-500 sm:text-sm/6" />
                         <button type="button" @click="showPassword = !showPassword"
                             class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200 transition-colors">

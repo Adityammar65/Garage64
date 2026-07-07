@@ -11,22 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('keranjangs', function (Blueprint $table) {
+        Schema::create('keranjang', function (Blueprint $table) {
             $table->id('id_keranjang');
-        
-            $table->foreignId('user_id')
-                ->constrained()
+
+            $table->foreignId('id_user')
+                ->constrained('users','id_user')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-        
+
             $table->foreignId('id_produk')
-                ->constrained('produks', 'id_produk')
+                ->constrained('produk','id_produk')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-        
-            $table->integer('qty');
+
+            $table->unsignedInteger('jumlah');
+
             $table->decimal('subtotal', 12, 2);
-        
+
+            $table->unique([
+                'id_user',
+                'id_produk'
+            ]);
+
             $table->timestamps();
         });
     }

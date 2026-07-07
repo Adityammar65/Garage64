@@ -7,6 +7,7 @@
             <div class="w-1/2">
                 <h2 class="text-2xl font-bold text-white mb-6">Pengaturan Data Admin</h2>
                 <form action="#" method="POST" class="space-y-6">
+                    @csrf
                     <div>
                         <label for="email" class="block text-sm/6 font-medium text-gray-100">Username Admin</label>
                         <div class="mt-2">
@@ -195,7 +196,7 @@
             </div>
         </div>
         <div class="flex justify-center">
-            <a href="{{ url('/') }}"
+            <a href="{{ url('/logout') }}"
                 class="bg-red-500 p-2 rounded-md text-center w-1/2 mx-auto hover:bg-red-400 font-bold text-white text-sm rounded-md px-3 py-2">
                 Logout
             </a>

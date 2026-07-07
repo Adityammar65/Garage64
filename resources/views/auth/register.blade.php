@@ -8,7 +8,10 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form action="#" method="POST" class="space-y-6">
+            <form action="{{ url('/register/save') }}" method="POST" class="space-y-6">
+                @csrf
+
+                <!-- EMAIL -->
                 <div>
                     <label for="email" class="block text-sm/6 font-medium text-gray-100">Email</label>
                     <div class="mt-2">
@@ -17,6 +20,7 @@
                     </div>
                 </div>
 
+                <!-- USERNAME -->
                 <div>
                     <label for="username" class="block text-sm/6 font-medium text-gray-100">Username</label>
                     <div class="mt-2">
@@ -25,14 +29,7 @@
                     </div>
                 </div>
 
-                <div>
-                    <label for="alamat" class="block text-sm/6 font-medium text-gray-100">Alamat</label>
-                    <div class="mt-2">
-                        <textarea id="alamat" name="alamat" required
-                            class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-red-500 sm:text-sm/6"></textarea>
-                    </div>
-                </div>
-
+                <!-- PASSWORD -->
                 <div x-data="{ showPassword: false }">
                     <div class="flex items-center justify-between">
                         <label for="password" class="block text-sm/6 font-medium text-gray-100">Password</label>
@@ -76,9 +73,10 @@
                     </div>
                 </div>
 
+                <!-- PERSETUJUAN -->
                 <div class="inline-flex items-center">
                     <label class="flex items-center cursor-pointer relative" for="check-2">
-                        <input type="checkbox"
+                        <input type="checkbox" name="persetujuan" value="1" required
                             class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
                             id="check-2" />
                         <span
@@ -99,6 +97,7 @@
                     </label>
                 </div>
 
+                <!-- BUTTON -->
                 <div>
                     <button type="submit"
                         class="flex w-full justify-center rounded-md bg-green-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-green-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500">
@@ -107,6 +106,7 @@
                 </div>
             </form>
 
+            <!-- LOGIN -->
             <p class="mt-10 text-center text-sm/6 text-gray-400">
                 Sudah punya akun?
                 <a href="{{ url('/login') }}" class="font-semibold text-red-400 hover:text-red-300">Login Sekarang</a>
