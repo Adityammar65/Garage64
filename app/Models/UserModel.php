@@ -30,11 +30,11 @@ class UserModel extends Model
 
     public function keranjang()
     {
-        return $this->hasMany(Keranjang::class);
+        return $this->hasMany(KeranjangModel::class, 'id_user', 'id_user');
     }
 
     public function transaksi()
     {
-        return $this->hasMany(Transaksi::class);
+        return $this->hasMany(TransaksiModel::class, 'id_user', 'id_user');
     }
 }

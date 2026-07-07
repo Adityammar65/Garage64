@@ -43,7 +43,8 @@ Route::middleware('cek.admin')->group(function(){
     Route::get('/admin/support', [AdminController::class, 'support']);
     Route::get('/admin/laporan', [AdminController::class, 'laporan']);
     Route::get('/admin/pengaturan', [AdminController::class, 'pengaturan']);
-    Route::get('/admin/produk/tambah', [FormController::class, 'tambahProduk']);
+    Route::get('/admin/produk/tambah', [AdminController::class, 'tambahProduk']);
+    Route::post('/admin/produk/save', [AdminController::class, 'saveProduk']);
     Route::get('/admin/produk/edit', [FormController::class, 'editProduk']);
     Route::get('/admin/pengaturan/edit-info-toko', [FormController::class, 'editInfoToko']);
     Route::get('/admin/support/reply', [FormController::class, 'supportReply']);

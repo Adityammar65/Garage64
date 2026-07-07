@@ -25,12 +25,12 @@ class ProdukModel extends Model
 
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class);
+        return $this->belongsTo(KategoriModel::class, 'id_kategori', 'id_kategori');
     }
 
     public function keranjang()
     {
-        return $this->hasMany(Keranjang::class);
+        return $this->hasMany(KeranjangModel::class, 'id_produk', 'id_produk');
     }
 
     public function detailTransaksi()

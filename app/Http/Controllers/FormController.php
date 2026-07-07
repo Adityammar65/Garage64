@@ -8,6 +8,8 @@ class FormController extends Controller
 {
     public function tambahProduk()
     {
+        session()->put('redirect_after_save_produk', url()->previous());
+
         return view('form.tambah_produk');
     }
 

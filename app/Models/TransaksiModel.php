@@ -28,11 +28,11 @@ class TransaksiModel extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(UserModel::class, 'id_user', 'id_user');
     }
 
     public function detailTransaksi()
     {
-        return $this->hasMany(DetailTransaksi::class);
+        return $this->hasMany(DetailTransaksiModel::class, 'id_transaksi', 'id_transaksi');
     }
 }

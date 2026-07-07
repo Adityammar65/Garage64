@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ProdukModel;
 
 class CustomerController extends Controller
 {
@@ -15,10 +16,11 @@ class CustomerController extends Controller
     {
         return view('customer.orders');
     }
+
     public function produk()
     {
-
-        return view('customer.produk');
+        $products = ProdukModel::latest()->get();
+        return view('customer.produk', compact('products'));
     }
     
 }

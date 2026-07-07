@@ -20,11 +20,11 @@ class DetailTransaksiModel extends Model
 
     public function transaksi()
     {
-        return $this->belongsTo(Transaksi::class);
+        return $this->belongsTo(TransaksiModel::class, 'id_transaksi', 'id_transaksi');
     }
 
     public function produk()
     {
-        return $this->belongsTo(Produk::class);
+        return $this->belongsTo(ProdukModel::class, 'id_produk', 'id_produk');
     }
 }
