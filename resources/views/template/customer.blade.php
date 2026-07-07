@@ -127,7 +127,7 @@
                 </form>
 
                 <!-- Cart Button -->
-                <a href="#"
+                <a href="{{( url('/keranjang')) }}"
                     class="relative flex items-center px-3 py-2 bg-red-500 hover:bg-red-600 transition rounded">
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">

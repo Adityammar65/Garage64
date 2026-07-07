@@ -4,150 +4,118 @@
 
 @section('content')
 
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-<div class="grid lg:grid-cols-2 gap-10">
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
 
-{{-- FOTO --}}
-<div>
+        {{-- FOTO --}}
+        <div>
 
-<div class="bg-[#111] rounded-2xl overflow-hidden border border-white/10">
+            <div class="bg-white rounded-3xl shadow-lg border border-gray-200 overflow-hidden p-6">
 
-<img
-src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b"
-alt="Nissan GT-R R34"
-class="w-full h-[550px] object-cover">
+                <img
+                    src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b"
+                    alt="Nissan GT-R R34"
+                    class="w-full h-[430px] object-cover rounded-2xl hover:scale-105 transition duration-500">
 
-</div>
+            </div>
 
-</div>
+        </div>
 
+        {{-- DETAIL --}}
+        <div>
 
+            {{-- Brand --}}
+            <span class="inline-block px-4 py-1 rounded-full bg-gray-100 text-gray-700 text-sm font-semibold">
+                Hot Wheels
+            </span>
 
-{{-- DETAIL --}}
-<div>
+            {{-- Nama Produk --}}
+            <h1 class="mt-5 text-4xl font-extrabold text-gray-900 leading-tight">
+                Nissan GT-R R34
+            </h1>
 
-<p class="text-sm uppercase tracking-widest text-gray-500">
+            {{-- Kategori --}}
+            <div class="mt-4 flex items-center gap-3">
 
-Hot Wheels
+                <span class="text-gray-500">
+                    Kategori :
+                </span>
 
-</p>
+                <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold">
+                    JDM
+                </span>
 
+            </div>
 
-<h1 class="text-3xl font-bold text-black mt-2">
+            {{-- Status --}}
+            <div class="mt-6">
 
-Nissan GT-R R34
+                <span class="px-4 py-2 rounded-full bg-green-100 text-green-700 font-semibold">
+                    ✓ Stok tersedia
+                </span>
 
-</h1>
+            </div>
 
+            {{-- Harga --}}
+            <div class="mt-8">
 
-<p class="mt-3 text-gray-400">
+                <p class="text-gray-500 text-sm uppercase tracking-wider">
+                    Harga
+                </p>
 
-Kategori :
-JDM
+                <h2 class="text-5xl font-extrabold text-yellow-500 mt-2">
+                    Rp 149.000
+                </h2>
 
-</p>
+            </div>
 
+            {{-- Skala --}}
+            <div class="mt-8 flex items-center gap-4">
 
+                <span class="font-semibold text-gray-700">
+                    Skala
+                </span>
 
+                <span class="px-4 py-2 rounded-xl bg-gray-100 text-gray-700">
+                    1 : 64
+                </span>
 
-<div class="mt-4">
+            </div>
 
-<span
-class="
-px-3
-py-1
-rounded-full
-bg-green-500
-text-white
-text-sm">
+            {{-- Deskripsi --}}
+            <div class="mt-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
 
-Stok tersedia
+                <h3 class="text-xl font-bold text-gray-900 mb-4">
+                    Deskripsi Produk
+                </h3>
 
-</span>
+                <p class="leading-8 text-gray-600">
+                    Diecast premium Nissan GT-R R34 dengan detail tinggi,
+                    material metal berkualitas, dan cocok untuk koleksi.
+                </p>
 
-</div>
+            </div>
 
+            {{-- ACTION --}}
+            <div class="mt-10 flex gap-4">
 
+                <button
+                    class="flex-1 py-4 rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg shadow-lg hover:shadow-xl transition duration-300">
+                    + Keranjang
+                </button>
 
+                <a
+                    href="{{ url('/produk') }}"
+                    class="px-8 py-4 rounded-2xl border border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition duration-300">
+                    Kembali
+                </a>
 
-<p class="mt-8 text-4xl font-bold text-yellow-500">
+            </div>
 
-Rp 149.000
+        </div>
 
-</p>
-
-
-
-<p class="mt-4 text-gray-300">
-
-Skala :
-1:64
-
-</p>
-
-
-
-
-<div class="mt-8">
-
-<h3 class="text-white font-semibold mb-3">
-
-Deskripsi
-
-</h3>
-
-<p class="text-gray-400 leading-7">
-
-Diecast premium Nissan GT-R R34 dengan detail tinggi,
-material metal berkualitas dan cocok untuk koleksi.
-
-</p>
-
-</div>
-
-
-
-
-{{-- ACTION --}}
-<div class="mt-10 flex gap-4">
-
-<button
-class="
-flex-1
-py-4
-rounded-xl
-bg-yellow-500
-hover:bg-yellow-400
-text-black
-font-bold
-duration-300 ease-in-out ...">
-
-+ Keranjang
-
-</button>
-
-
-
-<a
-href="/products"
-class="
-px-6
-py-4
-rounded-xl
-border
-border-white/10
-text-white">
-
-Kembali
-
-</a>
-
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 

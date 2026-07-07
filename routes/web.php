@@ -7,8 +7,10 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Middleware\CekAdmin;
 use App\Http\Middleware\CekLogin;
+
 
 // AUTH ROUTES
 Route::get('/', [CustomerController::class, 'index']);
@@ -30,6 +32,7 @@ Route::middleware('cek.login')->group(function(){
     Route::get('/orders', [CustomerController::class, 'order_saya']);
     Route::get('/produk', [CustomerController::class, 'produk']);
     Route::get('/produk/detail', [ProdukController::class, 'produkDetail']);
+    Route::get('/keranjang', [KeranjangController::class, 'keranjang']);
 });
 
 // ADMIN ROUTES

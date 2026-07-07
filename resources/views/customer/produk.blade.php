@@ -97,7 +97,7 @@
                                     </p>
                                 </div>
                                 <div class="mt-auto pt-4 flex justify-evenly">
-                                    <a href="#" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
+                                    <a href="{{ url('/produk/detail')}}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -168,7 +168,7 @@
                                     </p>
                                 </div>
                                 <div class="mt-auto pt-4 flex justify-evenly">
-                                    <a href="#" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
+                                    <a href="{{ url('/produk/detail')}}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -188,7 +188,7 @@
                                             Lihat lebih detail
                                         </span>
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ url('/produk/detail')}}"
                                         class="group tooltip-parent bg-blue-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="24px" height="24px" viewBox="0 -0.5 20 20" version="1.1"
                                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -242,7 +242,7 @@
                                     </p>
                                 </div>
                                 <div class="mt-auto pt-4 flex justify-evenly">
-                                    <a href="#" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
+                                    <a href="{{ url('/produk/detail')}}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -262,7 +262,7 @@
                                             Lihat lebih detail
                                         </span>
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ url('/produk/detail')}}"
                                         class="group tooltip-parent bg-blue-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="24px" height="24px" viewBox="0 -0.5 20 20" version="1.1"
                                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
