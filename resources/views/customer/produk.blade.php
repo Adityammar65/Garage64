@@ -27,6 +27,7 @@
                     @php
                         $items = [
                             [
+                                'id_produk' => 1,
                                 'title' => 'Porsche 963 #7',
                                 'description' =>
                                     'Porsche 963 #7 Porsche Penske Motorsport 2025 IMSA Daytona 24 Hrs Winner',
@@ -34,6 +35,7 @@
                                 'price' => 250000,
                             ],
                             [
+                                'id_produk' => 1,
                                 'title' => 'Land Rover Defender 110',
                                 'description' =>
                                     '1/64 Land Rover Defender 110 Brown Metallic - MIJO Special Edition - Tarmac Works GLOBAL64',
@@ -41,12 +43,14 @@
                                 'price' => 250000,
                             ],
                             [
+                                'id_produk' => 1,
                                 'title' => 'Toyota Tundra Black',
                                 'description' => 'Colourful Model 1/64 Toyota Tundra Black',
                                 'image' => asset('products/showcases/cm-toyota.png'),
                                 'price' => 250000,
                             ],
                             [
+                                'id_produk' => 1,
                                 'title' => 'Porsche 911 GT3 R (992) #77',
                                 'description' =>
                                     'Porsche 911 GT3 R (992) #77 AO Racing 2025 IMSA Sebring 12 Hrs Class Winner',
@@ -54,12 +58,14 @@
                                 'price' => 550000,
                             ],
                             [
+                                'id_produk' => 1,
                                 'title' => 'Nissan SILVIA (S15)',
                                 'description' => 'Nissan SILVIA (S15) LB-Super Silhouette AMOCULTURE',
                                 'image' => asset('products/showcases/MGT-LB-S15.png'),
                                 'price' => 150000,
                             ],
                             [
+                                'id_produk' => 1,
                                 'title' => 'Nissan Fairlady Z S30',
                                 'description' =>
                                     '1/64 Nissan Fairlady Z S30 Widebody Blue - Designed by Jon Sibal - Tarmac Works GLOBAL64',
@@ -67,6 +73,7 @@
                                 'price' => 150000,
                             ],
                             [
+                                'id_produk' => 1,
                                 'title' => 'Mercedes-AMG F1',
                                 'description' =>
                                     '1/64 Mercedes-AMG F1 W14 E Performance Italian Grand Prix 2023 #63 George Russell - Tarmac Works GLOBAL64',
@@ -74,6 +81,7 @@
                                 'price' => 550000,
                             ],
                             [
+                                'id_produk' => 1,
                                 'title' => 'MAZDA 787B No.18',
                                 'description' => 'MAZDA 787B No.18 59th 24 Hours Le Mans 1991',
                                 'image' => asset('products/showcases/inno64-787b.png'),
@@ -97,7 +105,7 @@
                                     </p>
                                 </div>
                                 <div class="mt-auto pt-4 flex justify-evenly">
-                                    <a href="{{ url('/produk/detail')}}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
+                                    <a href="{{ route('produk.detail', $item['id_produk']) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -167,7 +175,7 @@
                                     </p>
                                 </div>
                                 <div class="mt-auto pt-4 flex justify-evenly">
-                                    <a href="{{ url('/produk/detail')}}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
+                                    <a href="{{ route('produk.detail', $item['id_produk']) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -187,7 +195,7 @@
                                             Lihat lebih detail
                                         </span>
                                     </a>
-                                    <a href="{{ url('/produk/detail')}}"
+                                    <a href="#"
                                         class="group tooltip-parent bg-blue-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="24px" height="24px" viewBox="0 -0.5 20 20" version="1.1"
                                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -230,26 +238,26 @@
                     @forelse ($products as $product)
                         <div class="max-w-sm w-80 h-[480px] rounded shadow-lg mx-2 my-4 bg-white flex flex-col">
 
-                            <img class="w-full h-56 object-cover" src="{{ asset('storage/' . $product->image) }}"
-                                alt="{{ $product->name }}">
+                            <img class="w-full h-56 object-cover" src="{{ asset('storage/' . $product->gambar) }}"
+                                alt="{{ $product->nama_produk }}">
 
                             <div class="px-6 py-4 flex-1 flex flex-col">
                                 <div>
                                     <div class="font-bold text-xl mb-2">
-                                        {{ $product->name }}
+                                        {{ $product->nama_produk }}
                                     </div>
 
                                     <p class="text-gray-700 text-base h-16 overflow-hidden">
-                                        {{ Str::limit($product->description, 120) }}
+                                        {{ Str::limit($product->deskripsi, 120) }}
                                     </p>
 
                                     <p class="text-gray-700 text-base mt-2 font-semibold">
-                                        Rp {{ number_format($product->price, 0, ',', '.') }}
+                                        Rp {{ number_format($product->harga, 0, ',', '.') }}
                                     </p>
                                 </div>
 
                                 <div class="mt-auto pt-4 flex justify-evenly">
-                                    <a href="{{ url('/produk/detail')}}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
+                                    <a href="{{ route('produk.detail', $product->id_produk) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -262,7 +270,7 @@
                                             Lihat lebih detail
                                         </span>
                                     </a>
-                                    <a href="{{ url('/produk/detail')}}"
+                                    <a href="{{ route('produk.detail', $product->id_produk) }}" class="group tooltip-parent bg-blue-600 py-2 px-10 rounded text-white font-semibold"
                                         class="group tooltip-parent bg-blue-600 py-2 px-10 rounded text-white font-semibold">
 
                                         <!-- SVG tetap -->

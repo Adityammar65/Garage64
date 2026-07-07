@@ -1,6 +1,6 @@
 @extends('template.customer')
 
-@section('title', 'Nissan GT-R R34')
+@section('title', $product->nama_produk)
 
 @section('content')
 
@@ -13,9 +13,9 @@
 
             <div class="bg-white rounded-3xl shadow-lg border border-gray-200 overflow-hidden p-6">
 
-                <img
-                    src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b"
-                    alt="Nissan GT-R R34"
+        <img
+            src="{{ asset('storage/' . $product->gambar) }}"
+            alt="{{ $product->nama_produk }}"
                     class="w-full h-[430px] object-cover rounded-2xl hover:scale-105 transition duration-500">
 
             </div>
@@ -27,19 +27,19 @@
 
             {{-- Brand --}}
             <span class="inline-block px-4 py-1 rounded-full bg-gray-100 text-gray-700 text-sm font-semibold">
-                Hot Wheels
+                {{ $product->brand }}
             </span>
 
             {{-- Nama Produk --}}
             <h1 class="mt-5 text-4xl font-extrabold text-gray-900 leading-tight">
-                Nissan GT-R R34
+                {{ $product->nama_produk }}
             </h1>
 
             {{-- Kategori --}}
             <div class="mt-4 flex items-center gap-3">
 
                 <span class="text-gray-500">
-                    Kategori :
+                    {{ $product->nama_produk }}
                 </span>
 
                 <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold">
@@ -65,7 +65,7 @@
                 </p>
 
                 <h2 class="text-5xl font-extrabold text-yellow-500 mt-2">
-                    Rp 149.000
+                    Rp {{ number_format($product->harga, 0, ',', '.') }}
                 </h2>
 
             </div>
@@ -74,7 +74,7 @@
             <div class="mt-8 flex items-center gap-4">
 
                 <span class="font-semibold text-gray-700">
-                    Skala
+                    {{ $product->skala }}
                 </span>
 
                 <span class="px-4 py-2 rounded-xl bg-gray-100 text-gray-700">
@@ -91,8 +91,7 @@
                 </h3>
 
                 <p class="leading-8 text-gray-600">
-                    Diecast premium Nissan GT-R R34 dengan detail tinggi,
-                    material metal berkualitas, dan cocok untuk koleksi.
+                    {{ $product->deskripsi }}
                 </p>
 
             </div>
