@@ -11,4 +11,5 @@ class ProdukController extends Controller
     {
         return view('customer.produkdetail');
     }
+    
 }

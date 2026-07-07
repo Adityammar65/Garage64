@@ -34,7 +34,7 @@ Hot Wheels
 </p>
 
 
-<h1 class="text-3xl font-bold text-white mt-2">
+<h1 class="text-3xl font-bold text-black mt-2">
 
 Nissan GT-R R34
 
@@ -120,7 +120,8 @@ rounded-xl
 bg-yellow-500
 hover:bg-yellow-400
 text-black
-font-bold">
+font-bold
+duration-300 ease-in-out ...">
 
 + Keranjang
 

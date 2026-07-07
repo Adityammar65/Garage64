@@ -128,7 +128,7 @@ transition">
 
                     <button
                         type="submit"
-                        class="mt-3 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg">
+                        class="mt-3 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg duration-300 ease-in-out">
 
                         + Keranjang
 
