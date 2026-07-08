@@ -27,4 +27,8 @@ class CustomerController extends Controller
         $products = ProdukModel::latest()->get();
         return view('customer.produk', compact('products'));
     }
+    public function profile()
+    {
+        return view('customer.profile');
+    }
 }

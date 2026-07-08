@@ -86,8 +86,18 @@
                         class="hover:text-red-500 transition text-sm font-semibold italic">Products</a>
                     <a href="{{ url('/support-center') }}"
                         class="hover:text-red-500 transition text-sm font-semibold italic">Contact</a>
-                    <a href="{{ url('/login') }}"
-                        class="hover:text-red-500 transition text-sm font-semibold italic">Join Our Community
+                    <a href="{{ url('/profile') }}"
+                        class="w-10 h-10 rounded-full bg-gray-700 hover:bg-red-600 transition flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            width="22"
+                            height="22"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="white"
+                            stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M5.121 17.804A9 9 0 1118.88 17.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
                     </a>
                 </div>
             </div>

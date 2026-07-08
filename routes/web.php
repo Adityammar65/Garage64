@@ -21,6 +21,8 @@ Route::post('/register/save', [AuthController::class, 'saveRegister']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/reset-password', [FormController::class, 'resetPasswordForm']);
 Route::post('/save-password', [AuthController::class, 'resetPassword']);
+Route::middleware('cek.login')->group(function () {
+    Route::get('/profile', [CustomerController::class, 'profile']);});
 
 Route::get('/syarat-ketentuan', [ServiceController::class, 'syaratKetentuan']);
 Route::get('/kebijakan-privasi', [ServiceController::class, 'kebijakanPrivasi']);
@@ -31,7 +33,7 @@ Route::get('/support-center', [ServiceController::class, 'supportCenter']);
 Route::middleware('cek.login')->group(function(){
     Route::get('/orders', [CustomerController::class, 'order_saya']);
     Route::get('/produk', [CustomerController::class, 'produk']);
-    Route::get('/produk/detail/{id}', [ProdukController::class, 'produkDetail']);
+    Route::get('/produk/detail/{id}', [ProdukController::class, 'produkDetail'])->name('produk.detail');
     Route::get('/keranjang', [KeranjangController::class, 'keranjang']);
     
 });

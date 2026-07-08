@@ -2,124 +2,138 @@
 @section('title', 'Support')
 @section('page_title', 'Support')
 @section('content')
-    <div class="flex flex-col gap-6">
-        <h2 class="text-2xl font-bold text-white text-center">Daftar Keluhan</h2>
-        
-        <!-- Complaint List -->
-        <div class="overflow-x-auto text-white">
-            <table class="min-w-full text-left text-sm whitespace-nowrap">
-                <thead class="uppercase tracking-wider border-b-2 dark:border-neutral-600">
+```blade
+@section('content')
+<div class="flex flex-col gap-6 p-4">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center">
+        <h2 class="text-2xl font-bold text-white">
+            Daftar Keluhan
+        </h2>
+
+        <span class="text-sm text-white/60">
+            Customer Support
+        </span>
+    </div>
+
+
+    <!-- Complaint Card -->
+    <div class="bg-gray-800 rounded-xl shadow-xl border border-gray-700 overflow-hidden">
+
+        <div class="overflow-x-auto">
+
+            <table class="min-w-full text-left text-sm whitespace-nowrap text-white">
+
+                <thead class="uppercase tracking-wider bg-gray-700/50 border-b border-gray-600">
+
                     <tr>
-                        <th scope="col" class="px-6 py-4">
+                        <th class="px-6 py-4">
                             Pengirim
                         </th>
-                        <th scope="col" class="px-6 py-4">
+
+                        <th class="px-6 py-4">
                             Subjek
                         </th>
-                        <th scope="col" class="px-6 py-4">
+
+                        <th class="px-6 py-4">
                             Keluhan
                         </th>
-                        <th scope="col" class="px-6 py-4">
+
+                        <th class="px-6 py-4">
                             Status
                         </th>
-                        <th scope="col" class="px-6 py-4">
+
+                        <th class="px-6 py-4 text-center">
                             Aksi
                         </th>
                     </tr>
+
                 </thead>
 
+
                 <tbody>
-                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
-                        <th scope="row" class="px-6 py-4">
+
+                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
+
+                        <th class="px-6 py-5 font-medium">
                             John Doe
                         </th>
-                        <td class="px-6 py-4">
+
+                        <td class="px-6 py-5">
                             Pengiriman terlambat
                         </td>
-                        <td class="px-6 py-4">
+
+                        <td class="px-6 py-5 max-w-md whitespace-normal text-white/80">
                             Pesanan saya belum sampai setelah 2 minggu. Mohon segera ditindaklanjuti.
                         </td>
-                        <td class="px-6 py-4">
-                            Belum Ditangani
+
+                        <td class="px-6 py-5">
+                            <span class="px-3 py-1 rounded-full text-xs border border-gray-500">
+                                Belum Ditangani
+                            </span>
                         </td>
-                        <td class="px-6 py-4">
-                            <a href="{{ url('/admin/support/reply') }}" class="text-blue-500 hover:text-blue-700 font-bold">Lihat Detail</a>
+
+                        <td class="px-6 py-5 text-center">
+                            <a href="{{ url('/admin/support/reply') }}"
+                               class="text-blue-500 hover:text-blue-700 font-bold transition">
+                                Lihat Detail
+                            </a>
                         </td>
+
                     </tr>
 
-                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
-                        <th scope="row" class="px-6 py-4">
-                            Jane Smith
+
+                    @foreach([
+                        ['Jane Smith','Produk bermasalah','Produk yang saya terima memiliki cacat. Mohon diganti dengan yang baru.','Sedang Ditangani'],
+                        ['Xiao Li','Pengiriman terlambat','Pesanan saya belum sampai setelah 2 minggu. Mohon segera ditindaklanjuti.','Sudah Ditangani'],
+                        ['Pedro Alvarez','Produk bermasalah','Produk yang saya terima memiliki cacat. Mohon diganti dengan yang baru.','Sudah Ditangani'],
+                        ['Hannah Kim','Akun Bermasalah','Akun saya mengalami masalah saat login. Mohon bantuannya.','Sudah Ditangani']
+                    ] as $data)
+
+                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
+
+                        <th class="px-6 py-5 font-medium">
+                            {{ $data[0] }}
                         </th>
-                        <td class="px-6 py-4">
-                            Produk bermasalah
+
+                        <td class="px-6 py-5">
+                            {{ $data[1] }}
                         </td>
-                        <td class="px-6 py-4">
-                            Produk yang saya terima memiliki cacat. Mohon diganti dengan yang baru.
+
+                        <td class="px-6 py-5 max-w-md whitespace-normal text-white/80">
+                            {{ $data[2] }}
                         </td>
-                        <td class="px-6 py-4">
-                            Sedang Ditangani
+
+                        <td class="px-6 py-5">
+                            <span class="px-3 py-1 rounded-full text-xs border border-gray-500">
+                                {{ $data[3] }}
+                            </span>
                         </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="text-blue-500 hover:text-blue-700 font-bold">Lihat Detail</a>
+
+                        <td class="px-6 py-5 text-center">
+
+                            <a href="#"
+                               class="text-blue-500 hover:text-blue-700 font-bold transition">
+                                Lihat Detail
+                            </a>
+
                         </td>
+
                     </tr>
 
-                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
-                        <th scope="row" class="px-6 py-4">
-                            Xiao Li
-                        </th>
-                        <td class="px-6 py-4">
-                            Pengiriman terlambat
-                        </td>
-                        <td class="px-6 py-4">
-                            Pesanan saya belum sampai setelah 2 minggu. Mohon segera ditindaklanjuti.
-                        </td>
-                        <td class="px-6 py-4">
-                            Sudah Ditangani
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="text-blue-500 hover:text-blue-700 font-bold">Lihat Detail</a>
-                        </td>
-                    </tr>
+                    @endforeach
 
-                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
-                        <th scope="row" class="px-6 py-4">
-                            Pedro Alvarez
-                        </th>
-                        <td class="px-6 py-4">
-                            Produk bermasalah
-                        </td>
-                        <td class="px-6 py-4">
-                            Produk yang saya terima memiliki cacat. Mohon diganti dengan yang baru.
-                        </td>
-                        <td class="px-6 py-4">
-                            Sudah Ditangani
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="text-blue-500 hover:text-blue-700 font-bold">Lihat Detail</a>
-                        </td>
-                    </tr>
 
-                    <tr class="border-b dark:border-neutral-600 hover:bg-neutral-100 dark:hover:bg-neutral-600">
-                        <th scope="row" class="px-6 py-4">
-                            Hannah Kim
-                        </th>
-                        <td class="px-6 py-4">
-                            Akun Bermasalah
-                        </td>
-                        <td class="px-6 py-4">
-                            Akun saya mengalami masalah saat login. Mohon bantuannya.
-                        </td>
-                        <td class="px-6 py-4">
-                            Sudah Ditangani
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" class="text-blue-500 hover:text-blue-700 font-bold">Lihat Detail</a>
-                        </td>
-                    </tr>
                 </tbody>
+
             </table>
+
         </div>
+
     </div>
+
+</div>
 @endsection
+```
+

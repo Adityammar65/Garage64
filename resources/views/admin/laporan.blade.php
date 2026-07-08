@@ -2,162 +2,146 @@
 @section('title', 'Laporan')
 @section('page_title', 'Laporan')
 @section('content')
-    <div class="flex flex-col gap-3 p-2">
+```blade
+@section('content')
+<div class="flex flex-col gap-6 p-4">
 
-        <!-- Sales Report -->
-        <div class="w-full bg-gray-800 p-2 text-center rounded-lg drop-shadow-lg">
-            <h2 class="text-white font-bold text-xl">Laporan Penjualan</h2>
-            <table class="min-w-full text-center text-xs whitespace-nowrap text-white">
-                <thead class="uppercase tracking-wider border-b-2">
-                    <tr class="text-center">
-                        <th scope="col" class="px-6 py-4">
-                            ID-Produk
-                        </th>
-                        <th scope="col" class="px-6 py-4">
-                            Nama Produk
-                        </th>
-                        <th scope="col" class="px-6 py-4">
-                            Harga
-                        </th>
-                        <th scope="col" class="px-6 py-4">
-                            Stok
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="border-b">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                    <tr class="border-b">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                    <tr class="border-b">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                    <tr class="border-b">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                    <tr class="border-b">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class="text-white/60 decoration-none text-sm hover:underline pt-6 pb-2">
-                <a href="#">Unduh Laporan</a>
-            </p>
+    <!-- Sales Report -->
+    <div class="w-full bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700">
+
+        <div class="flex justify-between items-center px-6 py-4 border-b border-gray-700">
+            <h2 class="text-white font-bold text-xl">
+                Laporan Penjualan
+            </h2>
+
+            <span class="text-xs text-white/60">
+                Data Produk Terjual
+            </span>
         </div>
 
-        <!-- Revenue Report -->
-        <div class="w-full bg-gray-800 p-2 text-center rounded-lg drop-shadow-lg">
-            <h2 class="text-white font-bold text-xl">Laporan Keuangan</h2>
-            <table class="min-w-full text-center text-xs whitespace-nowrap text-white">
-                <thead class="uppercase tracking-wider border-b-2">
-                    <tr class="text-center">
-                        <th scope="col" class="px-6 py-4">
-                            ID-Produk
-                        </th>
-                        <th scope="col" class="px-6 py-4">
-                            Nama Produk
-                        </th>
-                        <th scope="col" class="px-6 py-4">
-                            Harga
-                        </th>
-                        <th scope="col" class="px-6 py-4">
-                            Stok
-                        </th>
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-center text-sm text-white">
+
+                <thead class="uppercase tracking-wider bg-gray-700/50">
+                    <tr>
+                        <th class="px-6 py-4">ID Produk</th>
+                        <th class="px-6 py-4">Nama Produk</th>
+                        <th class="px-6 py-4">Harga</th>
+                        <th class="px-6 py-4">Stok</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr class="border-b">
-                        <th scope="row" class="px-6 py-4">
+                    @for($i = 0; $i < 5; $i++)
+                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
+
+                        <th class="px-6 py-4 font-medium">
                             MGT-001
                         </th>
+
                         <td class="px-6 py-4">
                             Porsche 963 #7
                         </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                    <tr class="border-b">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
+
                         <td class="px-6 py-4">
-                            Porsche 963 #7
+                            Rp240.000
                         </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                    <tr class="border-b">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
+
                         <td class="px-6 py-4">
-                            Porsche 963 #7
+                            30
                         </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
+
                     </tr>
-                    <tr class="border-b">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                    <tr class="border-b">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
+                    @endfor
                 </tbody>
+
             </table>
-            <p class="text-white/60 decoration-none text-sm hover:underline pt-6 pb-2">
-                <a href="#">Unduh Laporan</a>
-            </p>
         </div>
+
+        <div class="px-6 py-4 text-right">
+            <a href="#"
+                class="text-white/60 text-sm hover:underline transition">
+                Unduh Laporan →
+            </a>
+        </div>
+
     </div>
+
+
+    <!-- Revenue Report -->
+    <div class="w-full bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700">
+
+        <div class="flex justify-between items-center px-6 py-4 border-b border-gray-700">
+            <h2 class="text-white font-bold text-xl">
+                Laporan Keuangan
+            </h2>
+
+            <span class="text-xs text-white/60">
+                Rekap Pendapatan
+            </span>
+        </div>
+
+
+        <div class="overflow-x-auto">
+
+            <table class="min-w-full text-center text-sm text-white">
+
+                <thead class="uppercase tracking-wider bg-gray-700/50">
+
+                    <tr>
+                        <th class="px-6 py-4">ID Produk</th>
+                        <th class="px-6 py-4">Nama Produk</th>
+                        <th class="px-6 py-4">Harga</th>
+                        <th class="px-6 py-4">Stok</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @for($i = 0; $i < 5; $i++)
+
+                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
+
+                        <th class="px-6 py-4 font-medium">
+                            MGT-001
+                        </th>
+
+                        <td class="px-6 py-4">
+                            Porsche 963 #7
+                        </td>
+
+                        <td class="px-6 py-4">
+                            Rp240.000
+                        </td>
+
+                        <td class="px-6 py-4">
+                            30
+                        </td>
+
+                    </tr>
+
+                    @endfor
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="px-6 py-4 text-right">
+
+            <a href="#"
+                class="text-white/60 text-sm hover:underline transition">
+                Unduh Laporan →
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 @endsection
+```
