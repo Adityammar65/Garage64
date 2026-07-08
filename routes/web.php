@@ -31,8 +31,7 @@ Route::get('/support-center', [ServiceController::class, 'supportCenter']);
 Route::middleware('cek.login')->group(function(){
     Route::get('/orders', [CustomerController::class, 'order_saya']);
     Route::get('/produk', [CustomerController::class, 'produk']);
-    //Route::get('/produk/detail', [ProdukController::class, 'produkDetail']);
-    Route::get('/produk/detail/{id}', [ProdukController::class, 'produkDetail'])->name('produk.detail');
+    Route::get('/produk/detail/{id}', [ProdukController::class, 'produkDetail']);
     Route::get('/keranjang', [KeranjangController::class, 'keranjang']);
     
 });

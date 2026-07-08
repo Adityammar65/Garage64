@@ -27,10 +27,4 @@ class CustomerController extends Controller
         $products = ProdukModel::latest()->get();
         return view('customer.produk', compact('products'));
     }
-    public function detail($id)
-    {
-        $product = ProdukModel::where('id_produk', $id)->firstOrFail();
-    
-        return view('customer.detail', compact('product'));
-    }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ asset('images/logo.png') }}">
+    <link rel="icon" href="{{ asset('assets/images/logo.png') }}">
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -75,7 +75,7 @@
 
                 <!-- Logo -->
                 <a href="#" class="flex items-center gap-2">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-30 w-auto pt-4">
+                    <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="h-30 w-auto pt-4">
                 </a>
 
                 <!-- Desktop Menu -->
@@ -154,7 +154,7 @@
 
                 <!-- About Section -->
                 <div>
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-auto w-50 ml-10">
+                    <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="h-auto w-50 ml-10">
                     <p class="text-sm mb-4">
                         Destinasi bagi para pecinta diecast dan kolektor otomotif untuk menemukan berbagai model
                         premium, original, dan berkualitas.
