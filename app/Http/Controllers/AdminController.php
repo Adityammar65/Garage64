@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\ProdukModel;
 use App\Models\KategoriModel;
 
@@ -13,6 +14,7 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
+    // PRODUK
     public function produk(Request $request)
     {
         $query = ProdukModel::with('kategori');
@@ -33,6 +35,8 @@ class AdminController extends Controller
         return view('admin.produk_admin', compact('products'));
     }
 
+    // CRUD PRODUK
+    // TAMBAH PRODUK
     public function tambahProduk()
     {
         $categories = KategoriModel::orderBy('nama_kategori')->get();
@@ -42,6 +46,7 @@ class AdminController extends Controller
         return view('form.tambah_produk', compact('categories'));
     }
 
+    // SAVE PRODUK
     public function saveProduk(Request $request)
     {
         $request->validate([
@@ -57,7 +62,6 @@ class AdminController extends Controller
             'is_active' => 'required|boolean',
         ]);
 
-        // Upload gambar
         $gambar = null;
 
         if ($request->hasFile('gambar')) {
@@ -98,8 +102,15 @@ class AdminController extends Controller
         return view('admin.laporan');
     }
 
+    // PENGATURAN
     public function pengaturan()
     {
-        return view('admin.pengaturan');
+        $store = [];
+
+        if (Storage::exists('store.json')) {
+            $store = json_decode(Storage::get('store.json'), true);
+        }
+
+        return view('admin.pengaturan', compact('store'));
     }
 }

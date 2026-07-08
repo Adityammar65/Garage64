@@ -12,26 +12,18 @@
 
 <body class="bg-gray-50
         flex flex-col min-h-screen">
-        
+
     <!-- ERROR ALERT -->
     @if (session('error') || $errors->any())
-        <div x-data="{ show: true }"
-            x-show="show"
-            x-transition
-            x-init="setTimeout(() => show = false, 4000)"
+        <div x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 4000)"
             class="fixed top-5 right-5 z-60 max-w-sm">
 
             <div class="rounded-lg bg-red-600 text-white shadow-lg p-4 flex items-start gap-3">
 
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 flex-shrink-0 mt-0.5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 9v2m0 4h.01M10.29 3.86l-7.5 13A1 1 0 003.67 18h16.66a1 1 0 00.87-1.5l-7.5-13a1 1 0 00-1.74 0z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 flex-shrink-0 mt-0.5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01M10.29 3.86l-7.5 13A1 1 0 003.67 18h16.66a1 1 0 00.87-1.5l-7.5-13a1 1 0 00-1.74 0z" />
                 </svg>
 
                 <div class="flex-1">
@@ -48,8 +40,7 @@
                     </ul>
                 </div>
 
-                <button @click="show = false"
-                        class="text-white hover:text-gray-200">
+                <button @click="show = false" class="text-white hover:text-gray-200">
                     ✕
                 </button>
 
@@ -58,11 +49,8 @@
     @endif
 
     <!-- SUCCESS ALERT -->
-    @if(session('success'))
-        <div x-data="{ show: true }"
-            x-show="show"
-            x-transition
-            x-init="setTimeout(() => show = false, 3000)"
+    @if (session('success'))
+        <div x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 3000)"
             class="fixed top-5 right-5 z-60 max-w-sm">
 
             <div class="rounded-lg bg-green-600 text-white shadow-lg p-4 flex items-center justify-between">
@@ -72,8 +60,7 @@
                     <p class="text-sm">{{ session('success') }}</p>
                 </div>
 
-                <button @click="show = false"
-                        class="ml-4">
+                <button @click="show = false" class="ml-4">
                     ✕
                 </button>
 
@@ -93,9 +80,12 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="{{ url('/') }}" class="hover:text-red-500 transition text-sm font-semibold italic">Home</a>
-                    <a href="{{ url ('/produk')}}" class="hover:text-red-500 transition text-sm font-semibold italic">Products</a>
-                    <a href="{{ url('/support-center') }}" class="hover:text-red-500 transition text-sm font-semibold italic">Contact</a>
+                    <a href="{{ url('/') }}"
+                        class="hover:text-red-500 transition text-sm font-semibold italic">Home</a>
+                    <a href="{{ url('/produk') }}"
+                        class="hover:text-red-500 transition text-sm font-semibold italic">Products</a>
+                    <a href="{{ url('/support-center') }}"
+                        class="hover:text-red-500 transition text-sm font-semibold italic">Contact</a>
                     <a href="{{ url('/login') }}"
                         class="hover:text-red-500 transition text-sm font-semibold italic">Join Our Community
                     </a>
@@ -127,7 +117,7 @@
                 </form>
 
                 <!-- Cart Button -->
-                <a href="{{( url('/keranjang')) }}"
+                <a href="{{ url('/keranjang') }}"
                     class="relative flex items-center px-3 py-2 bg-red-500 hover:bg-red-600 transition rounded">
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -220,7 +210,8 @@
                         <li><a href="#" class="hover:text-red-500 transition">About Us</a></li>
                         <li><a href="{{ url('/support-center') }}" class="hover:text-red-500 transition">Contact</a>
                         </li>
-                        <li><a href="{{ url('/support-center') }}" class="hover:text-red-500 transition">FAQs</a></li>
+                        <li><a href="{{ url('/support-center') }}" class="hover:text-red-500 transition">FAQs</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -244,21 +235,31 @@
                 <!-- Contact Info -->
                 <div>
                     <h4 class="text-white font-bold mb-4">Informasi dan Kontak</h4>
+
                     <div class="space-y-3 text-sm">
+
                         <p>
-                            Jl. Lorem No.123, Yogyakarta, Indonesia
+                            {{ $store['alamat_toko'] ?? '-' }}
                         </p>
+
                         <p>
-                            +62 812-3456-7890
+                            {{ $store['no_telp_toko'] ?? '-' }}
                         </p>
+
                         <p>
-                            <a href="#" class="hover:text-red-500 transition">support@garage64.com</a>
+                            <a href="mailto:{{ $store['email_toko'] ?? '' }}" class="hover:text-red-500 transition">
+                                {{ $store['email_toko'] ?? '-' }}
+                            </a>
                         </p>
+
                         <p>
                             Jam Operasional:<br>
-                            Senin-Jumat: 9.00-18.00 WIB<br>
-                            Sabtu-Minggu: 10.00-16.00 WIB
+                            {{ $store['jam_buka'] ?? '--:--' }}
+                            -
+                            {{ $store['jam_tutup'] ?? '--:--' }}
+                            WIB
                         </p>
+
                     </div>
                 </div>
             </div>

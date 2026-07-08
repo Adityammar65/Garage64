@@ -178,4 +178,47 @@ class AuthController extends Controller
         return redirect(session()->pull('redirect_after_reset'))
             ->with('success', 'Password berhasil diubah.');
     }
+
+    // RESET PASSWORD ADMIN
+    public function resetPasswordAdmin(Request $request)
+    {
+        $request->validate([
+            'password_old'     => 'required',
+            'password_new'     => 'required|min:8',
+            'password_confirm' => 'required|same:password_new',
+        ], [
+            'password_old.required' => 'Password lama harus diisi.',
+
+            'password_new.required' => 'Password baru harus diisi.',
+            'password_new.min' => 'Password baru minimal 8 karakter.',
+
+            'password_confirm.required' => 'Konfirmasi password harus diisi.',
+            'password_confirm.same' => 'Konfirmasi password tidak sama.',
+        ]);
+
+        $admin = UserModel::find(session('id_user'));
+
+        if (!$admin) {
+            return back()->withErrors([
+                'password_old' => 'Data admin tidak ditemukan.',
+            ]);
+        }
+
+        if (!Hash::check($request->password_old, $admin->password)) {
+            return back()->withErrors([
+                'password_old' => 'Password lama salah.',
+            ]);
+        }
+
+        if (Hash::check($request->password_new, $admin->password)) {
+            return back()->withErrors([
+                'password_new' => 'Password baru tidak boleh sama dengan password lama.',
+            ]);
+        }
+
+        $admin->password = Hash::make($request->password_new);
+        $admin->save();
+
+        return back()->with('success', 'Password admin berhasil diperbarui.');
+    }
 }

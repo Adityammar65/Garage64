@@ -18,9 +18,39 @@ class FormController extends Controller
         return view('form.edit_produk');
     }
 
+    // EDIT INFO TOKO
     public function editInfoToko()
     {
         return view('form.edit_info_toko');
+    }
+
+    // SAVE INFO TOKO
+    public function saveInfoToko(Request $request)
+    {
+        $request->validate([
+            'nama_toko' => 'required|max:100',
+            'alamat_toko' => 'required',
+            'no_telp_toko' => 'required|max:20',
+            'email_toko' => 'required|email',
+            'jam_buka' => 'required',
+            'jam_tutup' => 'required',
+        ]);
+
+        $data = [
+            'nama_toko' => $request->nama_toko,
+            'alamat_toko' => $request->alamat_toko,
+            'no_telp_toko' => $request->no_telp_toko,
+            'email_toko' => $request->email_toko,
+            'jam_buka' => $request->jam_buka,
+            'jam_tutup' => $request->jam_tutup,
+        ];
+
+        Storage::put(
+            'store.json',
+            json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
+        );
+
+        return back()->with('success', 'Informasi toko berhasil diperbarui.');
     }
 
     public function supportReply()

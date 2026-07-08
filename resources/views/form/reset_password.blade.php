@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex min-h-full flex-col justify-center px-6 my-auto">
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form action="{{ url('/save-new-password') }}" method="POST" class="space-y-6">
+            <form action="{{ url('/save-password') }}" method="POST" class="space-y-6">
                 @csrf
                 
                 @if (!session('login'))

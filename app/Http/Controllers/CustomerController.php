@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\ProdukModel;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        return view('customer.landing', ['items' => '$items']);
+        if (Storage::exists('store.json')) {
+            $store = json_decode(Storage::get('store.json'), true);
+        }
+
+        return view('customer.landing', ['items' => '$items'], compact('store'));
     }
 
     public function order_saya()

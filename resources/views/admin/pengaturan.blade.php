@@ -6,21 +6,14 @@
         <div class="flex justify-center">
             <div class="w-1/2">
                 <h2 class="text-2xl font-bold text-white mb-6">Pengaturan Data Admin</h2>
-                <form action="#" method="POST" class="space-y-6">
+                <form action="{{ url('/admin/pengaturan/save-password') }}" method="POST" class="space-y-6">
                     @csrf
-                    <div>
-                        <label for="email" class="block text-sm/6 font-medium text-gray-100">Username Admin</label>
-                        <div class="mt-2">
-                            <input id="email" type="username" name="email" required autocomplete="email"
-                                class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-red-500 sm:text-sm/6" />
-                        </div>
-                    </div>
-
                     <div x-data="{ showPassword: false }">
                         <div class="flex items-center justify-between">
                             <label for="password" class="block text-sm/6 font-medium text-gray-100">Password Admin</label>
                             <div class="text-sm">
-                                <a href="{{ url('/admin/pengaturan/reset-password') }}" class="font-semibold text-red-400 hover:text-red-300">
+                                <a href="{{ url('/admin/pengaturan/reset-password') }}"
+                                    class="font-semibold text-red-400 hover:text-red-300">
                                     Lupa password?
                                 </a>
                             </div>
@@ -115,11 +108,12 @@
 
                     <div x-data="{ showPassword: false }">
                         <div class="flex items-center justify-between">
-                            <label for="password" class="block text-sm/6 font-medium text-gray-100">Verifikasi Password Baru</label>
+                            <label for="password" class="block text-sm/6 font-medium text-gray-100">Verifikasi Password
+                                Baru</label>
                         </div>
                         <div class="mt-2 relative">
-                            <input id="password" :type="showPassword ? 'text' : 'password'" name="password_confirm" required
-                                autocomplete="current-password"
+                            <input id="password" :type="showPassword ? 'text' : 'password'" name="password_confirm"
+                                required autocomplete="current-password"
                                 class="block w-full rounded-md bg-white/5 px-3 py-1.5 pr-10 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-red-500 sm:text-sm/6" />
                             <button type="button" @click="showPassword = !showPassword"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200 transition-colors">
@@ -169,30 +163,46 @@
             </div>
         </div>
         <div class="flex flex-col gap-1 text-white m-8">
-            <h2 class="text-2xl font-bold mb-6 text-center">Informasi Toko</h2>
+            <h2 class="text-2xl font-bold mb-6 text-center">
+                Informasi Toko
+            </h2>
+
             <div class="flex flex-col gap-2 ml-2 text-center">
+
                 <p>
-                    Garage64 Store
+                    {{ $store['nama_toko'] ?? '-' }}
                 </p>
+
                 <p>
-                    Jl. Lorem No.123, Yogyakarta, Indonesia
+                    {{ $store['alamat_toko'] ?? '-' }}
                 </p>
+
                 <p>
-                    Nomor Telepon: +62 812-3456-7890
+                    Nomor Telepon:
+                    {{ $store['no_telp_toko'] ?? '-' }}
                 </p>
+
                 <p>
-                    Email: support@garage64.com
+                    Email:
+                    {{ $store['email_toko'] ?? '-' }}
                 </p>
+
                 <p>
                     Jam Operasional:<br>
-                    Senin-Jumat: 9.00-18.00 WIB<br>
-                    Sabtu-Minggu: 10.00-16.00 WIB
+
+                    {{ $store['jam_buka'] ?? '--:--' }}
+                    -
+                    {{ $store['jam_tutup'] ?? '--:--' }}
+                    WIB
                 </p>
+
                 <p>
-                    <a href="{{ url('/admin/pengaturan/edit-info-toko') }}" class="font-bold text-sm text-red-400 hover:text-red-300">
+                    <a href="{{ url('/admin/pengaturan/edit-info-toko') }}"
+                        class="font-bold text-sm text-red-400 hover:text-red-300">
                         Perbarui Informasi Toko
                     </a>
                 </p>
+
             </div>
         </div>
         <div class="flex justify-center">
