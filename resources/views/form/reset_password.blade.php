@@ -5,7 +5,7 @@
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form action="{{ url('/save-password') }}" method="POST" class="space-y-6">
                 @csrf
-                
+
                 @if (!session('login'))
                     <div>
                         <label for="email" class="block text-sm/6 font-medium text-gray-100">
@@ -13,12 +13,7 @@
                         </label>
 
                         <div class="mt-2">
-                            <input
-                                id="email"
-                                type="email"
-                                name="email"
-                                value="{{ old('email') }}"
-                                required
+                            <input id="email" type="email" name="email" value="{{ old('email') }}" required
                                 class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-red-500 sm:text-sm/6">
                         </div>
                     </div>
@@ -101,11 +96,13 @@
                                     <g id="SVGRepo_iconCarrier">
                                         <path
                                             d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z"
-                                            stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
                                         </path>
                                         <path
                                             d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z"
-                                            stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
                                         </path>
                                     </g>
                                 </svg></span>
@@ -118,7 +115,8 @@
                         class="flex w-full justify-center rounded-md bg-green-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-green-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500">
                         Reset Password
                     </button>
-                    <a href="{{ url()->previous() }}" class="flex w-full justify-center mt-2 rounded-md bg-red-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+                    <a href="{{ url()->previous() }}"
+                        class="flex w-full justify-center mt-2 rounded-md bg-red-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
                         Batal
                     </a>
                 </div>

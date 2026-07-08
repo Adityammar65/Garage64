@@ -22,7 +22,7 @@
     <!-- Hero Section -->
     <section>
         <div class="flex justify-center overflow-hidden"
-            style="background-image: url('{{ asset('images/banner_hero.png') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+            style="background-image: url('{{ asset('assets/images/banner_hero.png') }}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
 
             <!-- Content -->
             <div
@@ -168,7 +168,7 @@
 
             <!-- Category Card 1 -->
             <a href="#" class="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-64"
-                style="background-image: url('{{ asset('images/preview_sport.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                style="background-image: url('{{ asset('assets/images/preview_sport.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                 <div class="relative h-full flex flex-col justify-end p-6 bg-black/30 group-hover:bg-black/15 transition">
                     <h3 class="text-2xl font-archivo text-white mb-2">
                         <i class="fas fa-car mr-2"></i>
@@ -180,7 +180,7 @@
 
             <!-- Category Card 2 -->
             <a href="#" class="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-64"
-                style="background-image: url('{{ asset('images/preview_vintage.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                style="background-image: url('{{ asset('assets/images/preview_vintage.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                 <div class="relative h-full flex flex-col justify-end p-6 bg-black/30 group-hover:bg-black/15 transition">
                     <h3 class="text-2xl font-archivo text-white mb-2">
                         <i class="fas fa-history mr-2"></i>
@@ -192,7 +192,7 @@
 
             <!-- Category Card 3 -->
             <a href="#" class="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition h-64"
-                style="background-image: url('{{ asset('images/preview_trucks.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                style="background-image: url('{{ asset('assets/images/preview_trucks.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                 <div class="relative h-full flex flex-col justify-end p-6 bg-black/30 group-hover:bg-black/15 transition">
                     <h3 class="text-2xl font-archivo text-white mb-2">
                         <i class="fas fa-truck mr-2"></i>
@@ -256,46 +256,46 @@
                                 'title' => 'Porsche 963 #7',
                                 'description' =>
                                     'Porsche 963 #7 Porsche Penske Motorsport 2025 IMSA Daytona 24 Hrs Winner',
-                                'image' => asset('products/showcases/MGT-Penske.png'),
+                                'image' => asset('assets/products/showcases/MGT-Penske.png'),
                             ],
                             [
                                 'title' => 'Land Rover Defender 110',
                                 'description' =>
                                     '1/64 Land Rover Defender 110 Brown Metallic - MIJO Special Edition - Tarmac Works GLOBAL64',
-                                'image' => asset('products/showcases/Tarmac-LandRover.png'),
+                                'image' => asset('assets/products/showcases/Tarmac-LandRover.png'),
                             ],
                             [
                                 'title' => 'Toyota Tundra Black',
                                 'description' => 'Colourful Model 1/64 Toyota Tundra Black',
-                                'image' => asset('products/showcases/cm-toyota.png'),
+                                'image' => asset('assets/products/showcases/cm-toyota.png'),
                             ],
                             [
                                 'title' => 'Porsche 911 GT3 R (992) #77',
                                 'description' =>
                                     'Porsche 911 GT3 R (992) #77 AO Racing 2025 IMSA Sebring 12 Hrs Class Winner',
-                                'image' => asset('products/showcases/MGT-Rexy.png'),
+                                'image' => asset('assets/products/showcases/MGT-Rexy.png'),
                             ],
                             [
                                 'title' => 'Nissan SILVIA (S15)',
                                 'description' => 'Nissan SILVIA (S15) LB-Super Silhouette AMOCULTURE',
-                                'image' => asset('products/showcases/MGT-LB-S15.png'),
+                                'image' => asset('assets/products/showcases/MGT-LB-S15.png'),
                             ],
                             [
                                 'title' => 'Nissan Fairlady Z S30',
                                 'description' =>
                                     '1/64 Nissan Fairlady Z S30 Widebody Blue - Designed by Jon Sibal - Tarmac Works GLOBAL64',
-                                'image' => asset('products/showcases/Tarmac-Fairlady.png'),
+                                'image' => asset('assets/products/showcases/Tarmac-Fairlady.png'),
                             ],
                             [
                                 'title' => 'Mercedes-AMG F1',
                                 'description' =>
                                     '1/64 Mercedes-AMG F1 W14 E Performance Italian Grand Prix 2023 #63 George Russell - Tarmac Works GLOBAL64',
-                                'image' => asset('products/showcases/Tarmac-F1.png'),
+                                'image' => asset('assets/products/showcases/Tarmac-F1.png'),
                             ],
                             [
                                 'title' => 'MAZDA 787B No.18',
                                 'description' => 'MAZDA 787B No.18 59th 24 Hours Le Mans 1991',
-                                'image' => asset('products/showcases/inno64-787b.png'),
+                                'image' => asset('assets/products/showcases/inno64-787b.png'),
                             ],
                         ];
                     @endphp
@@ -351,7 +351,7 @@
 
     <!-- Call to Action Section -->
     <section class="shadow-lg overflow-hidden"
-        style="background-image: url('{{ asset('images/banner_community.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        style="background-image: url('{{ asset('assets/images/banner_community.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
         <div class="relative px-6 py-16 bg-black/60">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
