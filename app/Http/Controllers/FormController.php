@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ProdukModel;
+use App\Models\KategoriModel;
 
 class FormController extends Controller
 {
@@ -13,9 +15,14 @@ class FormController extends Controller
         return view('form.tambah_produk');
     }
 
-    public function editProduk()
+    public function editProduk($id)
     {
-        return view('form.edit_produk');
+        session()->put('redirect_after_edit', url()->previous());
+
+        $produk = ProdukModel::findOrFail($id);
+        $kategori = KategoriModel::orderBy('nama_kategori')->get();
+
+        return view('form.edit_produk', compact('produk', 'kategori'));
     }
 
     // EDIT INFO TOKO

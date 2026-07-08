@@ -70,9 +70,9 @@
 
                                 <option value="">Pilih Kategori</option>
 
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id_kategori }}">
-                                        {{ $category->nama_kategori }}
+                                @foreach ($kategori as $ktg)
+                                    <option value="{{ $ktg->id_kategori }}">
+                                        {{ $ktg->nama_kategori }}
                                     </option>
                                 @endforeach
 

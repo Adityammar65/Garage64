@@ -235,29 +235,29 @@
                 </h1>
 
                 <div class="flex flex-wrap justify-around w-full">
-                    @forelse ($products as $product)
+                    @forelse ($produk as $prd)
                         <div class="max-w-sm w-80 h-[480px] rounded shadow-lg mx-2 my-4 bg-white flex flex-col">
 
-                            <img class="w-full h-56 object-cover" src="{{ asset('storage/' . $product->gambar) }}"
-                                alt="{{ $product->nama_produk }}">
+                            <img class="w-full h-56 object-cover" src="{{ asset('storage/' . $prd->gambar) }}"
+                                alt="{{ $prd->nama_produk }}">
 
                             <div class="px-6 py-4 flex-1 flex flex-col">
                                 <div>
                                     <div class="font-bold text-xl mb-2">
-                                        {{ $product->nama_produk }}
+                                        {{ $prd->nama_produk }}
                                     </div>
 
                                     <p class="text-gray-700 text-base h-16 overflow-hidden">
-                                        {{ Str::limit($product->deskripsi, 120) }}
+                                        {{ Str::limit($prd->deskripsi, 120) }}
                                     </p>
 
                                     <p class="text-gray-700 text-base mt-2 font-semibold">
-                                        Rp {{ number_format($product->harga, 0, ',', '.') }}
+                                        Rp {{ number_format($prd->harga, 0, ',', '.') }}
                                     </p>
                                 </div>
 
                                 <div class="mt-auto pt-4 flex justify-evenly">
-                                    <a href="{{ route('produk.detail', $product->id_produk) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
+                                    <a href="{{ route('produk.detail', $prd->id_produk) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -270,7 +270,7 @@
                                             Lihat lebih detail
                                         </span>
                                     </a>
-                                    <a href="{{ route('produk.detail', $product->id_produk) }}" class="group tooltip-parent bg-blue-600 py-2 px-10 rounded text-white font-semibold"
+                                    <a href="{{ route('produk.detail', $prd->id_produk) }}" class="group tooltip-parent bg-blue-600 py-2 px-10 rounded text-white font-semibold"
                                         class="group tooltip-parent bg-blue-600 py-2 px-10 rounded text-white font-semibold">
 
                                         <!-- SVG tetap -->

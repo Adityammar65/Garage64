@@ -8,7 +8,7 @@
             <!-- Best Seller Product -->
             <div
                 class="w-1/2 flex items-center justify-center py-2 bg-gray-800 rounded-lg drop-shadow-lg hover:bg-gray-700 transition duration-150">
-                <img src="{{ asset('products/showcases/MGT-Penske.png') }}" alt="Produk Terlaris" class="w-1/2 rounded">
+                <img src="{{ asset('assets/products/showcases/MGT-Penske.png') }}" alt="Produk Terlaris" class="w-1/2 rounded">
                 <div class="flex flex-col">
                     <h2 class="text-2xl font-bold ml-4 text-white">Produk Terlaris:</h2>
                     <h2 class="text-2xl font-bold ml-4 text-white">MiniGT Porsche 963 #7</h2>
