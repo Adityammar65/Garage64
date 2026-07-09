@@ -105,7 +105,7 @@
                                     </p>
                                 </div>
                                 <div class="mt-auto pt-4 flex justify-evenly">
-                                    <a href="{{ route('produk.detail', $item['id_produk']) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
+                                    <a href="{{ url('produk/detail'. $item['id_produk']) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -175,7 +175,7 @@
                                     </p>
                                 </div>
                                 <div class="mt-auto pt-4 flex justify-evenly">
-                                    <a href="{{ route('produk.detail', $item['id_produk']) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
+                                    <a href="{{ url('/produk/detail/'. $item['id_produk']) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -230,6 +230,8 @@
                         </div>
                     @endforeach
                 </div>
+
+                <!-- LIST PRODUK -->
                 <h1 class="text-2xl text-black font-archivo italic p-4">
                     Produk terbaru
                 </h1>
@@ -257,7 +259,7 @@
                                 </div>
 
                                 <div class="mt-auto pt-4 flex justify-evenly">
-                                    <a href="{{ url('/produk/detail'. $prd->id_produk) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
+                                    <a href="{{ url('/produk/detail/'. $prd->id_produk) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
