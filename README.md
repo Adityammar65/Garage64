@@ -50,7 +50,6 @@ Garage64 adalah aplikasi **e-commerce diecast** berbasis **Laravel** yang diranc
 ## 1. Clone Repository
 
 Jika menggunakan xampp:
-Windows:
 
 ```bash
 cd xampp/htdocs
@@ -145,7 +144,16 @@ php artisan storage:link
 
 ---
 
-## 9. Build Asset
+## 9. Copy/Move Konfigurasi Data Toko (Pilih Salah 1)
+
+```bash
+cp /public/assets/blueprints/store.json /storage/app/private/store.json
+mv /public/assets/blueprints/store.json /storage/app/private/store.json
+```
+
+---
+
+## 10. Build Asset
 
 ```bash
 npm run dev
@@ -153,7 +161,7 @@ npm run dev
 
 ---
 
-## 10. Jalankan Server
+## 11. Jalankan Server
 
 Jika menggunakan xampp akses melalui:
 

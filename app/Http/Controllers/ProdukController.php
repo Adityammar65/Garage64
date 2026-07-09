@@ -12,9 +12,9 @@ class ProdukController extends Controller
     // CUSTOMER SIDE
     public function produkDetail($id)
     {
-        $product = ProdukModel::where('id_produk', $id)->firstOrFail();
+        $produk = ProdukModel::with('kategori')->where('id_produk', $id)->firstOrFail();
     
-        return view('customer.produk-detail', compact('product'));
+        return view('customer.produk-detail', compact('produk'));
     }
 
     // ADMIN SIDE
