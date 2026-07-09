@@ -74,8 +74,16 @@ npm install
 
 ## 4. Salin File Environment
 
+Jika menggunakan windows:
+
 ```bash
 copy .env.example .env
+```
+
+Jika menggunakan linux:
+
+```bash
+cp .env.example .env
 ```
 
 ---
@@ -137,8 +145,6 @@ php artisan storage:link
 
 ## 9. Build Asset
 
-Development
-
 ```bash
 npm run dev
 ```
@@ -161,7 +167,7 @@ http://127.0.0.1:8000
 
 # Langkah Tambahan Bagi Perangkat Linux:
 
-## 1. Setelah Clone Repository Atur Permission
+## Setelah Clone Repository Atur Permission dan Ownership
 
 Jika menggunakan xampp:
 
@@ -221,7 +227,18 @@ Kemudian login menggunakan akun yang tersedia pada seeder.
 # Catatan
 
 * Pastikan ekstensi PHP yang dibutuhkan Laravel telah aktif.
-* Jalankan `php artisan storage:link` agar gambar dapat ditampilkan.
+* Jalankan `php artisan storage:link` agar asset dapat ditampilkan.
 * Jalankan `npm run dev` selama proses development.
 * Pastikan konfigurasi database pada file `.env` sudah benar sebelum menjalankan migration.
-* SweetAlert2 digunakan sebagai notifikasi dan dialog konfirmasi pada aplikasi.
+
+---
+
+# Contributor:
+
+## Aditya Ammar Al Haqqi
+
+https://github.com/Adityammar65
+
+## Luthfi Fajar Prasetyo
+
+https://github.com/luthfifajar122
