@@ -77,31 +77,86 @@
                 <a href="#" class="flex items-center gap-2">
                     <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="h-30 w-auto pt-4">
                 </a>
-
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="{{ url('/') }}"
-                        class="hover:text-red-500 transition text-sm font-semibold italic">Home</a>
-                    <a href="{{ url('/produk') }}"
-                        class="hover:text-red-500 transition text-sm font-semibold italic">Products</a>
-                    <a href="{{ url('/support-center') }}"
-                        class="hover:text-red-500 transition text-sm font-semibold italic">Contact</a>
-                    <a href="{{ url('/profile') }}"
-                        class="w-10 h-10 rounded-full bg-gray-700 hover:bg-red-600 transition flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            width="22"
-                            height="22"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="white"
-                            stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M5.121 17.804A9 9 0 1118.88 17.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
+                    <div class="hidden md:flex items-center gap-6">
+                        <a href="{{ url('/') }}"
+                            class="hover:text-red-500 transition text-sm font-semibold italic">
+                            Home
+                        </a>
+
+                        <a href="{{ url('/produk') }}"
+                            class="hover:text-red-500 transition text-sm font-semibold italic">
+                            Products
+                        </a>
+
+                        <a href="{{ url('/support-center') }}"
+                            class="hover:text-red-500 transition text-sm font-semibold italic">
+                            Contact
+                        </a>
+
+                        @if(!session('login'))
+                            <!-- Login -->
+                            <a href="{{ url('/login') }}"
+                                class="px-4 py-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition text-sm font-semibold rounded-lg">
+                                Login
+                            </a>
+
+                            <!-- Register -->
+                            <a href="{{ url('/register') }}"
+                                class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm font-semibold">
+                                Register
+                            </a>
+                        @else
+                            <!-- Dropdown User -->
+                            <div class="relative group">
+                                <button
+                                    class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-700 transition">
+                                    <div
+                                        class="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center font-bold uppercase">
+                                        {{ strtoupper(substr(session('username'), 0, 1)) }}
+                                    </div>
+
+                                    <span class="text-sm font-semibold">
+                                        {{ session('username') }}
+                                    </span>
+
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="w-4 h-4"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+
+                                <!-- Dropdown -->
+                                <div
+                                    class="absolute right-0 mt-2 w-52 bg-white rounded-lg shadow-xl py-2 hidden group-hover:block">
+
+                                    <a href="{{ url('/profile') }}"
+                                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                        👤 Profile
+                                    </a>
+
+                                    <a href="{{ url('/riwayat-transaksi') }}"
+                                        class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                        📦 Riwayat Transaksi
+                                    </a>
+
+                                    <hr>
+
+                                    <a href="{{ url('/logout') }}"
+                                        class="block px-4 py-2 text-red-600 hover:bg-red-50">
+                                        🚪 Logout
+                                    </a>
+
+                                </div>
+                            </div>
+                        @endif
+                    </div>
     </nav>
 
     <!-- Search Bar -->
