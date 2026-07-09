@@ -24,6 +24,8 @@ return new class extends Migration
                 'customer'
             ])->default('customer');
 
+            $table->string('foto_profil')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

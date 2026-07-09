@@ -16,6 +16,7 @@ class UserModel extends Model
         'email_verified_at',
         'password',
         'role',
+        'foto_profil',
     ];
 
     protected $hidden = [
