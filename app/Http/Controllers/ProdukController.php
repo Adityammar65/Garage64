@@ -103,4 +103,20 @@ class ProdukController extends Controller
         return redirect(session()->pull('redirect_after_edit'))
             ->with('success', 'Produk berhasil diperbarui.');
     }
+
+    // DELETE PRODUK
+    public function deleteProduk($id)
+    {
+        $produk = ProdukModel::findOrFail($id);
+
+        if ($produk->gambar && Storage::disk('public')->exists('produk/' . $produk->gambar)) {
+            Storage::disk('public')->delete('produk/' . $produk->gambar);
+        }
+
+        $produk->delete();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Produk berhasil dihapus.');
+    }
 }

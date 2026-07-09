@@ -49,6 +49,7 @@ Route::middleware('cek.admin')->group(function(){
     Route::post('/admin/produk/save', [ProdukController::class, 'saveProduk']);
     Route::get('/admin/produk/edit/{id}', [FormController::class, 'editProduk']);
     Route::put('/admin/produk/update/{id}', [ProdukController::class, 'updateProduk']);
+    Route::delete('/admin/produk/delete/{id}', [ProdukController::class, 'deleteProduk']);
 
     Route::get('/admin/pesanan', [AdminController::class, 'pesanan']);
     Route::get('/admin/support', [AdminController::class, 'support']);
