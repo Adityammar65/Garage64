@@ -49,6 +49,19 @@ Garage64 adalah aplikasi **e-commerce diecast** berbasis **Laravel** yang diranc
 
 ## 1. Clone Repository
 
+Jika menggunakan xampp:
+Windows:
+
+```bash
+cd xampp/htdocs
+```
+
+Linux:
+
+```bash
+cd /opt/lampp/htdocs
+```
+
 ```bash
 git clone https://github.com/Adityammar65/Garage64.git
 cd Garage64
@@ -109,23 +122,12 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Sesuaikan dengan konfigurasi database yang digunakan.
+Jika belum ada database di phpmyadmin silahkan membuat database baru,
+jika sudah ada sesuaikan dengan konfigurasi database yang digunakan.
 
 ---
 
 ## 7. Jalankan Migration
-
-```bash
-php artisan migrate
-```
-
-Jika tersedia seeder:
-
-```bash
-php artisan db:seed
-```
-
-atau
 
 ```bash
 php artisan migrate --seed
@@ -135,7 +137,7 @@ php artisan migrate --seed
 
 ## 8. Membuat Symbolic Link Storage
 
-Digunakan agar gambar produk dan foto profil dapat diakses dari browser.
+Digunakan agar asset dapat dimuat oleh browser.
 
 ```bash
 php artisan storage:link
@@ -152,6 +154,14 @@ npm run dev
 ---
 
 ## 10. Jalankan Server
+
+Jika menggunakan xampp akses melalui:
+
+```
+localhost/Garage64
+```
+
+Atau jika menggunakan artisan:
 
 ```bash
 php artisan serve
