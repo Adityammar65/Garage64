@@ -37,9 +37,9 @@
         </div>
 
         <!-- Product List -->
-        <div class="overflow-x-auto text-white">
-            <table class="min-w-full text-center text-sm whitespace-nowrap">
-                <thead class="uppercase tracking-wider border-b-2">
+        <div class="overflow-x-auto bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700">
+            <table class="min-w-full text-center text-sm text-white">
+                <thead class="uppercase tracking-wider bg-gray-700/50">
                     <tr class="text-center">
                         <th class="px-6 py-4">Kode Produk</th>
                         <th class="px-6 py-4">Nama Produk</th>
@@ -55,7 +55,7 @@
 
                 <tbody>
                     @forelse ($produk as $prd)
-                        <tr class="border-b hover:bg-gray-700 text-center">
+                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
 
                             <td class="px-6 py-4">
                                 {{ $prd->kode_produk }}
@@ -117,6 +117,7 @@
                                     </a>
 
                                     <form action="{{ url('/admin/produk/delete/' . $prd->id_produk) }}" method="POST"
+                                        onclick="return confirm('Hapus produk ini?');"
                                         class="form-delete">
 
                                         @csrf
@@ -165,75 +166,4 @@
             </table>
         </div>
     </div>
-
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: '{{ session('success') }}',
-
-                background: '#111827',
-                color: '#F3F4F6',
-
-                confirmButtonColor: '#DC2626',
-
-                timer: 1800,
-                timerProgressBar: true,
-                showConfirmButton: false
-            });
-        </script>
-    @endif
-
-    <script>
-        document.querySelectorAll('.form-delete').forEach(form => {
-
-            form.addEventListener('submit', function(e) {
-
-                e.preventDefault();
-
-                Swal.fire({
-                    title: 'Hapus Produk?',
-                    html: `
-                <p class="text-gray-300">
-                    Produk beserta <b class="text-red-400">gambar</b> akan dihapus secara permanen.
-                </p>
-                <p class="mt-2 text-sm text-red-500">
-                    Tindakan ini tidak dapat dibatalkan!
-                </p>
-            `,
-                    icon: 'warning',
-
-                    background: '#111827',
-                    color: '#F3F4F6',
-
-                    showCancelButton: true,
-
-                    confirmButtonText: 'Ya, Hapus',
-                    cancelButtonText: 'Batal',
-
-                    confirmButtonColor: '#DC2626',
-                    cancelButtonColor: '#374151',
-
-                    reverseButtons: true,
-                    focusCancel: true,
-                    allowOutsideClick: false,
-
-                    customClass: {
-                        popup: 'rounded-xl border border-gray-700 shadow-2xl',
-                        title: 'text-white text-xl font-semibold'
-                    }
-
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-
-                });
-
-            });
-
-        });
-    </script>
 @endsection

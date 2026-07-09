@@ -109,14 +109,13 @@ class ProdukController extends Controller
     {
         $produk = ProdukModel::findOrFail($id);
 
-        if ($produk->gambar && Storage::disk('public')->exists('produk/' . $produk->gambar)) {
-            Storage::disk('public')->delete('produk/' . $produk->gambar);
+        if ($produk->gambar && Storage::disk('public')->exists($produk->gambar)) {
+            Storage::disk('public')->delete($produk->gambar);
         }
 
         $produk->delete();
 
-        return redirect()
-            ->back()
+        return redirect()->back()
             ->with('success', 'Produk berhasil dihapus.');
     }
 }

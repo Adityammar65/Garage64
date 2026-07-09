@@ -2,8 +2,6 @@
 @section('title', 'Laporan')
 @section('page_title', 'Laporan')
 @section('content')
-```blade
-@section('content')
 <div class="flex flex-col gap-6 p-4">
 
     <!-- Sales Report -->
@@ -144,4 +142,3 @@
 
 </div>
 @endsection
-```

@@ -2,8 +2,6 @@
 @section('title', 'Support')
 @section('page_title', 'Support')
 @section('content')
-```blade
-@section('content')
 <div class="flex flex-col gap-6 p-4">
 
     <!-- Header -->
@@ -135,5 +133,4 @@
 
 </div>
 @endsection
-```
 

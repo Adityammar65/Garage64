@@ -7,7 +7,7 @@
 
             <!-- Best Seller Product -->
             <div
-                class="w-1/2 flex items-center justify-center py-2 bg-gray-800 rounded-lg drop-shadow-lg hover:bg-gray-700 transition duration-150">
+                class="w-1/2 flex items-center justify-center py-2 bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700">
                 <img src="{{ asset('assets/products/showcases/MGT-Penske.png') }}" alt="Produk Terlaris" class="w-1/2 rounded">
                 <div class="flex flex-col">
                     <h2 class="text-2xl font-bold ml-4 text-white">Produk Terlaris:</h2>
@@ -22,7 +22,7 @@
 
             <!-- Total Sales and Revenue -->
             <div
-                class="w-1/2 flex flex-col items-center justify-center py-2 bg-gray-800 rounded-lg drop-shadow-lg hover:bg-gray-700 transition duration-150">
+                class="w-1/2 flex flex-col items-center justify-center py-2 bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700">
                 <h2 class="text-white font-bold text-2xl">Total Penjualan</h2>
                 <h2 class="text-white font-bold text-2xl">100</h2>
                 <br>
@@ -46,12 +46,12 @@
             </div>
         </div>
 
-        <!-- Best Products Table -->
-        <div class="w-full flex items-center justify-center p-2 bg-gray-800 rounded-lg drop-shadow-lg gap-3">
+        <!-- Best Seller Table -->
+        <div class="w-full flex items-center justify-center p-2 bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700 gap-3">
             <div class="w-1/2 hover:bg-gray-700 transition duration-150 text-center rounded-lg">
-                <h2 class="text-white font-bold text-xl">Produk:</h2>
-                <table class="min-w-full text-center text-xs whitespace-nowrap text-white">
-                    <thead class="uppercase tracking-wider border-b-2">
+                <h2 class="text-white font-bold text-xl">Produk Terlaris:</h2>
+                <table class="min-w-full text-center text-sm text-white">
+                    <thead class="uppercase tracking-wider bg-gray-700/50">
                         <tr class="text-center">
                             <th scope="col" class="px-6 py-4">
                                 ID-Produk
@@ -68,7 +68,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b">
+                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                             <th scope="row" class="px-6 py-4">
                                 MGT-001
                             </th>
@@ -78,7 +78,7 @@
                             <td class="px-6 py-4">Rp240.000</td>
                             <td class="px-6 py-4">30</td>
                         </tr>
-                        <tr class="border-b">
+                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                             <th scope="row" class="px-6 py-4">
                                 MGT-001
                             </th>
@@ -88,7 +88,7 @@
                             <td class="px-6 py-4">Rp240.000</td>
                             <td class="px-6 py-4">30</td>
                         </tr>
-                        <tr class="border-b">
+                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                             <th scope="row" class="px-6 py-4">
                                 MGT-001
                             </th>
@@ -98,7 +98,7 @@
                             <td class="px-6 py-4">Rp240.000</td>
                             <td class="px-6 py-4">30</td>
                         </tr>
-                        <tr class="border-b">
+                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                             <th scope="row" class="px-6 py-4">
                                 MGT-001
                             </th>
@@ -108,7 +108,7 @@
                             <td class="px-6 py-4">Rp240.000</td>
                             <td class="px-6 py-4">30</td>
                         </tr>
-                        <tr class="border-b">
+                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                             <th scope="row" class="px-6 py-4">
                                 MGT-001
                             </th>
@@ -139,8 +139,8 @@
             <!-- New Order Table -->
             <div class="w-1/2 hover:bg-gray-700 transition duration-150 text-center rounded-lg">
                 <h2 class="text-white font-bold text-xl">Pesanan Terbaru:</h2>
-                <table class="min-w-full text-center text-xs whitespace-nowrap text-white">
-                    <thead class="uppercase tracking-wider border-b-2">
+                <table class="min-w-full text-center text-sm text-white">
+                    <thead class="uppercase tracking-wider bg-gray-700/50">
                         <tr class="text-center">
                             <th scope="col" class="px-6 py-4">
                                 ID-Produk
@@ -157,7 +157,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b">
+                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                             <th scope="row" class="px-6 py-4">
                                 MGT-001
                             </th>
@@ -167,7 +167,7 @@
                             <td class="px-6 py-4">Rp240.000</td>
                             <td class="px-6 py-4">30</td>
                         </tr>
-                        <tr class="border-b">
+                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                             <th scope="row" class="px-6 py-4">
                                 MGT-001
                             </th>
@@ -177,7 +177,7 @@
                             <td class="px-6 py-4">Rp240.000</td>
                             <td class="px-6 py-4">30</td>
                         </tr>
-                        <tr class="border-b">
+                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                             <th scope="row" class="px-6 py-4">
                                 MGT-001
                             </th>
@@ -187,7 +187,7 @@
                             <td class="px-6 py-4">Rp240.000</td>
                             <td class="px-6 py-4">30</td>
                         </tr>
-                        <tr class="border-b">
+                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                             <th scope="row" class="px-6 py-4">
                                 MGT-001
                             </th>
@@ -197,7 +197,7 @@
                             <td class="px-6 py-4">Rp240.000</td>
                             <td class="px-6 py-4">30</td>
                         </tr>
-                        <tr class="border-b">
+                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                             <th scope="row" class="px-6 py-4">
                                 MGT-001
                             </th>
@@ -228,10 +228,10 @@
 
         <!-- Complaint Table -->
         <div
-            class="w-full flex flex-col items-center justify-center p-2 bg-gray-800 rounded-lg drop-shadow-lg hover:bg-gray-700 transition duration-150">
+            class="w-full flex flex-col items-center justify-center p-2 bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700">
             <h2 class="text-white font-bold text-xl">Keluhan Terbaru:</h2>
-            <table class="min-w-full text-center text-xs whitespace-nowrap text-white">
-                <thead class="uppercase tracking-wider border-b-2">
+            <table class="min-w-full text-center text-sm text-white">
+                <thead class="uppercase tracking-wider bg-gray-700/50">
                     <tr class="text-center">
                         <th scope="col" class="px-6 py-4">
                             ID-Produk
@@ -248,7 +248,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="border-b">
+                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                         <th scope="row" class="px-6 py-4">
                             MGT-001
                         </th>
@@ -258,7 +258,7 @@
                         <td class="px-6 py-4">Rp240.000</td>
                         <td class="px-6 py-4">30</td>
                     </tr>
-                    <tr class="border-b">
+                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                         <th scope="row" class="px-6 py-4">
                             MGT-001
                         </th>
@@ -268,7 +268,7 @@
                         <td class="px-6 py-4">Rp240.000</td>
                         <td class="px-6 py-4">30</td>
                     </tr>
-                    <tr class="border-b">
+                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                         <th scope="row" class="px-6 py-4">
                             MGT-001
                         </th>
@@ -278,7 +278,7 @@
                         <td class="px-6 py-4">Rp240.000</td>
                         <td class="px-6 py-4">30</td>
                     </tr>
-                    <tr class="border-b">
+                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                         <th scope="row" class="px-6 py-4">
                             MGT-001
                         </th>
@@ -288,7 +288,7 @@
                         <td class="px-6 py-4">Rp240.000</td>
                         <td class="px-6 py-4">30</td>
                     </tr>
-                    <tr class="border-b">
+                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
                         <th scope="row" class="px-6 py-4">
                             MGT-001
                         </th>

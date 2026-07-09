@@ -8,8 +8,6 @@
     <title>@yield('title')</title>
     @vite('resources/css/app.css')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="bg-gradient-to-r from-gray-900 to-gray-800">
