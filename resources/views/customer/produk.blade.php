@@ -31,7 +31,7 @@
                                 'title' => 'Porsche 963 #7',
                                 'description' =>
                                     'Porsche 963 #7 Porsche Penske Motorsport 2025 IMSA Daytona 24 Hrs Winner',
-                                'image' => asset('products/showcases/MGT-Penske.png'),
+                                'image' => asset('assets/products/showcases/MGT-Penske.png'),
                                 'price' => 250000,
                             ],
                             [
@@ -39,14 +39,14 @@
                                 'title' => 'Land Rover Defender 110',
                                 'description' =>
                                     '1/64 Land Rover Defender 110 Brown Metallic - MIJO Special Edition - Tarmac Works GLOBAL64',
-                                'image' => asset('products/showcases/Tarmac-LandRover.png'),
+                                'image' => asset('assets/products/showcases/Tarmac-LandRover.png'),
                                 'price' => 250000,
                             ],
                             [
                                 'id_produk' => 1,
                                 'title' => 'Toyota Tundra Black',
                                 'description' => 'Colourful Model 1/64 Toyota Tundra Black',
-                                'image' => asset('products/showcases/cm-toyota.png'),
+                                'image' => asset('assets/products/showcases/cm-toyota.png'),
                                 'price' => 250000,
                             ],
                             [
@@ -54,14 +54,14 @@
                                 'title' => 'Porsche 911 GT3 R (992) #77',
                                 'description' =>
                                     'Porsche 911 GT3 R (992) #77 AO Racing 2025 IMSA Sebring 12 Hrs Class Winner',
-                                'image' => asset('products/showcases/MGT-Rexy.png'),
+                                'image' => asset('assets/products/showcases/MGT-Rexy.png'),
                                 'price' => 550000,
                             ],
                             [
                                 'id_produk' => 1,
                                 'title' => 'Nissan SILVIA (S15)',
                                 'description' => 'Nissan SILVIA (S15) LB-Super Silhouette AMOCULTURE',
-                                'image' => asset('products/showcases/MGT-LB-S15.png'),
+                                'image' => asset('assets/products/showcases/MGT-LB-S15.png'),
                                 'price' => 150000,
                             ],
                             [
@@ -69,7 +69,7 @@
                                 'title' => 'Nissan Fairlady Z S30',
                                 'description' =>
                                     '1/64 Nissan Fairlady Z S30 Widebody Blue - Designed by Jon Sibal - Tarmac Works GLOBAL64',
-                                'image' => asset('products/showcases/Tarmac-Fairlady.png'),
+                                'image' => asset('assets/products/showcases/Tarmac-Fairlady.png'),
                                 'price' => 150000,
                             ],
                             [
@@ -77,14 +77,14 @@
                                 'title' => 'Mercedes-AMG F1',
                                 'description' =>
                                     '1/64 Mercedes-AMG F1 W14 E Performance Italian Grand Prix 2023 #63 George Russell - Tarmac Works GLOBAL64',
-                                'image' => asset('products/showcases/Tarmac-F1.png'),
+                                'image' => asset('assets/products/showcases/Tarmac-F1.png'),
                                 'price' => 550000,
                             ],
                             [
                                 'id_produk' => 1,
                                 'title' => 'MAZDA 787B No.18',
                                 'description' => 'MAZDA 787B No.18 59th 24 Hours Le Mans 1991',
-                                'image' => asset('products/showcases/inno64-787b.png'),
+                                'image' => asset('assets/products/showcases/inno64-787b.png'),
                                 'price' => 250000,
                             ],
                         ];
@@ -257,13 +257,7 @@
                                 </div>
 
                                 <div class="mt-auto pt-4 flex justify-evenly">
-<<<<<<< HEAD
-                                    <a href="{{ route('produk.detail', $product->id_produk) }}"
-                                        class="group tooltip-parent bg-red-600 hover:bg-red-700 hover:scale-105 transition-all duration-200 py-2 px-10 rounded text-white font-semibold shadow hover:shadow-lg">
-                                    
-=======
-                                    <a href="{{ route('produk.detail', $prd->id_produk) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
->>>>>>> fdfcd11422ad594cf47a568bb12bcd44ae0cf819
+                                    <a href="{{ url('/produk/detail'. $prd->id_produk) }}" class="group tooltip-parent bg-red-600 py-2 px-10 rounded text-white font-semibold">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -276,15 +270,9 @@
                                             Lihat lebih detail
                                         </span>
                                     </a>
-<<<<<<< HEAD
-                                    <a href="{{ route('produk.detail', $product->id_produk) }}"
-                                        class="group tooltip-parent bg-blue-600 hover:bg-blue-700 hover:scale-105 transition-all duration-200 py-2 px-10 rounded text-white font-semibold shadow hover:shadow-lg">
-                                    
-=======
-                                    <a href="{{ route('produk.detail', $prd->id_produk) }}" class="group tooltip-parent bg-blue-600 py-2 px-10 rounded text-white font-semibold"
+                                    <a href="{{ url('/produk/tambah-ke-keranjang/'. $prd->id_produk) }}" class="group tooltip-parent bg-blue-600 py-2 px-10 rounded text-white font-semibold"
                                         class="group tooltip-parent bg-blue-600 py-2 px-10 rounded text-white font-semibold">
 
->>>>>>> fdfcd11422ad594cf47a568bb12bcd44ae0cf819
                                         <!-- SVG tetap -->
                                         <svg width="24px" height="24px" viewBox="0 -0.5 20 20" version="1.1"
                                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-auto w-50" src="{{ asset('images/logo.png') }}" alt="Logo">
+            <img class="mx-auto h-auto w-50" src="{{ asset('assets/images/logo.png') }}" alt="Logo">
             <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Login Membership</h2>
         </div>
 
