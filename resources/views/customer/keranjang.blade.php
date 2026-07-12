@@ -1,311 +1,184 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Keranjang Belanja</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            margin: 0;
-            padding: 40px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
-
-        .alert {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            overflow: hidden;
-            border-radius: 12px;
-        }
-
-        th {
-            background: #2563eb;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-
-        td {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
+@extends('template.customer')
 
+@section('title', 'Keranjang Belanja')
 
-        tr {
-            transition: 0.3s;
-        }
+@section('content')
 
+<div class="max-w-7xl mx-auto px-4 py-10">
 
-        tbody tr:hover {
-            background: #eff6ff;
-            transform: scale(1.01);
-        }
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">
+        🛒 Keranjang Belanja
+    </h1>
 
+    @if($keranjang->count())
 
-        .btn {
-            display: inline-block;
-            padding: 7px 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+    @php
+        $total = 0;
+    @endphp
 
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
 
-        .btn-plus {
-            background: #16a34a;
-        }
+        <table class="w-full">
 
+            <thead class="bg-gray-900 text-white">
+                <tr>
+                    <th class="p-4 text-left">Produk</th>
+                    <th class="p-4">Harga</th>
+                    <th class="p-4">Jumlah</th>
+                    <th class="p-4">Subtotal</th>
+                    <th class="p-4">Aksi</th>
+                </tr>
+            </thead>
 
-        .btn-plus:hover {
-            background: #15803d;
-            transform: scale(1.1);
-        }
+            <tbody>
 
+                @foreach($keranjang as $item)
 
-        .btn-minus {
-            background: #f59e0b;
-        }
+                @php
+                    $total += $item->subtotal;
+                @endphp
 
+                <tr class="border-b hover:bg-gray-50 transition">
 
-        .btn-minus:hover {
-            background: #d97706;
-            transform: scale(1.1);
-        }
+                    <td class="p-4">
 
+                        <div class="flex items-center gap-4">
 
-        .btn-hapus {
-            background: #dc2626;
-        }
+                            @if($item->produk->gambar)
+                                <img src="{{ asset('storage/'.$item->produk->gambar) }}"
+                                    class="w-24 h-24 rounded-lg object-cover">
+                            @endif
 
+                            <div>
 
-        .btn-hapus:hover {
-            background: #991b1b;
-            transform: scale(1.1);
-        }
+                                <h3 class="font-semibold text-lg">
+                                    {{ $item->produk->nama_produk }}
+                                </h3>
 
+                            </div>
 
-        .jumlah {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 0 10px;
-        }
+                        </div>
 
+                    </td>
 
-        .total {
-            margin-top: 25px;
-            text-align: right;
-            font-size: 22px;
-            font-weight: bold;
-            color: #2563eb;
-        }
+                    <td class="text-center">
+                        Rp {{ number_format($item->produk->harga,0,',','.') }}
+                    </td>
 
+                    <td>
 
-        .checkout {
-            margin-top: 20px;
-            text-align: right;
-        }
+                        <div class="flex justify-center items-center gap-3">
 
+                            <a href="/keranjang/kurang/{{ $item->id }}"
+                                class="w-9 h-9 rounded-full bg-yellow-500 hover:bg-yellow-600 text-white flex items-center justify-center">
 
-        .btn-checkout {
-            background: #2563eb;
-            padding: 12px 25px;
-            border-radius: 10px;
-            color:white;
-            text-decoration:none;
-            font-weight:bold;
-            transition:0.3s;
-        }
+                                -
 
+                            </a>
 
-        .btn-checkout:hover {
-            background:#1d4ed8;
-            box-shadow:0 5px 15px rgba(37,99,235,.4);
-        }
+                            <span class="font-bold text-lg">
 
+                                {{ $item->jumlah }}
 
-    </style>
+                            </span>
 
-</head>
+                            <a href="/keranjang/tambah/{{ $item->id }}"
+                                class="w-9 h-9 rounded-full bg-green-600 hover:bg-green-700 text-white flex items-center justify-center">
 
+                                +
 
-<body>
+                            </a>
 
+                        </div>
 
-<div class="container">
+                    </td>
 
+                    <td class="text-center font-semibold text-red-600">
 
-<h2>
-🛒 Keranjang Belanja
-</h2>
+                        Rp {{ number_format($item->subtotal,0,',','.') }}
 
+                    </td>
 
+                    <td class="text-center">
 
-@if(session('success'))
+                        <a href="/keranjang/hapus/{{ $item->id }}"
+                            onclick="return confirm('Hapus produk ini?')"
+                            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
 
-<div class="alert">
-{{ session('success') }}
-</div>
+                            Hapus
 
-@endif
+                        </a>
 
+                    </td>
 
+                </tr>
 
-<table>
+                @endforeach
 
+            </tbody>
 
-<thead>
+        </table>
 
-<tr>
+    </div>
 
-<th>Produk</th>
-<th>Harga</th>
-<th>Jumlah</th>
-<th>Subtotal</th>
-<th>Aksi</th>
+    <div class="mt-8 flex justify-end">
 
-</tr>
+        <div class="bg-white rounded-xl shadow-lg p-6 w-full md:w-96">
 
-</thead>
+            <h3 class="text-xl font-bold mb-4">
+                Ringkasan Belanja
+            </h3>
 
+            <div class="flex justify-between text-lg mb-6">
 
+                <span>Total</span>
 
-<tbody>
+                <span class="font-bold text-red-600">
 
+                    Rp {{ number_format($total,0,',','.') }}
 
-@php
-$total = 0;
-@endphp
+                </span>
 
+            </div>
 
+            <a href="#"
+                class="block text-center bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold">
 
-@foreach($keranjang as $item)
+                Checkout
 
+            </a>
 
-@php
-$total += $item->subtotal;
-@endphp
+        </div>
 
+    </div>
 
+    @else
 
-<tr>
+    <div class="bg-white rounded-xl shadow-lg p-12 text-center">
 
+        <div class="text-7xl mb-5">
+            🛒
+        </div>
 
-<td>
-{{ $item->produk->nama_produk }}
-</td>
+        <h2 class="text-2xl font-bold mb-3">
+            Keranjang masih kosong
+        </h2>
 
+        <p class="text-gray-500 mb-6">
+            Yuk pilih diecast favoritmu terlebih dahulu.
+        </p>
 
+        <a href="{{ url('/produk') }}"
+            class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg">
 
-<td>
-Rp {{ number_format($item->produk->harga) }}
-</td>
+            Belanja Sekarang
 
+        </a>
 
+    </div>
 
-<td>
-
-
-<a class="btn btn-minus"
-href="/keranjang/kurang/{{ $item->id }}">
--
-</a>
-
-
-<span class="jumlah">
-{{ $item->jumlah }}
-</span>
-
-
-<a class="btn btn-plus"
-href="/keranjang/tambah/{{ $item->id }}">
-+
-</a>
-
-
-</td>
-
-
-
-<td>
-Rp {{ number_format($item->subtotal) }}
-</td>
-
-
-
-<td>
-
-
-<a class="btn btn-hapus"
-href="/keranjang/hapus/{{ $item->id }}"
-onclick="return confirm('Hapus produk ini?')">
-Hapus
-</a>
-
-
-</td>
-
-
-</tr>
-
-
-@endforeach
-
-
-
-</tbody>
-
-
-</table>
-
-
-
-<div class="total">
-
-Total :
-Rp {{ number_format($total) }}
+    @endif
 
 </div>
 
-
-
-<div class="checkout">
-
-<a href="#" class="btn-checkout">
-Checkout
-</a>
-
-</div>
-
-
-
-</div>
-
-
-</body>
-</html>
+@endsection

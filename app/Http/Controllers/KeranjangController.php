@@ -28,7 +28,8 @@ class KeranjangController extends Controller
 
         //mengecek apakah produk ada atau tidak
         if (!$product) {
-            return redirect()->back()->with('error', 'Produk tidak ditemukan.');
+            return redirect()
+            ->back()->with('error', 'Produk tidak ditemukan.');
         }
         //mengecek apakah produk sudah ada di keranjang
         $keranjang = KeranjangModel :: where('id_user', $idUser)
