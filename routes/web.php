@@ -37,6 +37,7 @@ Route::middleware('cek.login')->group(function(){
     Route::get('/produk', [CustomerController::class, 'produk']);
     Route::get('/produk/detail/{id}', [ProdukController::class, 'produkDetail']);
     Route::get('/keranjang', [KeranjangController::class, 'keranjang']);
+    Route::get('/produk/tambah-ke-keranjang/{id}', [KeranjangController::class, 'tambahKeKeranjang']);  
 });
 
 // ADMIN ROUTES
@@ -50,6 +51,7 @@ Route::middleware('cek.admin')->group(function(){
     Route::get('/admin/produk/edit/{id}', [FormController::class, 'editProduk']);
     Route::put('/admin/produk/update/{id}', [ProdukController::class, 'updateProduk']);
     Route::delete('/admin/produk/delete/{id}', [ProdukController::class, 'deleteProduk']);
+    
 
     Route::get('/admin/pesanan', [AdminController::class, 'pesanan']);
     Route::get('/admin/support', [AdminController::class, 'support']);

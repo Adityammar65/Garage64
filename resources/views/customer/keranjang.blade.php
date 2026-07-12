@@ -1,197 +1,311 @@
-@extends('template.customer')
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Keranjang Belanja</title>
 
-@section('title', 'Keranjang Belanja')
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+            padding: 40px;
+        }
 
-@section('content')
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
 
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
 
-    {{-- Judul --}}
-    <div class="flex items-center justify-between mb-10">
-        <div>
-            <h1 class="text-4xl font-extrabold text-gray-900">
-                Keranjang Belanja
-            </h1>
-            <p class="text-gray-500 mt-2">
-                Periksa kembali produk sebelum melanjutkan ke pembayaran.
-            </p>
-        </div>
-    </div>
+        .alert {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
 
-    <div class="grid lg:grid-cols-3 gap-8">
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 12px;
+        }
 
-        {{-- LIST PRODUK --}}
-        <div class="lg:col-span-2 space-y-6">
+        th {
+            background: #2563eb;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
 
-            {{-- ITEM --}}
-            <div
-                class="group bg-white rounded-3xl border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 p-6 flex gap-6">
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
 
-                <img
-                    src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b"
-                    class="w-36 h-36 object-cover rounded-2xl">
 
-                <div class="flex-1">
+        tr {
+            transition: 0.3s;
+        }
 
-                    <h2 class="text-2xl font-bold text-gray-900">
-                        Nissan GT-R R34
-                    </h2>
 
-                    <p class="mt-2 text-gray-500">
-                        Hot Wheels • Skala 1:64
-                    </p>
+        tbody tr:hover {
+            background: #eff6ff;
+            transform: scale(1.01);
+        }
 
-                    <p
-                        class="inline-block mt-5 px-4 py-2 rounded-full bg-yellow-100 text-yellow-700 font-bold text-xl">
-                        Rp 149.000
-                    </p>
 
-                </div>
+        .btn {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
 
-                <div class="flex flex-col justify-between items-end">
 
-                    <button
-                        class="text-red-500 hover:text-red-600 font-semibold hover:underline">
-                        Hapus
-                    </button>
+        .btn-plus {
+            background: #16a34a;
+        }
 
-                    <div class="flex items-center gap-3">
 
-                        <button
-                            class="w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 font-bold transition">
-                            −
-                        </button>
+        .btn-plus:hover {
+            background: #15803d;
+            transform: scale(1.1);
+        }
 
-                        <span class="text-lg font-bold w-8 text-center">
-                            1
-                        </span>
 
-                        <button
-                            class="w-10 h-10 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-white font-bold transition">
-                            +
-                        </button>
+        .btn-minus {
+            background: #f59e0b;
+        }
 
-                    </div>
 
-                </div>
+        .btn-minus:hover {
+            background: #d97706;
+            transform: scale(1.1);
+        }
 
-            </div>
 
-            {{-- ITEM --}}
-            <div
-                class="group bg-white rounded-3xl border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 p-6 flex gap-6">
+        .btn-hapus {
+            background: #dc2626;
+        }
 
-                <img
-                    src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c"
-                    class="w-36 h-36 object-cover rounded-2xl">
 
-                <div class="flex-1">
+        .btn-hapus:hover {
+            background: #991b1b;
+            transform: scale(1.1);
+        }
 
-                    <h2 class="text-2xl font-bold text-gray-900">
-                        Porsche 911 GT3
-                    </h2>
 
-                    <p class="mt-2 text-gray-500">
-                        Mini GT • Skala 1:64
-                    </p>
+        .jumlah {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 10px;
+        }
 
-                    <p
-                        class="inline-block mt-5 px-4 py-2 rounded-full bg-yellow-100 text-yellow-700 font-bold text-xl">
-                        Rp 550.000
-                    </p>
 
-                </div>
+        .total {
+            margin-top: 25px;
+            text-align: right;
+            font-size: 22px;
+            font-weight: bold;
+            color: #2563eb;
+        }
 
-                <div class="flex flex-col justify-between items-end">
 
-                    <button
-                        class="text-red-500 hover:text-red-600 font-semibold hover:underline">
-                        Hapus
-                    </button>
+        .checkout {
+            margin-top: 20px;
+            text-align: right;
+        }
 
-                    <div class="flex items-center gap-3">
 
-                        <button
-                            class="w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 font-bold transition">
-                            −
-                        </button>
+        .btn-checkout {
+            background: #2563eb;
+            padding: 12px 25px;
+            border-radius: 10px;
+            color:white;
+            text-decoration:none;
+            font-weight:bold;
+            transition:0.3s;
+        }
 
-                        <span class="text-lg font-bold w-8 text-center">
-                            1
-                        </span>
 
-                        <button
-                            class="w-10 h-10 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-white font-bold transition">
-                            +
-                        </button>
+        .btn-checkout:hover {
+            background:#1d4ed8;
+            box-shadow:0 5px 15px rgba(37,99,235,.4);
+        }
 
-                    </div>
 
-                </div>
+    </style>
 
-            </div>
+</head>
 
-        </div>
 
-        {{-- RINGKASAN BELANJA --}}
-        <div>
+<body>
 
-            <div
-                class="sticky top-24 bg-white rounded-3xl border border-gray-200 shadow-lg p-7">
 
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">
-                    Ringkasan Belanja
-                </h2>
+<div class="container">
 
-                <div class="space-y-4">
 
-                    <div class="flex justify-between text-gray-600">
-                        <span>Subtotal</span>
-                        <span class="font-semibold">Rp 699.000</span>
-                    </div>
+<h2>
+🛒 Keranjang Belanja
+</h2>
 
-                    <div class="flex justify-between text-gray-600">
-                        <span>Ongkir</span>
-                        <span class="font-semibold">Rp 20.000</span>
-                    </div>
 
-                </div>
 
-                <div class="border-t border-dashed my-6"></div>
+@if(session('success'))
 
-                <div class="flex justify-between items-center">
+<div class="alert">
+{{ session('success') }}
+</div>
 
-                    <span class="text-xl font-bold">
-                        Total
-                    </span>
+@endif
 
-                    <span class="text-3xl font-extrabold text-yellow-500">
-                        Rp 719.000
-                    </span>
 
-                </div>
 
-                <button
-                    class="w-full mt-8 py-4 rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg shadow-lg hover:shadow-xl transition duration-300">
+<table>
 
-                    Checkout
 
-                </button>
+<thead>
 
-                <a
-                    href="/products"
-                    class="block text-center mt-4 py-4 rounded-2xl border border-gray-300 font-semibold hover:bg-gray-100 transition duration-300">
+<tr>
 
-                    Lanjut Belanja
+<th>Produk</th>
+<th>Harga</th>
+<th>Jumlah</th>
+<th>Subtotal</th>
+<th>Aksi</th>
 
-                </a>
+</tr>
 
-            </div>
+</thead>
 
-        </div>
 
-    </div>
 
-</section>
+<tbody>
 
-@endsection
+
+@php
+$total = 0;
+@endphp
+
+
+
+@foreach($keranjang as $item)
+
+
+@php
+$total += $item->subtotal;
+@endphp
+
+
+
+<tr>
+
+
+<td>
+{{ $item->produk->nama_produk }}
+</td>
+
+
+
+<td>
+Rp {{ number_format($item->produk->harga) }}
+</td>
+
+
+
+<td>
+
+
+<a class="btn btn-minus"
+href="/keranjang/kurang/{{ $item->id }}">
+-
+</a>
+
+
+<span class="jumlah">
+{{ $item->jumlah }}
+</span>
+
+
+<a class="btn btn-plus"
+href="/keranjang/tambah/{{ $item->id }}">
++
+</a>
+
+
+</td>
+
+
+
+<td>
+Rp {{ number_format($item->subtotal) }}
+</td>
+
+
+
+<td>
+
+
+<a class="btn btn-hapus"
+href="/keranjang/hapus/{{ $item->id }}"
+onclick="return confirm('Hapus produk ini?')">
+Hapus
+</a>
+
+
+</td>
+
+
+</tr>
+
+
+@endforeach
+
+
+
+</tbody>
+
+
+</table>
+
+
+
+<div class="total">
+
+Total :
+Rp {{ number_format($total) }}
+
+</div>
+
+
+
+<div class="checkout">
+
+<a href="#" class="btn-checkout">
+Checkout
+</a>
+
+</div>
+
+
+
+</div>
+
+
+</body>
+</html>
