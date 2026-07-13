@@ -35,7 +35,7 @@
                     @yield('hero_subtitle', 'Discover an exclusive collection of rare and authentic diecast vehicles. Perfect for collectors and enthusiasts.')
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#"
+                    <a href="{{ url('/produk') }}"
                         class="bg-transparent border-2 border-white text-white font-archivo px-8 py-3 rounded-lg hover:bg-white hover:text-red-600 transition">
                         <i class="fas fa-info-circle"></i>
                         Shop Now

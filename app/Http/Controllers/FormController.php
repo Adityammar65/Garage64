@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProdukModel;
+use Illuminate\Support\Facades\Storage;
 use App\Models\KategoriModel;
+
 
 class FormController extends Controller
 {
