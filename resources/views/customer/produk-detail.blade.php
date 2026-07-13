@@ -82,10 +82,10 @@
                 {{-- ACTION --}}
                 <div class="mt-10 flex gap-4 justify-center">
 
-                    <button
+                <a href="{{ url('/produk/tambah-ke-keranjang/'.$produk->id_produk) }}"
                         class="px-8 py-4 rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg shadow-lg hover:shadow-xl transition duration-300">
                         + Keranjang
-                    </button>
+                </a>
 
                     <a href="{{ url()->previous() }}"
                         class="px-8 py-4 rounded-2xl bg-gray-500 border border-gray-300 text-white font-semibold hover:bg-gray-600 transition duration-300">

@@ -101,7 +101,7 @@
 
                     <td class="text-center">
 
-                        <a href="/keranjang/hapus/{{ $item->id }}"
+                        <a href="{{ url('/keranjang/hapus/' . $item->id_keranjang) }}"
                             onclick="return confirm('Hapus produk ini?')"
                             class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
 
@@ -121,37 +121,89 @@
 
     </div>
 
-    <div class="mt-8 flex justify-end">
+    <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-        <div class="bg-white rounded-xl shadow-lg p-6 w-full md:w-96">
-
-            <h3 class="text-xl font-bold mb-4">
-                Ringkasan Belanja
-            </h3>
-
-            <div class="flex justify-between text-lg mb-6">
-
-                <span>Total</span>
-
-                <span class="font-bold text-red-600">
-
-                    Rp {{ number_format($total,0,',','.') }}
-
-                </span>
-
+        <!-- Rekomendasi Produk -->
+        <div class="lg:col-span-2">
+    
+            <h2 class="text-2xl font-bold text-gray-800 mb-5">
+                Rekomendasi Produk
+            </h2>
+    
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    
+                @foreach($rekomendasi as $produk)
+    
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition overflow-hidden">
+    
+                    @if($produk->gambar)
+                        <img src="{{ asset('storage/'.$produk->gambar) }}"
+                            class="w-full h-52 object-cover">
+                    @endif
+    
+                    <div class="p-4">
+    
+                        <h3 class="font-bold text-lg mb-2 line-clamp-2">
+                            {{ $produk->nama_produk }}
+                        </h3>
+    
+                        <p class="text-red-600 text-xl font-bold mb-4">
+                            Rp {{ number_format($produk->harga,0,',','.') }}
+                        </p>
+    
+                        <div class="flex gap-2">
+    
+                            <a href="{{ url('/produk/detail/'.$produk->id_produk) }}"
+                                class="flex-1 border border-gray-300 hover:bg-gray-100 py-2 rounded-lg text-center font-semibold">
+                                Detail
+                            </a>
+    
+                            <a href="{{ url('/produk/tambah-ke-keranjang/'.$produk->id_produk) }}"
+                                class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg text-center font-semibold">
+                                + Keranjang
+                            </a>
+    
+                        </div>
+    
+                    </div>
+    
+                </div>
+    
+                @endforeach
+    
             </div>
-
-            <a href="#"
-                class="block text-center bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold">
-
-                Checkout
-
-            </a>
-
+    
         </div>
-
+    
+        <!-- Ringkasan Belanja -->
+        <div>
+    
+            <div class="bg-white rounded-xl shadow-lg p-6 sticky top-5">
+    
+                <h3 class="text-2xl font-bold mb-5">
+                    Ringkasan Belanja
+                </h3>
+    
+                <div class="flex justify-between text-lg mb-6">
+    
+                    <span>Total</span>
+    
+                    <span class="font-bold text-red-600 text-xl">
+                        Rp {{ number_format($total,0,',','.') }}
+                    </span>
+    
+                </div>
+    
+                <a href="#"
+                    class="block text-center bg-red-600 hover:bg-red-700 transition text-white py-3 rounded-lg font-semibold">
+                    Checkout
+                </a>
+    
+            </div>
+    
+        </div>
+    
     </div>
-
     @else
 
     <div class="bg-white rounded-xl shadow-lg p-12 text-center">

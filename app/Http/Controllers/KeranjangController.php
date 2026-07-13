@@ -16,7 +16,17 @@ class KeranjangController extends Controller
             ->with('produk')
             ->get();
 
-        return view('customer.keranjang', compact('keranjang'));
+        $idProdukKeranjang = $keranjang->pluck('id_produk');
+        $rekomendasi = ProdukModel::whereNotIn('id_produk', $idProdukKeranjang)
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+
+        $idUser = session('id_user');
+        $cartCount = KeranjangModel::where('id_user', $idUser)
+            ->sum('jumlah'); // atau ->count()
+    
+        return view('customer.keranjang', compact('keranjang', 'rekomendasi', 'cartCount'));
     }
 
     // TAMBAH KE KERANJANG
@@ -29,7 +39,6 @@ class KeranjangController extends Controller
         if (!$product) {
             return back()->with('error', 'Produk tidak ditemukan.');
         }
-
         $keranjang = KeranjangModel::where('id_user', $idUser)
             ->where('id_produk', $id)
             ->first();
@@ -111,4 +120,5 @@ class KeranjangController extends Controller
         return back()
             ->with('success', 'Item keranjang berhasil dihapus.');
     }
+
 }

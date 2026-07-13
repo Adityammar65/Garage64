@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\KategoriModel;
 use App\Models\ProdukModel;
 use Illuminate\Support\Facades\Storage;
+use App\Models\KeranjangModel;
 
 class ProdukController extends Controller
 {
@@ -13,8 +14,12 @@ class ProdukController extends Controller
     public function produkDetail($id)
     {
         $produk = ProdukModel::with('kategori')->where('id_produk', $id)->firstOrFail();
+
+        $idUser = session('id_user');
+        $cartCount = KeranjangModel::where('id_user', $idUser)
+            ->sum('jumlah'); // atau ->count()
     
-        return view('customer.produk-detail', compact('produk'));
+        return view('customer.produk-detail', compact('produk','cartCount'));
     }
 
     // ADMIN SIDE

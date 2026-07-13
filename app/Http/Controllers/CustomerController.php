@@ -33,7 +33,10 @@ class CustomerController extends Controller
     public function produk()
     {
         $produk = ProdukModel::latest()->get();
-        return view('customer.produk', compact('produk'));
+        $idUser = session('id_user');
+        $cartCount = KeranjangModel::where('id_user', $idUser)
+                        ->sum('jumlah'); // atau ->count()
+        return view('customer.produk', compact('produk','cartCount'));
     }
     
     public function profile()
