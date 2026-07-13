@@ -37,13 +37,9 @@ Route::middleware('cek.login')->group(function(){
     Route::get('/produk', [CustomerController::class, 'produk']);
     Route::get('/produk/detail/{id}', [ProdukController::class, 'produkDetail']);
     Route::get('/keranjang', [KeranjangController::class, 'keranjang']);
-<<<<<<< HEAD
-    Route::get('/produk/tambah-ke-keranjang/{id}', [KeranjangController::class, 'tambahKeKeranjang']);
-=======
     Route::get('/produk/tambah-ke-keranjang/{id}', [KeranjangController::class, 'tambahKeKeranjang']); 
     Route::get('/keranjang/tambah/{id}', [KeranjangController::class, 'tambahJumlah']);
     Route::get('/keranjang/kurang/{id}', [KeranjangController::class, 'kurangJumlah']);
->>>>>>> 087aa1e0a9594fa6587049a216bf57e6bd63cd26
     Route::get('/keranjang/hapus/{id}', [KeranjangController::class, 'hapusKeranjang']);
 });
 
