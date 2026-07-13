@@ -24,7 +24,7 @@ class KeranjangController extends Controller
 
         $idUser = session('id_user');
         $cartCount = KeranjangModel::where('id_user', $idUser)
-            ->sum('jumlah'); // atau ->count()
+            ->sum('jumlah');
     
         return view('customer.keranjang', compact('keranjang', 'rekomendasi', 'cartCount'));
     }
@@ -44,22 +44,21 @@ class KeranjangController extends Controller
             ->first();
 
         if (!$keranjang) {
+            KeranjangModel::create([
+                'id_user'   => $idUser,
+                'id_produk' => $id,
+                'jumlah'    => 1,
+                'subtotal'  => $product->harga,
+            ]);
+        } else {
+    
+            $keranjang->jumlah++;
 
-                KeranjangModel::create([
-                    'id_user'   => $idUser,
-                    'id_produk' => $id,
-                    'jumlah'    => 1,
-                    'subtotal'  => $product->harga,
-                ]);
-            //kalau sudah ada, maka update jumlah dan subtotal
-            } else {
-        
-                $keranjang->jumlah++;
+            $keranjang->subtotal = $keranjang->jumlah * $product->harga;
 
-                $keranjang->subtotal = $keranjang->jumlah * $product->harga;
+            $keranjang->save();
+        }
 
-                $keranjang->save();
-            }
         return back()
             ->with('success', 'Produk berhasil ditambahkan ke keranjang.');
     }

@@ -10,7 +10,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body class="bg-gray-50
+<body x-data="{ sidebarOpen: false }" class="bg-gray-50
         flex flex-col min-h-screen">
 
     <!-- ERROR ALERT -->
@@ -106,46 +106,19 @@
                         </a>
                     @else
                         <!-- Dropdown User -->
-                        <div class="relative group">
-                            <button class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-700 transition">
-                                <div
-                                    class="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center font-bold uppercase">
-                                    {{ strtoupper(substr(session('username'), 0, 1)) }}
-                                </div>
+                        <button @click="sidebarOpen = true"
+                            class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-700 transition">
 
-                                <span class="text-sm font-semibold">
-                                    {{ session('username') }}
-                                </span>
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-
-                            <!-- Dropdown -->
                             <div
-                                class="absolute right-0 mt-2 w-52 bg-white rounded-lg shadow-xl py-2 hidden group-hover:block">
-
-                                <a href="{{ url('/profile') }}"
-                                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                    👤 Profile
-                                </a>
-
-                                <a href="{{ url('/riwayat-transaksi') }}"
-                                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                    📦 Riwayat Transaksi
-                                </a>
-
-                                <hr>
-
-                                <a href="{{ url('/logout') }}" class="block px-4 py-2 text-red-600 hover:bg-red-50">
-                                    🚪 Logout
-                                </a>
-
+                                class="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center font-bold uppercase">
+                                {{ strtoupper(substr(session('username'), 0, 1)) }}
                             </div>
-                        </div>
+
+                            <span class="text-sm font-semibold">
+                                {{ session('username') }}
+                            </span>
+
+                        </button>
                     @endif
                 </div>
             </div>
@@ -189,12 +162,105 @@
                         </g>
                     </svg>
                     <span
-    class="absolute -top-2 -right-2 bg-yellow-400 text-gray-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-    {{ $cartCount ?? 0 }}
-    </span>
+                        class="absolute -top-2 -right-2 bg-yellow-400 text-gray-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                        {{ $cartCount ?? 0 }}
+                    </span>
                 </a>
             </div>
         </div>
+    </div>
+
+    <!-- Overlay -->
+    <div x-show="sidebarOpen" x-transition.opacity @click="sidebarOpen = false"
+        class="fixed inset-0 bg-black/50 z-50" style="display:none;">
+    </div>
+
+    <!-- Sidebar -->
+    <div x-show="sidebarOpen" x-transition:enter="transition duration-300"
+        x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+        x-transition:leave="transition duration-300" x-transition:leave-start="translate-x-0"
+        x-transition:leave-end="translate-x-full"
+        class="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 flex flex-col" style="display:none;">
+
+        <!-- Header -->
+        <div class="bg-gray-900 text-white p-6">
+
+            <div class="flex justify-between items-center">
+
+                <div class="flex items-center gap-3">
+
+                    <div
+                        class="w-14 h-14 rounded-full bg-red-600 flex items-center justify-center text-xl font-bold uppercase">
+                        {{ strtoupper(substr(session('username'), 0, 1)) }}
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold">
+                            {{ session('username') }}
+                        </h3>
+
+                        <p class="text-sm text-gray-300">
+                            {{ session('email') }}
+                        </p>
+                    </div>
+
+                </div>
+
+                <button @click="sidebarOpen=false" class="text-2xl hover:text-red-500">
+
+                    ✕
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Menu -->
+        <div class="flex-1 py-4">
+
+            <a href="{{ url('/profile') }}" class="flex items-center gap-3 px-6 py-4 hover:bg-gray-100">
+                <span>Profile</span>
+
+            </a>
+
+            <a href="{{ url('/keranjang') }}" class="flex items-center justify-between px-6 py-4 hover:bg-gray-100">
+
+                <div class="flex items-center gap-3">
+                    <span>Keranjang</span>
+
+                </div>
+
+                <span class="bg-red-600 text-white text-xs px-2 py-1 rounded-full">
+                    {{ $cartCount ?? 0 }}
+                </span>
+
+            </a>
+
+            <a href="{{ url('/riwayat-transaksi') }}" class="flex items-center gap-3 px-6 py-4 hover:bg-gray-100">
+                <span>Riwayat Transaksi</span>
+
+            </a>
+
+            <a href="{{ url('/support-center') }}" class="flex items-center gap-3 px-6 py-4 hover:bg-gray-100">
+                <span>Support Center</span>
+
+            </a>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="border-t p-4">
+
+            <a href="{{ url('/logout') }}"
+                class="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white rounded-lg py-3 transition">
+
+                Logout
+
+            </a>
+
+        </div>
+
     </div>
 
     <!-- Main Content -->

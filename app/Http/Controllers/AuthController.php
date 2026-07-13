@@ -42,6 +42,8 @@ class AuthController extends Controller
             'username' => $user->username,
             'email'    => $user->email,
             'role'     => $user->role,
+            'alamat'   => $user->alamat,
+            'no_hp'    => $user->no_hp,
         ]);
 
         if ($request->has('remember')) {
@@ -108,7 +110,7 @@ class AuthController extends Controller
         Cookie::queue(
             'remember_token',
             $token,
-            60 * 24 * 30 // 30 hari
+            60 * 24 * 30
         );
 
         return redirect('/')

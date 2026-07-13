@@ -22,7 +22,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/reset-password', [FormController::class, 'resetPasswordForm']);
 Route::post('/save-password', [AuthController::class, 'resetPassword']);
 Route::middleware('cek.login')->group(function () {
-    Route::get('/profile', [CustomerController::class, 'profile']);});
+Route::get('/profile', [CustomerController::class, 'profile']);});
 
 // SERVICES
 Route::get('/syarat-ketentuan', [ServiceController::class, 'syaratKetentuan']);
