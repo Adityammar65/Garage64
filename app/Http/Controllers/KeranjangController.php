@@ -10,52 +10,89 @@ class KeranjangController extends Controller
 {
     public function keranjang()
     {
-    $idUser = session('id_user');
-
-    $keranjang = KeranjangModel::where('id_user', $idUser)
-        ->with('produk')
-        ->get();
-
-    return view('customer.keranjang', compact('keranjang'));
-    }
-    public function tambahKeKeranjang($id)
-    {
-        //mencari siapa yg login
         $idUser = session('id_user');
 
-        //mencari produk berdasarkan id
+        $keranjang = KeranjangModel::where('id_user', $idUser)
+            ->with('produk')
+            ->get();
+
+        return view('customer.keranjang', compact('keranjang'));
+    }
+
+    // TAMBAH KE KERANJANG
+    public function tambahKeKeranjang($id)
+    {
+        $idUser = session('id_user');
+
         $product = ProdukModel::find($id);
 
-        //mengecek apakah produk ada atau tidak
         if (!$product) {
-            return redirect()
-            ->back()->with('error', 'Produk tidak ditemukan.');
+            return back()->with('error', 'Produk tidak ditemukan.');
         }
-        //mengecek apakah produk sudah ada di keranjang
-        $keranjang = KeranjangModel :: where('id_user', $idUser)
+
+        $keranjang = KeranjangModel::where('id_user', $idUser)
             ->where('id_produk', $id)
             ->first();
-        //kalau belum ada, maka buat baru
-            if (!$keranjang) {
 
-                KeranjangModel::create([
-                    'id_user'   => $idUser,
-                    'id_produk' => $id,
-                    'jumlah'    => 1,
-                    'subtotal'  => $product->harga,
-                ]);
-            //kalau sudah ada, maka update jumlah dan subtotal
-            } else {
-        
-                $keranjang->jumlah++;
+        if (!$keranjang) {
 
-                $keranjang->subtotal = $keranjang->jumlah * $product->harga;
+            KeranjangModel::create([
+                'id_user'   => $idUser,
+                'id_produk' => $id,
+                'jumlah'    => 1,
+                'subtotal'  => $product->harga,
+            ]);
 
-                $keranjang->save();
-            }
+        } else {
+
+            $keranjang->jumlah++;
+            $keranjang->subtotal = $keranjang->jumlah * $product->harga;
+            $keranjang->save();
+        }
+
         return redirect('keranjang')
             ->with('success', 'Produk berhasil ditambahkan ke keranjang.');
-        
-        
+    }
+
+    // TAMBAH QTY PRODUK
+    public function tambahJumlah($id)
+    {
+        $keranjang = KeranjangModel::where('id_keranjang', $id)
+            ->where('id_user', session('id_user'))
+            ->firstOrFail();
+
+        $produk = $keranjang->produk;
+
+        if ($keranjang->jumlah >= $produk->stok) {
+            return back()->with('error', 'Stok produk tidak mencukupi.');
+        }
+
+        $keranjang->jumlah++;
+        $keranjang->subtotal = $keranjang->jumlah * $produk->harga;
+        $keranjang->save();
+
+        return back();
+    }
+
+    // KURANG QTY PRODUK
+    public function kurangJumlah($id)
+    {
+        $keranjang = KeranjangModel::where('id_keranjang', $id)
+            ->where('id_user', session('id_user'))
+            ->firstOrFail();
+
+        if ($keranjang->jumlah > 1) {
+
+            $keranjang->jumlah--;
+            $keranjang->subtotal = $keranjang->jumlah * $keranjang->produk->harga;
+            $keranjang->save();
+
+        } else {
+
+            $keranjang->delete();
+
+        }
+
+        return back();
     }
 }
