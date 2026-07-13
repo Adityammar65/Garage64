@@ -54,6 +54,49 @@ class KeranjangController extends Controller
         return back()
             ->with('success', 'Produk berhasil ditambahkan ke keranjang.');
     }
+
+     // TAMBAH QTY PRODUK
+    public function tambahJumlah($id)
+    {
+        $keranjang = KeranjangModel::where('id_keranjang', $id)
+            ->where('id_user', session('id_user'))
+            ->firstOrFail();
+
+        $produk = $keranjang->produk;
+
+        if ($keranjang->jumlah >= $produk->stok) {
+            return back()->with('error', 'Stok produk tidak mencukupi.');
+        }
+
+        $keranjang->jumlah++;
+        $keranjang->subtotal = $keranjang->jumlah * $produk->harga;
+        $keranjang->save();
+
+        return back();
+    }
+
+    // KURANG QTY PRODUK
+    public function kurangJumlah($id)
+    {
+        $keranjang = KeranjangModel::where('id_keranjang', $id)
+            ->where('id_user', session('id_user'))
+            ->firstOrFail();
+
+        if ($keranjang->jumlah > 1) {
+
+            $keranjang->jumlah--;
+            $keranjang->subtotal = $keranjang->jumlah * $keranjang->produk->harga;
+            $keranjang->save();
+
+        } else {
+
+            $keranjang->delete();
+
+        }
+
+        return back();
+    }
+
     public function hapusKeranjang($id)
     {
         $keranjang = KeranjangModel::find($id);
