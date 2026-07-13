@@ -69,7 +69,7 @@
 
                         <div class="flex justify-center items-center gap-3">
 
-                            <a href="/keranjang/kurang/{{ $item->id }}"
+                            <a href="{{ url('/keranjang/kurang/' . $item->id_keranjang) }}"
                                 class="w-9 h-9 rounded-full bg-yellow-500 hover:bg-yellow-600 text-white flex items-center justify-center">
 
                                 -
@@ -82,7 +82,7 @@
 
                             </span>
 
-                            <a href="/keranjang/tambah/{{ $item->id }}"
+                            <a href="{{ url('/keranjang/tambah/' . $item->id_keranjang) }}"
                                 class="w-9 h-9 rounded-full bg-green-600 hover:bg-green-700 text-white flex items-center justify-center">
 
                                 +

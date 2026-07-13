@@ -10,33 +10,31 @@ class KeranjangController extends Controller
 {
     public function keranjang()
     {
-    $idUser = session('id_user');
-
-    $keranjang = KeranjangModel::where('id_user', $idUser)
-        ->with('produk')
-        ->get();
-
-    return view('customer.keranjang', compact('keranjang'));
-    }
-    public function tambahKeKeranjang($id)
-    {
-        //mencari siapa yg login
         $idUser = session('id_user');
 
-        //mencari produk berdasarkan id
+        $keranjang = KeranjangModel::where('id_user', $idUser)
+            ->with('produk')
+            ->get();
+
+        return view('customer.keranjang', compact('keranjang'));
+    }
+
+    // TAMBAH KE KERANJANG
+    public function tambahKeKeranjang($id)
+    {
+        $idUser = session('id_user');
+
         $product = ProdukModel::find($id);
 
-        //mengecek apakah produk ada atau tidak
         if (!$product) {
-            return redirect()
-            ->back()->with('error', 'Produk tidak ditemukan.');
+            return back()->with('error', 'Produk tidak ditemukan.');
         }
-        //mengecek apakah produk sudah ada di keranjang
-        $keranjang = KeranjangModel :: where('id_user', $idUser)
+
+        $keranjang = KeranjangModel::where('id_user', $idUser)
             ->where('id_produk', $id)
             ->first();
-        //kalau belum ada, maka buat baru
-            if (!$keranjang) {
+
+        if (!$keranjang) {
 
                 KeranjangModel::create([
                     'id_user'   => $idUser,
