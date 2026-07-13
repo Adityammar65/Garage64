@@ -53,9 +53,21 @@ class KeranjangController extends Controller
 
                 $keranjang->save();
             }
-        return redirect('keranjang')
+        return back()
             ->with('success', 'Produk berhasil ditambahkan ke keranjang.');
-        
-        
+    }
+    public function hapusKeranjang($id)
+    {
+        $keranjang = KeranjangModel::find($id);
+
+        if (!$keranjang) {
+            return redirect()
+                ->back()->with('error', 'Item keranjang tidak ditemukan.');
+        }
+
+        $keranjang->delete();
+
+        return back()
+            ->with('success', 'Item keranjang berhasil dihapus.');
     }
 }

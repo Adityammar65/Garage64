@@ -189,9 +189,9 @@
                         </g>
                     </svg>
                     <span
-                        class="absolute -top-2 -right-2 bg-yellow-400 text-gray-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                        {{ session('cart_count', 0) }}
-                    </span>
+    class="absolute -top-2 -right-2 bg-yellow-400 text-gray-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+    {{ $cartCount ?? 0 }}
+    </span>
                 </a>
             </div>
         </div>

@@ -37,7 +37,8 @@ Route::middleware('cek.login')->group(function(){
     Route::get('/produk', [CustomerController::class, 'produk']);
     Route::get('/produk/detail/{id}', [ProdukController::class, 'produkDetail']);
     Route::get('/keranjang', [KeranjangController::class, 'keranjang']);
-    Route::get('/produk/tambah-ke-keranjang/{id}', [KeranjangController::class, 'tambahKeKeranjang']);  
+    Route::get('/produk/tambah-ke-keranjang/{id}', [KeranjangController::class, 'tambahKeKeranjang']);
+    Route::get('/keranjang/hapus/{id}', [KeranjangController::class, 'hapusKeranjang']);
 });
 
 // ADMIN ROUTES
