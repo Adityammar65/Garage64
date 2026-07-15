@@ -7,7 +7,7 @@
     <div class="max-w-7xl mx-auto px-4 py-10">
 
         <h1 class="text-3xl font-bold text-gray-800 mb-8">
-            🛒 Keranjang Belanja
+            Keranjang Belanja
         </h1>
 
         @if ($keranjang->count())
@@ -189,10 +189,9 @@
 
                         </div>
 
-                        <a href="#"
-                            class="block text-center bg-red-600 hover:bg-red-700 transition text-white py-3 rounded-lg font-semibold">
+                        <button id="pay-button" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg">
                             Checkout
-                        </a>
+                        </button>
 
                     </div>
 
@@ -201,10 +200,6 @@
             </div>
         @else
             <div class="bg-white rounded-xl shadow-lg p-12 text-center">
-
-                <div class="text-7xl mb-5">
-                    🛒
-                </div>
 
                 <h2 class="text-2xl font-bold mb-3">
                     Keranjang masih kosong
@@ -225,5 +220,48 @@
         @endif
 
     </div>
+
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.clientKey') }}">
+    </script>
+
+    <script>
+        document.getElementById('pay-button').addEventListener('click', function() {
+            fetch("{{ url('/checkout') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(err => {
+                            throw err;
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    snap.pay(data.snapToken, {
+                        onSuccess: function(result) {
+                            window.location.href = "/payment/finish";
+                        },
+                        onPending: function(result) {
+                            window.location.href = "/payment/unfinish";
+                        },
+                        onError: function(result) {
+                            window.location.href = "/payment/error";
+                        },
+                        onClose: function() {
+                            alert("Kamu menutup popup pembayaran.");
+                        }
+                    });
+                })
+                .catch(error => {
+                    alert(error.message);
+                    console.error(error);
+                });
+        });
+    </script>
 
 @endsection

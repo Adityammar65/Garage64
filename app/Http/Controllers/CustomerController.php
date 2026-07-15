@@ -11,6 +11,7 @@ use App\Models\KeranjangModel;
 
 class CustomerController extends Controller
 {
+    // VIEW HOME
     public function index()
     {
         $store = [];
@@ -22,16 +23,31 @@ class CustomerController extends Controller
         $idUser = session('id_user');
     
         $cartCount = KeranjangModel::where('id_user', $idUser)
-                        ->sum('jumlah'); // atau ->count()
+                        ->sum('jumlah');
     
         return view('customer.landing', compact('store', 'cartCount'));
     }
 
+    // VIEW ORDER
     public function order_saya()
     {
-        return view('customer.orders');
+        $idUser = session('id_user');
+
+        $orders = TransaksiModel::with('detailTransaksi.produk')
+            ->where('id_user', $idUser)
+            ->latest()
+            ->get();
+
+        $cartCount = KeranjangModel::where('id_user', $idUser)
+            ->sum('jumlah');
+
+        return view('customer.orders', compact(
+            'orders',
+            'cartCount'
+        ));
     }
 
+    // VIEW PRODUK
     public function produk()
     {
         $produk = ProdukModel::latest()->get();
@@ -41,6 +57,7 @@ class CustomerController extends Controller
         return view('customer.produk', compact('produk','cartCount'));
     }
     
+    // VIEW PROFILE
     public function profile()
     {
         $user = UserModel::findOrFail(session('id_user'));
@@ -67,6 +84,7 @@ class CustomerController extends Controller
         ));
     }
 
+    // UPDATE PROFILE
     public function updateProfile(Request $request)
     {
         $request->validate([
@@ -81,7 +99,6 @@ class CustomerController extends Controller
             'email' => $request->email,
         ]);
 
-        // Update session
         session([
             'username' => $user->username,
             'email' => $user->email,

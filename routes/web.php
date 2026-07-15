@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KeranjangController;
+use App\Http\Controller\TransaksiController;
 use App\Http\Middleware\CekAdmin;
 use App\Http\Middleware\CekLogin;
 
@@ -31,15 +32,29 @@ Route::get('/support-center', [ServiceController::class, 'supportCenter']);
 
 // POST-LOGIN ROUTES (CUSTOMER)
 Route::middleware('cek.login')->group(function(){
+    // PROFIL
     Route::get('/profile', [CustomerController::class, 'profile']);
-    Route::get('/orders', [CustomerController::class, 'order_saya']);
+
+    // ORDER
+    Route::get('/order-saya', [CustomerController::class, 'order_saya']);
+
+    // PRODUK
     Route::get('/produk', [CustomerController::class, 'produk']);
     Route::get('/produk/detail/{id}', [ProdukController::class, 'produkDetail']);
+
+    // KERANJANG
     Route::get('/keranjang', [KeranjangController::class, 'keranjang']);
     Route::get('/produk/tambah-ke-keranjang/{id}', [KeranjangController::class, 'tambahKeKeranjang']); 
     Route::get('/keranjang/tambah/{id}', [KeranjangController::class, 'tambahJumlah']);
     Route::get('/keranjang/kurang/{id}', [KeranjangController::class, 'kurangJumlah']);
     Route::get('/keranjang/hapus/{id}', [KeranjangController::class, 'hapusKeranjang']);
+
+    // TRANSAKSI
+    Route::post('/checkout', [TransaksiController::class, 'checkout']);
+    Route::post('/midtrans/callback', [TransaksiController::class, 'callback']);
+    Route::get('/payment/finish', [TransaksiController::class, 'finish']);
+    Route::get('/payment/unfinish', [TransaksiController::class, 'unfinish']);
+    Route::get('/payment/error', [TransaksiController::class, 'error']);
 });
 
 // ADMIN ROUTES
@@ -54,7 +69,7 @@ Route::middleware('cek.admin')->group(function(){
     Route::put('/admin/produk/update/{id}', [ProdukController::class, 'updateProduk']);
     Route::delete('/admin/produk/delete/{id}', [ProdukController::class, 'deleteProduk']);
     
-
+    // ORDER ADMIN
     Route::get('/admin/pesanan', [AdminController::class, 'pesanan']);
     Route::get('/admin/support', [AdminController::class, 'support']);
     Route::get('/admin/laporan', [AdminController::class, 'laporan']);
@@ -62,7 +77,6 @@ Route::middleware('cek.admin')->group(function(){
     // SETTINGS
     Route::get('/admin/pengaturan', [AdminController::class, 'pengaturan']);
     Route::post('/admin/pengaturan/save-password', [AuthController::class, 'resetPasswordAdmin']);
-
     Route::get('/admin/pengaturan/edit-info-toko', [FormController::class, 'editInfoToko']);
     Route::post('/admin/pengaturan/save-info-toko', [FormController::class, 'saveInfoToko']);
     Route::get('/admin/support/reply', [FormController::class, 'supportReply']);

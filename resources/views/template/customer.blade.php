@@ -101,7 +101,7 @@
                     <a href="{{ url('/produk') }}"
                         class="relative group font-semibold text-gray-300 transition hover:text-red-500">
 
-                        Products
+                        Produk
 
                         <span
                             class="absolute left-0 -bottom-1 h-0.5 w-0 bg-red-600 transition-all duration-300 group-hover:w-full">
@@ -109,10 +109,10 @@
 
                     </a>
 
-                    <a href="{{ url('/support-center') }}"
+                    <a href="{{ url('/order-saya') }}"
                         class="relative group font-semibold text-gray-300 transition hover:text-red-500">
 
-                        Contact
+                        Order Saya
 
                         <span
                             class="absolute left-0 -bottom-1 h-0.5 w-0 bg-red-600 transition-all duration-300 group-hover:w-full">
