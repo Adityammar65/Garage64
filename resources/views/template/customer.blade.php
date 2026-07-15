@@ -69,144 +69,253 @@
     @endif
 
     <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-gray-900 to-gray-800 text-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
+    <nav class="sticky top-0 z-50 bg-gray-950/70 backdrop-blur-2xl border-b border-white/10 shadow-xl">
 
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-2">
-                    <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="h-30 w-auto pt-4">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="flex items-center h-20 gap-6">
+
+                <!-- ================= Logo ================= -->
+                <a href="{{ url('/') }}" class="flex items-center gap-3 shrink-0">
+
+                    <img src="{{ asset('assets/images/logo.png') }}" alt="Garage64"
+                        class="h-16 w-auto transition duration-300 hover:scale-105">
+
                 </a>
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-6">
-                    <a href="{{ url('/') }}" class="hover:text-red-500 transition text-sm font-semibold italic">
+
+                <!-- ================= Menu ================= -->
+
+                <div class="hidden lg:flex items-center gap-8 shrink-0">
+
+                    <a href="{{ url('/') }}"
+                        class="relative group font-semibold text-gray-300 transition hover:text-red-500">
+
                         Home
+
+                        <span
+                            class="absolute left-0 -bottom-1 h-0.5 w-0 bg-red-600 transition-all duration-300 group-hover:w-full">
+                        </span>
+
                     </a>
 
-                    <a href="{{ url('/produk') }}" class="hover:text-red-500 transition text-sm font-semibold italic">
+                    <a href="{{ url('/produk') }}"
+                        class="relative group font-semibold text-gray-300 transition hover:text-red-500">
+
                         Products
+
+                        <span
+                            class="absolute left-0 -bottom-1 h-0.5 w-0 bg-red-600 transition-all duration-300 group-hover:w-full">
+                        </span>
+
                     </a>
 
                     <a href="{{ url('/support-center') }}"
-                        class="hover:text-red-500 transition text-sm font-semibold italic">
+                        class="relative group font-semibold text-gray-300 transition hover:text-red-500">
+
                         Contact
+
+                        <span
+                            class="absolute left-0 -bottom-1 h-0.5 w-0 bg-red-600 transition-all duration-300 group-hover:w-full">
+                        </span>
+
                     </a>
 
+                </div>
+
+                <!-- ================= Search ================= -->
+
+                <div class="hidden md:block flex-1">
+
+                    <form action="{{ url('/produk') }}" method="GET">
+
+                        <div class="relative">
+
+                            <!-- Search Icon -->
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-4.35-4.35m1.6-5.15a7 7 0 11-14 0 7 7 0 0114 0z" />
+
+                            </svg>
+
+                            <input type="text" name="query" value="{{ request('query') }}"
+                                placeholder="Search Hot Wheels, Mini GT, Inno64, Tarmac..."
+                                class="w-full
+                            h-12
+                            rounded-full
+                            border
+                            border-white/10
+                            bg-white/5
+                            backdrop-blur-xl
+                            pl-12
+                            pr-5
+                            text-white
+                            placeholder:text-gray-400
+                            transition
+                            focus:border-red-500
+                            focus:ring-2
+                            focus:ring-red-500
+                            focus:outline-none" />
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <!-- ================= Right Section ================= -->
+
+                <div class="flex items-center gap-3 shrink-0">
+
+                    <!-- Cart -->
+
+                    <a href="{{ url('/keranjang') }}"
+                        class="relative
+                    flex
+                    h-11
+                    w-11
+                    items-center
+                    justify-center
+                    rounded-xl
+                    transition
+                    hover:scale-105">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" />
+
+                        </svg>
+
+                        <span
+                            class="absolute
+                        -right-1
+                        -top-1
+                        flex
+                        h-5
+                        w-5
+                        items-center
+                        justify-center
+                        rounded-full
+                        bg-red-600
+                        text-[10px]
+                        font-bold
+                        text-white">
+
+                            {{ $cartCount ?? 0 }}
+
+                        </span>
+
+                    </a>
                     @if (!session('login'))
                         <!-- Login -->
                         <a href="{{ url('/login') }}"
-                            class="px-4 py-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition text-sm font-semibold rounded-lg">
+                            class="hidden md:flex items-center rounded-xl border border-red-600 px-5 py-2.5 font-semibold text-red-500 transition hover:bg-red-600 hover:text-white">
+
                             Login
+
                         </a>
 
                         <!-- Register -->
                         <a href="{{ url('/register') }}"
-                            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm font-semibold">
+                            class="hidden md:flex items-center rounded-xl bg-red-600 px-5 py-2.5 font-semibold text-white shadow-lg shadow-red-600/20 transition hover:bg-red-700 hover:shadow-red-600/40">
+
                             Register
+
                         </a>
                     @else
-                        <!-- Dropdown User -->
+                        <!-- User -->
                         <button @click="sidebarOpen = true"
-                            class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-700 transition">
+                            class="hidden md:flex items-center gap-3 rounded-2xl px-3 py-2 hover:scale-105 transition">
 
                             <div
-                                class="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center font-bold uppercase">
+                                class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-red-500 to-red-700 font-bold uppercase text-white ring-2 ring-red-500/50">
+
                                 {{ strtoupper(substr(session('username'), 0, 1)) }}
+
                             </div>
 
-                            <span class="text-sm font-semibold">
-                                {{ session('username') }}
-                            </span>
+                            <div class="text-left">
+
+                                <p class="text-sm font-semibold text-white">
+
+                                    {{ session('username') }}
+
+                                </p>
+
+                            </div>
 
                         </button>
                     @endif
+
                 </div>
+
             </div>
+
         </div>
+
     </nav>
-
-    <!-- Search Bar -->
-    <div class="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-3 sticky top-16 z-40">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex gap-3">
-                <form method="GET" action="#" class="flex-1 flex gap-2">
-                    <input type="text" name="query" placeholder="Cari..." value="{{ request('query', '') }}"
-                        class="flex-1 px-4 py-1 rounded bg-gray-600 text-white text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
-                    <button type="submit" class="bg-red-500 hover:bg-red-600 transition px-3 py-1 rounded">
-                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
-                                    stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                </path>
-                            </g>
-                        </svg>
-                    </button>
-                </form>
-
-                <!-- Cart Button -->
-                <a href="{{ url('/keranjang') }}"
-                    class="relative flex items-center px-3 py-2 bg-red-500 hover:bg-red-600 transition rounded">
-                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path
-                                d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"
-                                stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            </path>
-                        </g>
-                    </svg>
-                    <span
-                        class="absolute -top-2 -right-2 bg-yellow-400 text-gray-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                        {{ $cartCount ?? 0 }}
-                    </span>
-                </a>
-            </div>
-        </div>
-    </div>
 
     <!-- Overlay -->
     <div x-show="sidebarOpen" x-transition.opacity @click="sidebarOpen = false"
-        class="fixed inset-0 bg-black/50 z-50" style="display:none;">
+        class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm" style="display:none;">
     </div>
 
     <!-- Sidebar -->
-    <div x-show="sidebarOpen" x-transition:enter="transition duration-300"
+    <div x-show="sidebarOpen" x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
-        x-transition:leave="transition duration-300" x-transition:leave-start="translate-x-0"
+        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0"
         x-transition:leave-end="translate-x-full"
-        class="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 flex flex-col" style="display:none;">
+        class="fixed top-0 right-0 z-50 flex h-full w-80 flex-col
+           border-l border-gray-800
+           bg-gray-950/95
+           backdrop-blur-2xl
+           shadow-2xl"
+        style="display:none;">
 
         <!-- Header -->
-        <div class="bg-gray-900 text-white p-6">
+        <div class="border-b border-gray-800 p-6">
 
-            <div class="flex justify-between items-center">
+            <div class="flex items-center justify-between">
 
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-4">
 
                     <div
-                        class="w-14 h-14 rounded-full bg-red-600 flex items-center justify-center text-xl font-bold uppercase">
+                        class="flex h-14 w-14 items-center justify-center rounded-full
+                    bg-gradient-to-br
+                    from-red-500
+                    to-red-700
+                    font-bold text-xl text-white
+                    ring-2 ring-red-500/40">
+
                         {{ strtoupper(substr(session('username'), 0, 1)) }}
+
                     </div>
 
                     <div>
-                        <h3 class="font-bold">
+
+                        <h3 class="font-bold text-white">
+
                             {{ session('username') }}
+
                         </h3>
 
-                        <p class="text-sm text-gray-300">
+                        <p class="text-sm text-gray-400">
+
                             {{ session('email') }}
+
                         </p>
+
                     </div>
 
                 </div>
 
-                <button @click="sidebarOpen=false" class="text-2xl hover:text-red-500">
+                <button @click="sidebarOpen=false"
+                    class="rounded-lg p-2 text-gray-400 transition hover:bg-gray-800 hover:text-red-500">
 
                     ✕
 
@@ -217,43 +326,93 @@
         </div>
 
         <!-- Menu -->
-        <div class="flex-1 py-4">
+        <div class="flex-1 space-y-2 p-4">
 
-            <a href="{{ url('/profile') }}" class="flex items-center gap-3 px-6 py-4 hover:bg-gray-100">
-                <span>Profile</span>
+            <a href="{{ url('/profile') }}"
+                class="group flex items-center gap-4 rounded-xl px-4 py-3
+            text-gray-300
+            transition
+            hover:bg-gray-800
+            hover:text-red-500">
 
-            </a>
+                <span>
 
-            <a href="{{ url('/keranjang') }}" class="flex items-center justify-between px-6 py-4 hover:bg-gray-100">
+                    Profile
 
-                <div class="flex items-center gap-3">
-                    <span>Keranjang</span>
-
-                </div>
-
-                <span class="bg-red-600 text-white text-xs px-2 py-1 rounded-full">
-                    {{ $cartCount ?? 0 }}
                 </span>
 
             </a>
 
-            <a href="{{ url('/riwayat-transaksi') }}" class="flex items-center gap-3 px-6 py-4 hover:bg-gray-100">
-                <span>Riwayat Transaksi</span>
+            <a href="{{ url('/keranjang') }}"
+                class="group flex items-center justify-between rounded-xl px-4 py-3
+            text-gray-300
+            transition
+            hover:bg-gray-800
+            hover:text-red-500">
+
+                <div class="flex items-center gap-4">
+
+                    <span>
+
+                        Keranjang
+
+                    </span>
+
+                </div>
+
+                <span class="rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
+
+                    {{ $cartCount ?? 0 }}
+
+                </span>
 
             </a>
 
-            <a href="{{ url('/support-center') }}" class="flex items-center gap-3 px-6 py-4 hover:bg-gray-100">
-                <span>Support Center</span>
+            <a href="{{ url('/riwayat-transaksi') }}"
+                class="group flex items-center gap-4 rounded-xl px-4 py-3
+            text-gray-300
+            transition
+            hover:bg-gray-800
+            hover:text-red-500">
+
+                <span>
+
+                    Riwayat Transaksi
+
+                </span>
+
+            </a>
+
+            <a href="{{ url('/support-center') }}"
+                class="group flex items-center gap-4 rounded-xl px-4 py-3
+            text-gray-300
+            transition
+            hover:bg-gray-800
+            hover:text-red-500">
+
+                <span>
+
+                    Support Center
+
+                </span>
 
             </a>
 
         </div>
 
         <!-- Footer -->
-        <div class="border-t p-4">
+        <div class="border-t border-gray-800 p-5">
 
             <a href="{{ url('/logout') }}"
-                class="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white rounded-lg py-3 transition">
+                class="flex items-center justify-center gap-3 rounded-xl
+            bg-red-600
+            py-3
+            font-semibold
+            text-white
+            transition
+            hover:bg-red-700
+            hover:shadow-lg
+            hover:shadow-red-600/30">
 
                 Logout
 
