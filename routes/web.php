@@ -21,8 +21,6 @@ Route::post('/register/save', [AuthController::class, 'saveRegister']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/reset-password', [FormController::class, 'resetPasswordForm']);
 Route::post('/save-password', [AuthController::class, 'resetPassword']);
-Route::middleware('cek.login')->group(function () {
-Route::get('/profile', [CustomerController::class, 'profile']);});
 
 // SERVICES
 Route::get('/syarat-ketentuan', [ServiceController::class, 'syaratKetentuan']);
@@ -33,6 +31,7 @@ Route::get('/support-center', [ServiceController::class, 'supportCenter']);
 
 // POST-LOGIN ROUTES (CUSTOMER)
 Route::middleware('cek.login')->group(function(){
+    Route::get('/profile', [CustomerController::class, 'profile']);
     Route::get('/orders', [CustomerController::class, 'order_saya']);
     Route::get('/produk', [CustomerController::class, 'produk']);
     Route::get('/produk/detail/{id}', [ProdukController::class, 'produkDetail']);
@@ -48,8 +47,8 @@ Route::middleware('cek.admin')->group(function(){
     Route::get('/admin', [AdminController::class, 'dashboard']);
 
     // PRODUK DAN CRUD
-    Route::get('/admin/produk', [AdminController::class, 'produk']);
-    Route::get('/admin/produk/tambah', [AdminController::class, 'tambahProduk']);
+    Route::get('/admin/produk', [AdminController::class, 'showProduk']);
+    Route::get('/admin/produk/tambah', [ProdukController::class, 'tambahProduk']);
     Route::post('/admin/produk/save', [ProdukController::class, 'saveProduk']);
     Route::get('/admin/produk/edit/{id}', [FormController::class, 'editProduk']);
     Route::put('/admin/produk/update/{id}', [ProdukController::class, 'updateProduk']);
@@ -62,7 +61,6 @@ Route::middleware('cek.admin')->group(function(){
 
     // SETTINGS
     Route::get('/admin/pengaturan', [AdminController::class, 'pengaturan']);
-    Route::get('/admin/pengaturan/reset-password', [FormController::class, 'resetPassword']);
     Route::post('/admin/pengaturan/save-password', [AuthController::class, 'resetPasswordAdmin']);
 
     Route::get('/admin/pengaturan/edit-info-toko', [FormController::class, 'editInfoToko']);

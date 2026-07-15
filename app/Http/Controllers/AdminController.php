@@ -15,7 +15,7 @@ class AdminController extends Controller
     }
 
     // PRODUK
-    public function produk(Request $request)
+    public function showProduk(Request $request)
     {
         $query = ProdukModel::with('kategori');
 
@@ -33,17 +33,6 @@ class AdminController extends Controller
             ->withQueryString();
 
         return view('admin.produk_admin', compact('produk'));
-    }
-
-    // CRUD PRODUK
-    // TAMBAH PRODUK
-    public function tambahProduk()
-    {
-        $kategori = KategoriModel::orderBy('nama_kategori')->get();
-
-        session(['redirect_after_save_produk' => url()->previous()]);
-
-        return view('form.tambah_produk', compact('kategori'));
     }
 
     public function pesanan()

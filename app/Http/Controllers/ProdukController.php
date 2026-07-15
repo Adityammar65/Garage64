@@ -64,6 +64,17 @@ class ProdukController extends Controller
             ->with('success', 'Produk berhasil ditambahkan.');
     }
 
+    // CRUD PRODUK
+    // TAMBAH PRODUK
+    public function tambahProduk()
+    {
+        $kategori = KategoriModel::orderBy('nama_kategori')->get();
+
+        session(['redirect_after_save_produk' => url()->previous()]);
+
+        return view('form.tambah_produk', compact('kategori'));
+    }
+    
     // UPDATE PRODUK
     public function updateProduk(Request $request, $id)
     {
