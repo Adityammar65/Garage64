@@ -119,5 +119,5 @@ class KeranjangController extends Controller
         return back()
             ->with('success', 'Item keranjang berhasil dihapus.');
     }
-
+    
 }
