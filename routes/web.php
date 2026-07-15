@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KeranjangController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Middleware\CekAdmin;
 use App\Http\Middleware\CekLogin;
 use App\Http\Controllers\GoogleController;
@@ -36,7 +37,14 @@ Route::get('/support-center', [ServiceController::class, 'supportCenter']);
 Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
 Route::middleware('cek.login')->group(function(){
-    Route::get('/orders', [CustomerController::class, 'order_saya']);
+    // PROFIL
+    Route::get('/profile', [CustomerController::class, 'profile']);
+
+    // ORDER
+    Route::get('/order-saya', [CustomerController::class, 'order_saya']);
+    Route::get('/order/{id}', [CustomerController::class, 'detailOrder']);
+
+    // PRODUK
     Route::get('/produk', [CustomerController::class, 'produk']);
     Route::get('/produk/detail/{id}', [ProdukController::class, 'produkDetail']);
     Route::get('/keranjang', [KeranjangController::class, 'keranjang']);

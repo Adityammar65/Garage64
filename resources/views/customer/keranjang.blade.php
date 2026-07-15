@@ -229,37 +229,28 @@
             fetch("{{ url('/checkout') }}", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
                         "X-CSRF-TOKEN": "{{ csrf_token() }}"
                     }
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(err => {
-                            throw err;
-                        });
-                    }
-                    return response.json();
-                })
+                .then(res => res.json())
                 .then(data => {
+
                     snap.pay(data.snapToken, {
+
                         onSuccess: function(result) {
-                            window.location.href = "/payment/finish";
+                            window.location.href = "{{ url('/payment/finish') }}";
                         },
+
                         onPending: function(result) {
-                            window.location.href = "/payment/unfinish";
+                            window.location.href = "{{ url('/payment/unfinish') }}";
                         },
+
                         onError: function(result) {
-                            window.location.href = "/payment/error";
-                        },
-                        onClose: function() {
-                            alert("Kamu menutup popup pembayaran.");
+                            window.location.href = "{{ url('/payment/error') }}";
                         }
+
                     });
-                })
-                .catch(error => {
-                    alert(error.message);
-                    console.error(error);
+
                 });
         });
     </script>

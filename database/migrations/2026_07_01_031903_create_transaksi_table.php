@@ -40,9 +40,9 @@ return new class extends Migration
                 'dibatalkan'
             ])->default('diproses');
 
-            $table->string('resi');
+            $table->string('resi')->nullable();
 
-            $table->timestamp('dibayar_pada');
+            $table->timestamp('dibayar_pada')->nullable();
 
             $table->timestamps();
         });

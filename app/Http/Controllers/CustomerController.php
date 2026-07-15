@@ -106,4 +106,17 @@ class CustomerController extends Controller
 
         return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
     }
+
+    public function detailOrder($id)
+    {
+        $transaksi = TransaksiModel::with([
+            'user',
+            'detailTransaksi.produk'
+        ])
+        ->where('id_transaksi', $id)
+        ->where('id_user', session('id_user'))
+        ->firstOrFail();
+
+        return view('customer.order-detail', compact('transaksi'));
+    }
 }

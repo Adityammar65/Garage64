@@ -136,7 +136,7 @@
 
                     </div>
 
-                    <a href="/orders/{{ $order->id_transaksi }}"
+                    <a href="{{ url('/order/' . $order->id_transaksi) }}"
                         class="px-6 py-3 bg-yellow-500 hover:bg-yellow-400 rounded-xl font-semibold transition">
 
                         Detail
