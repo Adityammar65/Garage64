@@ -103,6 +103,8 @@ class TransaksiController extends Controller
                 ]);
             }
 
+            KeranjangModel::where('id_user', $idUser)->delete();
+
             DB::commit();
 
             return response()->json([
@@ -254,21 +256,21 @@ class TransaksiController extends Controller
     // FINISH
     public function finish(Request $request)
     {
-        return redirect('/order-saya')
+        return back()
             ->with('success', 'Pembayaran berhasil.');
     }
 
     // UNFINISH
     public function unfinish(Request $request)
     {
-        return redirect('/orders')
+        return back()
             ->with('warning', 'Pembayaran masih menunggu.');
     }
 
     // ERROR
     public function error(Request $request)
     {
-        return redirect('/orders')
+        return back()
             ->with('error', 'Pembayaran gagal.');
     }
 }

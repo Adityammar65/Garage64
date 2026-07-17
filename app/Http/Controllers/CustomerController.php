@@ -14,6 +14,13 @@ class CustomerController extends Controller
     // VIEW HOME
     public function index()
     {
+        $produk = ProdukModel::latest()->get();
+
+        $marqueeProduk = ProdukModel::where('is_active', 1)
+            ->inRandomOrder()
+            ->take(8)
+            ->get();
+
         $store = [];
     
         if (Storage::exists('store.json')) {
@@ -25,7 +32,7 @@ class CustomerController extends Controller
         $cartCount = KeranjangModel::where('id_user', $idUser)
                         ->sum('jumlah');
     
-        return view('customer.landing', compact('store', 'cartCount'));
+        return view('customer.landing', compact('store', 'cartCount', 'marqueeProduk'));
     }
 
     // VIEW ORDER
@@ -51,10 +58,21 @@ class CustomerController extends Controller
     public function produk()
     {
         $produk = ProdukModel::latest()->get();
+
+        $marqueeProduk = ProdukModel::inRandomOrder()
+            ->take(8)
+            ->get();
+
         $idUser = session('id_user');
+
         $cartCount = KeranjangModel::where('id_user', $idUser)
-                        ->sum('jumlah'); // atau ->count()
-        return view('customer.produk', compact('produk','cartCount'));
+            ->sum('jumlah');
+
+        return view('customer.produk', compact(
+            'produk',
+            'marqueeProduk',
+            'cartCount'
+        ));
     }
     
     // VIEW PROFILE

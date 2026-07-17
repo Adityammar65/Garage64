@@ -250,77 +250,37 @@
         <div class="w-full gap-6">
             <div class="overflow-hidden bg-gray-50">
                 <div class="flex w-max animate-marquee">
-                    @php
-                        $items = [
-                            [
-                                'title' => 'Porsche 963 #7',
-                                'description' =>
-                                    'Porsche 963 #7 Porsche Penske Motorsport 2025 IMSA Daytona 24 Hrs Winner',
-                                'image' => asset('assets/products/showcases/MGT-Penske.png'),
-                            ],
-                            [
-                                'title' => 'Land Rover Defender 110',
-                                'description' =>
-                                    '1/64 Land Rover Defender 110 Brown Metallic - MIJO Special Edition - Tarmac Works GLOBAL64',
-                                'image' => asset('assets/products/showcases/Tarmac-LandRover.png'),
-                            ],
-                            [
-                                'title' => 'Toyota Tundra Black',
-                                'description' => 'Colourful Model 1/64 Toyota Tundra Black',
-                                'image' => asset('assets/products/showcases/cm-toyota.png'),
-                            ],
-                            [
-                                'title' => 'Porsche 911 GT3 R (992) #77',
-                                'description' =>
-                                    'Porsche 911 GT3 R (992) #77 AO Racing 2025 IMSA Sebring 12 Hrs Class Winner',
-                                'image' => asset('assets/products/showcases/MGT-Rexy.png'),
-                            ],
-                            [
-                                'title' => 'Nissan SILVIA (S15)',
-                                'description' => 'Nissan SILVIA (S15) LB-Super Silhouette AMOCULTURE',
-                                'image' => asset('assets/products/showcases/MGT-LB-S15.png'),
-                            ],
-                            [
-                                'title' => 'Nissan Fairlady Z S30',
-                                'description' =>
-                                    '1/64 Nissan Fairlady Z S30 Widebody Blue - Designed by Jon Sibal - Tarmac Works GLOBAL64',
-                                'image' => asset('assets/products/showcases/Tarmac-Fairlady.png'),
-                            ],
-                            [
-                                'title' => 'Mercedes-AMG F1',
-                                'description' =>
-                                    '1/64 Mercedes-AMG F1 W14 E Performance Italian Grand Prix 2023 #63 George Russell - Tarmac Works GLOBAL64',
-                                'image' => asset('assets/products/showcases/Tarmac-F1.png'),
-                            ],
-                            [
-                                'title' => 'MAZDA 787B No.18',
-                                'description' => 'MAZDA 787B No.18 59th 24 Hours Le Mans 1991',
-                                'image' => asset('assets/products/showcases/inno64-787b.png'),
-                            ],
-                        ];
-                    @endphp
-                    @foreach ($items as $item)
+                    @foreach ($marqueeProduk as $item)
                         <div class="flex-shrink-0">
-                            <div class="border border-gray-200 rounded-lg mx-2 w-100 h-65 shadow-sm"
-                                style="background-image: url('{{ $item['image'] }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                                <div class="wrapper bg-black/35 h-full p-2 rounded flex flex-col justify-end">
-                                    <h3 class="font-archivo text-white">{{ $item['title'] }}</h3>
-                                    <p class="text-xs font-archivo italic text-white">{{ $item['description'] }}</p>
+                            <a href="{{ url('/produk/detail/' . $item->id_produk) }}">
+                                <div class="border border-gray-200 rounded-lg mx-2 w-100 h-65 shadow-sm"
+                                    style="
+                    background-image: url('{{ asset('storage/' . $item->gambar) }}');
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                ">
+
+                                    <div class="wrapper bg-black/40 h-full p-4 rounded flex flex-col justify-end">
+
+                                        <h3 class="font-archivo text-white text-lg font-bold">
+                                            {{ $item->nama_produk }}
+                                        </h3>
+
+                                        <p class="text-xs font-archivo italic text-white line-clamp-2">
+                                            {{ Str::limit($item->deskripsi, 80) }}
+                                        </p>
+
+                                        <p class="text-sm font-semibold text-red-400 mt-2">
+                                            Rp {{ number_format($item->harga, 0, ',', '.') }}
+                                        </p>
+
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     @endforeach
-                    @foreach ($items as $item)
-                        <div class="flex-shrink-0">
-                            <div class="border border-gray-200 rounded-lg mx-2 w-100 h-65 shadow-sm"
-                                style="background-image: url('{{ $item['image'] }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                                <div class="wrapper bg-black/35 h-full p-2 rounded flex flex-col justify-end">
-                                    <h3 class="font-archivo text-white">{{ $item['title'] }}</h3>
-                                    <p class="text-xs font-archivo italic text-white">{{ $item['description'] }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+
                 </div>
             </div>
         </div>
