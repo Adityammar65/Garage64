@@ -105,7 +105,9 @@
                     Produk terbaru
                 </h1>
 
-                <div class="flex flex-wrap justify-around w-full">
+                <div
+                    id="produk-list"
+                    class="flex flex-wrap justify-around w-full">
                     @forelse ($produk as $prd)
                         <div class="max-w-sm w-80 h-[480px] rounded shadow-lg mx-2 my-4 bg-white flex flex-col">
 
@@ -190,4 +192,72 @@
             </div>
         </div>
     </div>
+    <script>
+        const search = document.getElementById("search");
+        
+        console.log(search);
+        
+        search.addEventListener("keyup", function () {
+        
+            console.log("Ketik:", search.value);
+        
+            fetch("{{ url('/produk/search') }}?q=" + encodeURIComponent(search.value))
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+        
+                    let html = "";
+        
+                    data.forEach(prd => {
+
+                    html += `
+                    <div class="max-w-sm w-80 h-[480px] rounded shadow-lg mx-2 my-4 bg-white flex flex-col">
+
+                        <img class="w-full h-56 object-cover"
+                            src="/storage/${prd.gambar}"
+                            alt="${prd.nama_produk}">
+
+                        <div class="px-6 py-4 flex-1 flex flex-col">
+
+                            <div class="font-bold text-xl mb-2">
+                                ${prd.nama_produk}
+                            </div>
+
+                            <p class="text-gray-700 text-base h-16 overflow-hidden">
+                                ${prd.deskripsi}
+                            </p>
+
+                            <p class="text-gray-700 text-base mt-2 font-semibold">
+                                Rp ${Number(prd.harga).toLocaleString('id-ID')}
+                            </p>
+
+                            <div class="mt-auto pt-4 flex justify-evenly">
+
+                                <a href="/produk/detail/${prd.id_produk}"
+                                    class="bg-red-600 py-2 px-10 rounded text-white">
+                                    Detail
+                                </a>
+
+                                <a href="/produk/tambah-ke-keranjang/${prd.id_produk}"
+                                    class="bg-blue-600 py-2 px-10 rounded text-white">
+                                    Keranjang
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    `;
+
+                    });
+        
+                    document.getElementById("produk-list").innerHTML = html;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        
+        });
+        </script>
 @endsection

@@ -38,6 +38,7 @@ Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 Route::middleware('cek.login')->group(function(){
     // PROFIL
     Route::get('/profile', [CustomerController::class, 'profile']);
+    
 
     // ORDER
     Route::get('/order-saya', [CustomerController::class, 'order_saya']);
@@ -46,6 +47,7 @@ Route::middleware('cek.login')->group(function(){
     // PRODUK
     Route::get('/produk', [CustomerController::class, 'produk']);
     Route::get('/produk/detail/{id}', [ProdukController::class, 'produkDetail']);
+    Route::get('/produk/search', [CustomerController::class, 'search']);
 
     // KERANJANG
     Route::get('/keranjang', [KeranjangController::class, 'keranjang']);

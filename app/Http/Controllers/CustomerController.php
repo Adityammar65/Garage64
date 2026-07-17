@@ -137,4 +137,16 @@ class CustomerController extends Controller
 
         return view('customer.order_detail', compact('transaksi'));
     }
+    
+    public function search(Request $request)
+    {
+    $keyword = $request->q;
+
+    $produk = ProdukModel::where('nama_produk', 'like', "%{$keyword}%")
+        ->orWhere('brand', 'like', "%{$keyword}%")
+        ->latest()
+        ->get();
+
+    return response()->json($produk);
+    }
 }

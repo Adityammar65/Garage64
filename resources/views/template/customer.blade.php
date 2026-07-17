@@ -141,9 +141,12 @@
 
                             </svg>
 
-                            <input type="text" name="query" value="{{ request('query') }}"
-                                placeholder="Search Hot Wheels, Mini GT, Inno64, Tarmac..."
-                                class="w-full
+                            <input  type="text"
+                                    name="query" 
+                                    id= "search"
+                                    value="{{ request('query') }}"
+                                    placeholder="Search Hot Wheels, Mini GT, Inno64, Tarmac..."
+                                    class="w-full
                             h-12
                             rounded-full
                             border
