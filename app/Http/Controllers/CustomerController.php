@@ -48,7 +48,7 @@ class CustomerController extends Controller
         $cartCount = KeranjangModel::where('id_user', $idUser)
             ->sum('jumlah');
 
-        return view('customer.orders', compact(
+        return view('customer.order', compact(
             'orders',
             'cartCount'
         ));
@@ -135,6 +135,6 @@ class CustomerController extends Controller
         ->where('id_user', session('id_user'))
         ->firstOrFail();
 
-        return view('customer.order-detail', compact('transaksi'));
+        return view('customer.order_detail', compact('transaksi'));
     }
 }

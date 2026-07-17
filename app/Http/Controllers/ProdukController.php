@@ -19,7 +19,7 @@ class ProdukController extends Controller
         $cartCount = KeranjangModel::where('id_user', $idUser)
             ->sum('jumlah'); // atau ->count()
     
-        return view('customer.produk-detail', compact('produk','cartCount'));
+        return view('customer.produk_detail', compact('produk','cartCount'));
     }
 
     // ADMIN SIDE
