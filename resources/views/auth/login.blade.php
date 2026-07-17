@@ -108,7 +108,7 @@
                     </div>
                 
                     <!-- Login Google -->
-                    <a href="{{ route('google.login') }}"
+                    <a href="{{ url('/auth/google') }}"
                         class="flex w-full items-center justify-center gap-3 rounded-md border border-gray-500 bg-white px-3 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-100">
                 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
@@ -132,7 +132,7 @@
                                 C44,22.659,43.862,21.35,43.611,20.083z"/>
                         </svg>
                 
-                        <span>Masuk dengan Google</span>
+                        <span>Login dengan Google</span>
                     </a>
                 
                 </div>

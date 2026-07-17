@@ -19,6 +19,7 @@ class UserModel extends Model
         'password',
         'role',
         'foto_profil',
+        'google_id',
     ];
 
     protected $hidden = [
