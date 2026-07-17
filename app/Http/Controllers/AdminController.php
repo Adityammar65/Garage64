@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ProdukModel;
 use App\Models\KategoriModel;
+use App\Models\ServiceModel;
 
 class AdminController extends Controller
 {
@@ -40,9 +41,41 @@ class AdminController extends Controller
         return view('admin.pesanan');
     }
 
+    // SUPPORT CENTER
     public function support()
     {
-        return view('admin.support_admin');
+        $services = ServiceModel::with('user')
+            ->orderByRaw("
+                CASE
+                    WHEN status = 'Menunggu' THEN 1
+                    WHEN status = 'Diproses' THEN 2
+                    WHEN status = 'Selesai' THEN 3
+                    ELSE 4
+                END
+            ")
+            ->latest()
+            ->get();
+
+        return view('admin.support_admin', compact('services'));
+    }
+
+    public function replySupport(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required',
+            'balasan' => 'required|string',
+        ]);
+
+        $service = ServiceModel::findOrFail($id);
+
+        $service->update([
+            'status' => $request->status,
+            'balasan' => $request->balasan,
+            'dibalas_pada' => now(),
+        ]);
+
+        return redirect('/admin/support')
+            ->with('success', 'Balasan berhasil dikirim.');
     }
 
     public function laporan()

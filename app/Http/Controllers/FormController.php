@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ProdukModel;
 use Illuminate\Support\Facades\Storage;
 use App\Models\KategoriModel;
+use App\Models\ServiceModel;
 
 
 class FormController extends Controller
@@ -62,9 +63,12 @@ class FormController extends Controller
         return back()->with('success', 'Informasi toko berhasil diperbarui.');
     }
 
-    public function supportReply()
+    public function supportReplyForm($id)
     {
-        return view('form.support_reply');
+        $service = ServiceModel::with('user')
+            ->findOrFail($id);
+
+        return view('form.support_reply', compact('service'));
     }
     
     public function resetPasswordForm()

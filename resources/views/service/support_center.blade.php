@@ -71,16 +71,16 @@
                         Contact Support
                     </h2>
                     <div class="bg-gray-50 rounded-lg p-6">
-                        <form class="space-y-4">
+                        <form action="{{ url('/support-center/store') }}" method="POST" class="space-y-4">
+                            @csrf
+
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">
                                     Username
                                 </label>
 
-                                <input type="text" placeholder="Masukkan username"
-                                    class="w-full rounded-lg border border-gray-300 px-4 py-3
-                    focus:outline-none focus:ring-2 focus:ring-red-400
-                    focus:border-red-400 transition">
+                                <input type="text" value="{{ session('username') }}"
+                                    class="w-full rounded-lg border border-gray-300 px-4 py-3 bg-gray-100" readonly>
                             </div>
 
                             <div>
@@ -88,10 +88,8 @@
                                     Email
                                 </label>
 
-                                <input type="email" placeholder="your@email.com"
-                                    class="w-full rounded-lg border border-gray-300 px-4 py-3
-                    focus:outline-none focus:ring-2 focus:ring-red-400
-                    focus:border-red-400 transition">
+                                <input type="email" value="{{ session('email') }}"
+                                    class="w-full rounded-lg border border-gray-300 px-4 py-3 bg-gray-100" readonly>
                             </div>
 
                             <div>
@@ -99,10 +97,14 @@
                                     Subjek
                                 </label>
 
-                                <input type="text" placeholder="Contoh: Kendala Pesanan"
+                                <input type="text" name="subjek" value="{{ old('subjek') }}"
+                                    placeholder="Contoh: Kendala Pesanan"
                                     class="w-full rounded-lg border border-gray-300 px-4 py-3
-                    focus:outline-none focus:ring-2 focus:ring-red-400
-                    focus:border-red-400 transition">
+            focus:outline-none focus:ring-2 focus:ring-red-400">
+
+                                @error('subjek')
+                                    <small class="text-red-500">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <div>
@@ -110,16 +112,20 @@
                                     Keluhan
                                 </label>
 
-                                <textarea rows="5" placeholder="Tulis pertanyaan atau kendala Anda..."
+                                <textarea name="pesan" rows="5" placeholder="Tulis pertanyaan atau kendala Anda..."
                                     class="w-full rounded-lg border border-gray-300 px-4 py-3
-                    focus:outline-none focus:ring-2 focus:ring-red-400
-                    focus:border-red-400 transition resize-none"></textarea>
+            focus:outline-none focus:ring-2 focus:ring-red-400 resize-none">{{ old('pesan') }}</textarea>
+
+                                @error('pesan')
+                                    <small class="text-red-500">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <button type="submit"
-                                class="bg-red-500 hover:bg-red-600 text-white
-                px-6 py-3 rounded-lg transition font-medium">
+                                class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg transition font-medium">
+
                                 Kirim Pertanyaan
+
                             </button>
 
                         </form>

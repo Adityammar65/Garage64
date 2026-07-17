@@ -2,135 +2,122 @@
 @section('title', 'Support')
 @section('page_title', 'Support')
 @section('content')
-<div class="flex flex-col gap-6 p-4">
+    <div class="flex flex-col gap-6 p-4">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center">
-        <h2 class="text-2xl font-bold text-white">
-            Daftar Keluhan
-        </h2>
+        <!-- Header -->
+        <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-white">
+                Daftar Keluhan
+            </h2>
 
-        <span class="text-sm text-white/60">
-            Customer Support
-        </span>
-    </div>
-
-
-    <!-- Complaint Card -->
-    <div class="bg-gray-800 rounded-xl shadow-xl border border-gray-700 overflow-hidden">
-
-        <div class="overflow-x-auto">
-
-            <table class="min-w-full text-left text-sm whitespace-nowrap text-white">
-
-                <thead class="uppercase tracking-wider bg-gray-700/50 border-b border-gray-600">
-
-                    <tr>
-                        <th class="px-6 py-4">
-                            Pengirim
-                        </th>
-
-                        <th class="px-6 py-4">
-                            Subjek
-                        </th>
-
-                        <th class="px-6 py-4">
-                            Keluhan
-                        </th>
-
-                        <th class="px-6 py-4">
-                            Status
-                        </th>
-
-                        <th class="px-6 py-4 text-center">
-                            Aksi
-                        </th>
-                    </tr>
-
-                </thead>
+            <span class="text-sm text-white/60">
+                Customer Support
+            </span>
+        </div>
 
 
-                <tbody>
+        <!-- Complaint Card -->
+        <div class="bg-gray-800 rounded-xl shadow-xl border border-gray-700 overflow-hidden">
 
-                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
+            <div class="overflow-x-auto">
 
-                        <th class="px-6 py-5 font-medium">
-                            John Doe
-                        </th>
+                <table class="min-w-full text-left text-sm whitespace-nowrap text-white">
 
-                        <td class="px-6 py-5">
-                            Pengiriman terlambat
-                        </td>
+                    <thead class="uppercase tracking-wider bg-gray-700/50 border-b border-gray-600">
 
-                        <td class="px-6 py-5 max-w-md whitespace-normal text-white/80">
-                            Pesanan saya belum sampai setelah 2 minggu. Mohon segera ditindaklanjuti.
-                        </td>
+                        <tr>
+                            <th class="px-6 py-4">
+                                Pengirim
+                            </th>
 
-                        <td class="px-6 py-5">
-                            <span class="px-3 py-1 rounded-full text-xs border border-gray-500">
-                                Belum Ditangani
-                            </span>
-                        </td>
+                            <th class="px-6 py-4">
+                                Subjek
+                            </th>
 
-                        <td class="px-6 py-5 text-center">
-                            <a href="{{ url('/admin/support/reply') }}"
-                               class="text-blue-500 hover:text-blue-700 font-bold transition">
-                                Lihat Detail
-                            </a>
-                        </td>
+                            <th class="px-6 py-4">
+                                Keluhan
+                            </th>
 
-                    </tr>
+                            <th class="px-6 py-4">
+                                Status
+                            </th>
 
+                            <th class="px-6 py-4 text-center">
+                                Aksi
+                            </th>
+                        </tr>
 
-                    @foreach([
-                        ['Jane Smith','Produk bermasalah','Produk yang saya terima memiliki cacat. Mohon diganti dengan yang baru.','Sedang Ditangani'],
-                        ['Xiao Li','Pengiriman terlambat','Pesanan saya belum sampai setelah 2 minggu. Mohon segera ditindaklanjuti.','Sudah Ditangani'],
-                        ['Pedro Alvarez','Produk bermasalah','Produk yang saya terima memiliki cacat. Mohon diganti dengan yang baru.','Sudah Ditangani'],
-                        ['Hannah Kim','Akun Bermasalah','Akun saya mengalami masalah saat login. Mohon bantuannya.','Sudah Ditangani']
-                    ] as $data)
-
-                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-
-                        <th class="px-6 py-5 font-medium">
-                            {{ $data[0] }}
-                        </th>
-
-                        <td class="px-6 py-5">
-                            {{ $data[1] }}
-                        </td>
-
-                        <td class="px-6 py-5 max-w-md whitespace-normal text-white/80">
-                            {{ $data[2] }}
-                        </td>
-
-                        <td class="px-6 py-5">
-                            <span class="px-3 py-1 rounded-full text-xs border border-gray-500">
-                                {{ $data[3] }}
-                            </span>
-                        </td>
-
-                        <td class="px-6 py-5 text-center">
-
-                            <a href="#"
-                               class="text-blue-500 hover:text-blue-700 font-bold transition">
-                                Lihat Detail
-                            </a>
-
-                        </td>
-
-                    </tr>
-
-                    @endforeach
+                    </thead>
 
 
-                </tbody>
+                    <tbody>
 
-            </table>
+                        @forelse($services as $service)
+                            <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
+
+                                <td class="px-6 py-5 font-medium">
+                                    {{ $service->user->username }}
+                                    <br>
+                                    <span class="text-xs text-gray-400">
+                                        {{ $service->user->email }}
+                                    </span>
+                                </td>
+
+                                <td class="px-6 py-5">
+                                    {{ $service->subjek }}
+                                </td>
+
+                                <td class="px-6 py-5 max-w-md whitespace-normal text-white/80">
+                                    {{ Str::limit($service->pesan, 100) }}
+                                </td>
+
+                                <td class="px-6 py-5">
+
+                                    @if ($service->status == 'menunggu' )
+                                        <span class="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-xs">
+                                            Menunggu
+                                        </span>
+                                    @elseif($service->status == 'diproses')
+                                        <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs">
+                                            Diproses
+                                        </span>
+                                    @elseif($service->status == 'selesai')
+                                        <span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs">
+                                            Selesai
+                                        </span>
+                                    @endif
+
+                                </td>
+
+                                <td class="px-6 py-5 text-center">
+
+                                    <a href="{{ url('/admin/support/' . $service->id_service) }}"
+                                        class="bg-blue-500 text-white p-4 rounded-lg hover:text-blue-300 font-bold">
+
+                                        Lihat Detail
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        @empty
+
+                            <tr>
+                                <td colspan="5" class="text-center py-10 text-gray-400">
+                                    Belum ada keluhan dari customer.
+                                </td>
+                            </tr>
+                        @endforelse
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 
     </div>
-
-</div>
 @endsection
-
