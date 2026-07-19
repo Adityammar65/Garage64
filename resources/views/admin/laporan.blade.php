@@ -1,144 +1,131 @@
 @extends('template.admin')
+
 @section('title', 'Laporan')
 @section('page_title', 'Laporan')
+
 @section('content')
-<div class="flex flex-col gap-6 p-4">
 
-    <!-- Sales Report -->
-    <div class="w-full bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700">
+    <div class="flex flex-col gap-6 p-4">
+        <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
 
-        <div class="flex justify-between items-center px-6 py-4 border-b border-gray-700">
-            <h2 class="text-white font-bold text-xl">
-                Laporan Penjualan
-            </h2>
+            {{-- Filter --}}
+            <div class="flex items-center gap-3">
 
-            <span class="text-xs text-white/60">
-                Data Produk Terjual
-            </span>
-        </div>
+                <select id="filter" name="filter"
+                    class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-red-500">
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full text-center text-sm text-white">
+                    <option value="week" {{ $filter == 'week' ? 'selected' : '' }}>
+                        Minggu Ini
+                    </option>
 
-                <thead class="uppercase tracking-wider bg-gray-700/50">
-                    <tr>
-                        <th class="px-6 py-4">ID Produk</th>
-                        <th class="px-6 py-4">Nama Produk</th>
-                        <th class="px-6 py-4">Harga</th>
-                        <th class="px-6 py-4">Stok</th>
-                    </tr>
-                </thead>
+                    <option value="month" {{ $filter == 'month' ? 'selected' : '' }}>
+                        Bulan Ini
+                    </option>
 
-                <tbody>
-                    @for($i = 0; $i < 5; $i++)
-                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
+                    <option value="year" {{ $filter == 'year' ? 'selected' : '' }}>
+                        Tahun Ini
+                    </option>
 
-                        <th class="px-6 py-4 font-medium">
-                            MGT-001
-                        </th>
+                </select>
 
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
+                <button id="btnRefresh" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg transition">
 
-                        <td class="px-6 py-4">
-                            Rp240.000
-                        </td>
+                    Refresh
 
-                        <td class="px-6 py-4">
-                            30
-                        </td>
+                </button>
 
-                    </tr>
-                    @endfor
-                </tbody>
-
-            </table>
-        </div>
-
-        <div class="px-6 py-4 text-right">
-            <a href="#"
-                class="text-white/60 text-sm hover:underline transition">
-                Unduh Laporan →
-            </a>
-        </div>
-
-    </div>
-
-
-    <!-- Revenue Report -->
-    <div class="w-full bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700">
-
-        <div class="flex justify-between items-center px-6 py-4 border-b border-gray-700">
-            <h2 class="text-white font-bold text-xl">
-                Laporan Keuangan
-            </h2>
-
-            <span class="text-xs text-white/60">
-                Rekap Pendapatan
-            </span>
-        </div>
-
-
-        <div class="overflow-x-auto">
-
-            <table class="min-w-full text-center text-sm text-white">
-
-                <thead class="uppercase tracking-wider bg-gray-700/50">
-
-                    <tr>
-                        <th class="px-6 py-4">ID Produk</th>
-                        <th class="px-6 py-4">Nama Produk</th>
-                        <th class="px-6 py-4">Harga</th>
-                        <th class="px-6 py-4">Stok</th>
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    @for($i = 0; $i < 5; $i++)
-
-                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-
-                        <th class="px-6 py-4 font-medium">
-                            MGT-001
-                        </th>
-
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-
-                        <td class="px-6 py-4">
-                            Rp240.000
-                        </td>
-
-                        <td class="px-6 py-4">
-                            30
-                        </td>
-
-                    </tr>
-
-                    @endfor
-
-                </tbody>
-
-            </table>
+            </div>
 
         </div>
 
+        {{-- Summary --}}
+        <div id="summary">
 
-        <div class="px-6 py-4 text-right">
+            @include('admin.partials.summary')
 
-            <a href="#"
-                class="text-white/60 text-sm hover:underline transition">
-                Unduh Laporan →
-            </a>
+        </div>
+
+        {{-- Penjualan --}}
+        <div id="penjualan">
+
+            @include('admin.partials.penjualan')
+
+        </div>
+
+        {{-- Keuangan --}}
+        <div id="keuangan">
+
+            @include('admin.partials.keuangan')
 
         </div>
 
     </div>
 
-</div>
+@endsection
+
+
+@section('script')
+
+    <script>
+        function loadReport(filter = 'month') {
+
+            $.ajax({
+
+                url: "{{ url('/admin/laporan') }}",
+
+                type: "GET",
+
+                data: {
+
+                    filter: filter
+
+                },
+
+                beforeSend: function() {
+
+                    $("#summary").css("opacity", ".5");
+
+                    $("#penjualan").css("opacity", ".5");
+
+                    $("#keuangan").css("opacity", ".5");
+
+                },
+
+                success: function(response) {
+
+                    $("#summary").html(response.summary);
+
+                    $("#penjualan").html(response.penjualan);
+
+                    $("#keuangan").html(response.keuangan);
+
+                },
+
+                complete: function() {
+
+                    $("#summary").css("opacity", "1");
+
+                    $("#penjualan").css("opacity", "1");
+
+                    $("#keuangan").css("opacity", "1");
+
+                }
+
+            });
+
+        }
+
+        $("#filter").on("change", function() {
+
+            loadReport($(this).val());
+
+        });
+
+        $("#btnRefresh").on("click", function() {
+
+            loadReport($("#filter").val());
+
+        });
+    </script>
+
 @endsection

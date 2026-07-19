@@ -9,6 +9,7 @@ use App\Models\ProdukModel;
 use App\Models\KategoriModel;
 use App\Models\ServiceModel;
 use App\Models\TransaksiModel;
+use App\Models\DetailTransaksiModel;
 
 class AdminController extends Controller
 {
@@ -171,9 +172,143 @@ class AdminController extends Controller
             ->with('success', 'Balasan berhasil dikirim.');
     }
 
-    public function laporan()
+    // FILTER TRANSAKSI
+    private function getFilteredTransaksi($filter)
     {
-        return view('admin.laporan');
+        $query = TransaksiModel::query();
+
+        switch ($filter) {
+
+            case 'week':
+
+                $query->whereBetween('created_at', [
+                    now()->startOfWeek(),
+                    now()->endOfWeek()
+                ]);
+
+            break;
+
+            case 'year':
+
+                $query->whereYear('created_at', now()->year);
+
+            break;
+
+            default:
+
+                $query->whereMonth('created_at', now()->month)
+                    ->whereYear('created_at', now()->year);
+
+            break;
+
+        }
+
+        return $query;
+    }
+
+    // FILTER DETAIL
+    private function getFilteredDetail($filter)
+    {
+        return DetailTransaksiModel::with([
+                'produk',
+                'transaksi'
+            ])
+            ->whereHas('transaksi', function ($query) use ($filter) {
+
+                switch ($filter) {
+
+                    case 'week':
+
+                        $query->whereBetween('created_at', [
+                            now()->startOfWeek(),
+                            now()->endOfWeek()
+                        ]);
+
+                    break;
+
+                    case 'year':
+
+                        $query->whereYear('created_at', now()->year);
+
+                    break;
+
+                    default:
+
+                        $query->whereMonth('created_at', now()->month)
+                            ->whereYear('created_at', now()->year);
+
+                    break;
+
+                }
+
+            });
+    }
+
+    // LAPORAN
+    public function laporan(Request $request)
+    {
+        $filter = $request->get('filter','month');
+
+        $transaksi = $this->getFilteredTransaksi($filter);
+
+        $detail = $this->getFilteredDetail($filter);
+
+        $totalOrder = (clone $transaksi)->count();
+
+        $produkTerjual = (clone $transaksi)->sum('total_qty');
+
+        $totalPendapatan = (clone $transaksi)->sum('total_harga');
+
+        $averageOrder = $totalOrder
+            ? $totalPendapatan / $totalOrder
+            : 0;
+
+        $laporanPenjualan = (clone $detail)
+            ->latest()
+            ->paginate(10,['*'],'penjualan');
+
+        $laporanKeuangan = (clone $transaksi)
+            ->with('user')
+            ->latest()
+            ->paginate(10,['*'],'keuangan');
+
+        if($request->ajax()){
+
+            return response()->json([
+
+                'summary'=>view(
+                    'admin.partials.summary',
+                    compact(
+                        'totalOrder',
+                        'produkTerjual',
+                        'totalPendapatan',
+                        'averageOrder'
+                    )
+                )->render(),
+
+                'penjualan'=>view(
+                    'admin.partials.penjualan',
+                    compact('laporanPenjualan')
+                )->render(),
+
+                'keuangan'=>view(
+                    'admin.partials.keuangan',
+                    compact('laporanKeuangan')
+                )->render()
+
+            ]);
+
+        }
+
+        return view('admin.laporan',compact(
+            'filter',
+            'totalOrder',
+            'produkTerjual',
+            'totalPendapatan',
+            'averageOrder',
+            'laporanPenjualan',
+            'laporanKeuangan'
+        ));
     }
 
     // PENGATURAN
