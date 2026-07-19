@@ -13,6 +13,8 @@
 <body x-data="{ sidebarOpen: false }" class="bg-gray-50
         flex flex-col min-h-screen">
 
+    <div id="copy-alert-container" class="fixed top-5 right-5 z-60 max-w-sm space-y-3"></div>
+
     <!-- ERROR ALERT -->
     @if (session('error') || $errors->any())
         <div x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 4000)"
@@ -141,12 +143,9 @@
 
                             </svg>
 
-                            <input  type="text"
-                                    name="query" 
-                                    id= "search"
-                                    value="{{ request('query') }}"
-                                    placeholder="Search Hot Wheels, Mini GT, Inno64, Tarmac..."
-                                    class="w-full
+                            <input type="text" name="query" id= "search" value="{{ request('query') }}"
+                                placeholder="Search Hot Wheels, Mini GT, Inno64, Tarmac..."
+                                class="w-full
                             h-12
                             rounded-full
                             border

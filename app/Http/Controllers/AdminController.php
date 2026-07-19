@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\ProdukModel;
 use App\Models\KategoriModel;
 use App\Models\ServiceModel;
+use App\Models\TransaksiModel;
 
 class AdminController extends Controller
 {
@@ -36,9 +37,40 @@ class AdminController extends Controller
         return view('admin.produk_admin', compact('produk'));
     }
 
-    public function pesanan()
+    // ORDER MASUK
+    public function showOrder(Request $request)
     {
-        return view('admin.pesanan');
+        $query = TransaksiModel::with([
+            'user',
+            'detailTransaksi.produk'
+        ]);
+
+        if ($request->filled('query')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('order_id', 'like', '%' . $request->query . '%')
+                ->orWhereHas('user', function ($user) use ($request) {
+                    $user->where('username', 'like', '%' . $request->query . '%');
+                });
+            });
+        }
+
+        $orders = $query
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.order_admin', compact('orders'));
+    }
+
+    // DETAIL ORDER
+    public function detailOrder($id)
+    {
+        $transaksi = TransaksiModel::with([
+            'user',
+            'detailTransaksi.produk'
+        ])->findOrFail($id);
+
+        return view('admin.order_detail_admin', compact('transaksi'));
     }
 
     // SUPPORT CENTER

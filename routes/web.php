@@ -32,6 +32,9 @@ Route::get('/kebijakan-retur', [ServiceController::class, 'kebijakanRetur']);
 Route::get('/support-center', [ServiceController::class, 'supportCenter']);
 Route::post('/support-center/store', [ServiceController::class, 'store']);
 
+Route::post('/midtrans/callback', [TransaksiController::class, 'callback']);
+
+
 // POST-LOGIN ROUTES (CUSTOMER)
 Route::get('/auth/google', [GoogleController::class, 'redirect']);
 Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
@@ -58,7 +61,6 @@ Route::middleware('cek.login')->group(function(){
 
     // TRANSAKSI
     Route::post('/checkout', [TransaksiController::class, 'checkout']);
-    Route::post('/midtrans/callback', [TransaksiController::class, 'callback']);
     Route::get('/payment/finish', [TransaksiController::class, 'finish']);
     Route::get('/payment/unfinish', [TransaksiController::class, 'unfinish']);
     Route::get('/payment/error', [TransaksiController::class, 'error']);
@@ -77,9 +79,11 @@ Route::middleware('cek.admin')->group(function(){
     Route::delete('/admin/produk/delete/{id}', [ProdukController::class, 'deleteProduk']);
 
     // ORDER MASUK
-    Route::get('/admin/pesanan', [AdminController::class, 'pesanan']);
+    Route::get('/admin/order', [AdminController::class, 'showOrder']);
     Route::get('/admin/support', [AdminController::class, 'support']);
     Route::get('/admin/laporan', [AdminController::class, 'laporan']);
+    Route::get('/admin/order/{id}', [AdminController::class, 'detailOrder']);
+    Route::put('/admin/order/update/{id}', [TransaksiController::class, 'updateStatusOrder']);
 
     // SETTINGS
     Route::get('/admin/pengaturan', [AdminController::class, 'pengaturan']);

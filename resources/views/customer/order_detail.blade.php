@@ -1,298 +1,735 @@
 @extends('template.customer')
+
 @section('title', 'Detail Pesanan')
+
 @section('content')
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {{-- Header --}}
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+    @php
+        $statusConfig = [
+            'diproses' => [
+                'text' => 'Diproses',
+                'bg' => 'bg-yellow-100',
+                'color' => 'text-yellow-700',
+                'dot' => 'bg-yellow-500',
+            ],
+            'dikirim' => [
+                'text' => 'Dikirim',
+                'bg' => 'bg-blue-100',
+                'color' => 'text-blue-700',
+                'dot' => 'bg-blue-500',
+            ],
+            'selesai' => [
+                'text' => 'Selesai',
+                'bg' => 'bg-green-100',
+                'color' => 'text-green-700',
+                'dot' => 'bg-green-500',
+            ],
+            'dibatalkan' => [
+                'text' => 'Dibatalkan',
+                'bg' => 'bg-red-100',
+                'color' => 'text-red-700',
+                'dot' => 'bg-red-500',
+            ],
+        ];
+
+        $current = $statusConfig[$transaksi->status] ?? $statusConfig['diproses'];
+
+        $step = match ($transaksi->status) {
+            'diproses' => 3,
+            'dikirim' => 4,
+            'selesai' => 5,
+            default => 1,
+        };
+    @endphp
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 mb-8">
+
             <div>
-                <div class="flex items-center gap-3 mb-1">
-                    <a href="{{ url('/customer/orders') }}"
-                        class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition">
+
+                <div class="flex items-center gap-3">
+
+                    <a href="{{ url()->previous() }}"
+                        class="w-10 h-10 rounded-full border hover:bg-gray-100 flex items-center justify-center transition">
+
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 12H5m7 7l-7-7 7-7" />
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+
                         </svg>
+
                     </a>
-                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Detail Pesanan</h1>
+
+                    <div>
+
+                        <h1 class="text-3xl font-bold text-gray-900">
+                            Detail Pesanan
+                        </h1>
+
+                        <p class="text-gray-500 mt-1 truncate max-w-sm">
+
+                            {{ $transaksi->order_id }}
+
+                        </p>
+
+                    </div>
+
                 </div>
-                <p class="text-gray-500 ml-8">
-                    #{{ $transaksi->order_id }}
-                </p>
+
             </div>
+
             <span
-                class="inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-full bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400">
-                <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
-                Diproses
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold {{ $current['bg'] }} {{ $current['color'] }}">
+
+                <span class="w-2 h-2 rounded-full {{ $current['dot'] }}"></span>
+
+                {{ $current['text'] }}
+
             </span>
+
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {{-- Main Content --}}
+        <div class="grid lg:grid-cols-3 gap-7">
+
             <div class="lg:col-span-2 space-y-6">
-                {{-- Timeline --}}
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">Status Pesanan</h3>
-                    <div class="relative">
-                        <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
-                        <div class="space-y-8">
-                            @php
-                                $timeline = [
-                                    [
-                                        'status' => 'Pesanan Dibuat',
-                                        'desc' => 'Pesanan berhasil dibuat',
-                                        'time' => '29 Mei 2026, 14:23',
-                                        'done' => true,
-                                    ],
-                                    [
-                                        'status' => 'Pembayaran Diverifikasi',
-                                        'desc' => 'Pembayaran telah dikonfirmasi',
-                                        'time' => '29 Mei 2026, 15:10',
-                                        'done' => true,
-                                    ],
-                                    [
-                                        'status' => 'Pesanan Diproses',
-                                        'desc' => 'Pesanan sedang diproses oleh tim kami',
-                                        'time' => '30 Mei 2026, 09:00',
-                                        'done' => true,
-                                    ],
-                                    [
-                                        'status' => 'Pesanan Dikirim',
-                                        'desc' => 'Pesanan dalam perjalanan ke alamat tujuan',
-                                        'time' => '-',
-                                        'done' => false,
-                                    ],
-                                    [
-                                        'status' => 'Pesanan Selesai',
-                                        'desc' => 'Pesanan telah diterima',
-                                        'time' => '-',
-                                        'done' => false,
-                                    ],
-                                ];
-                            @endphp
-                            @foreach ($timeline as $index => $item)
-                                <div class="relative flex items-start gap-4">
-                                    <div class="relative z-10 flex-shrink-0">
-                                        @if ($item['done'])
-                                            <div
-                                                class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-md">
-                                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                                        d="M5 13l4 4L19 7" />
-                                                </svg>
-                                            </div>
-                                        @elseif ($index === 3)
-                                            <div
-                                                class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-md animate-pulse">
-                                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                </svg>
-                                            </div>
-                                        @else
-                                            <div
-                                                class="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
-                                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                                                </svg>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div class="flex-1 min-w-0 pt-1">
-                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ $item['status'] }}
-                                        </p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ $item['desc'] }}</p>
-                                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{{ $item['time'] }}</p>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
+
+                <div class="bg-white rounded-2xl shadow border border-gray-200">
+
+                    <div class="px-6 py-5 border-b">
+
+                        <h2 class="font-bold text-lg">
+
+                            Status Pesanan
+
+                        </h2>
+
                     </div>
+
+                    <div class="p-6">
+
+                        @php
+
+                            $timeline = [
+                                [
+                                    'title' => 'Pesanan Dibuat',
+                                    'desc' => 'Pesanan berhasil dibuat.',
+                                ],
+
+                                [
+                                    'title' => 'Pembayaran Berhasil',
+                                    'desc' => 'Pembayaran telah diverifikasi.',
+                                ],
+
+                                [
+                                    'title' => 'Diproses',
+                                    'desc' => 'Pesanan sedang diproses.',
+                                ],
+
+                                [
+                                    'title' => 'Dikirim',
+                                    'desc' => 'Pesanan sedang dikirim.',
+                                ],
+
+                                [
+                                    'title' => 'Selesai',
+                                    'desc' => 'Pesanan telah diterima.',
+                                ],
+                            ];
+
+                        @endphp
+
+                        <div class="relative">
+
+                            <div class="absolute left-4 top-0 bottom-0 w-1 bg-gray-200 rounded-full"></div>
+
+                            <div class="space-y-8">
+
+                                @foreach ($timeline as $i => $item)
+                                    <div class="relative flex gap-5">
+
+                                        <div class="relative z-10">
+
+                                            @if ($i + 1 < $step)
+                                                <div
+                                                    class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
+
+                                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2.5" d="M5 13l4 4L19 7" />
+
+                                                    </svg>
+
+                                                </div>
+                                            @elseif($i + 1 == $step)
+                                                <div class="w-8 h-8 rounded-full bg-red-600 animate-pulse"></div>
+                                            @else
+                                                <div class="w-8 h-8 rounded-full bg-gray-300"></div>
+                                            @endif
+
+                                        </div>
+
+                                        <div class="min-w-0">
+
+                                            <h3 class="font-semibold text-gray-900">
+
+                                                {{ $item['title'] }}
+
+                                            </h3>
+
+                                            <p class="text-sm text-gray-500">
+
+                                                {{ $item['desc'] }}
+
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+                                @endforeach
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
                 {{-- Produk --}}
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
-                    <div class="p-5 border-b border-gray-100 dark:border-gray-700">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Produk Dipesan</h3>
+                <div class="bg-white rounded-2xl shadow border border-gray-200">
+
+                    <div
+                        class="px-6 py-5 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+
+                        <div>
+
+                            <h2 class="text-lg font-bold text-gray-900">
+                                Produk yang Dibeli
+                            </h2>
+
+                            <p class="text-sm text-gray-500 mt-1">
+                                {{ $transaksi->detailTransaksi->count() }} Produk • {{ $transaksi->total_qty }} Item
+                            </p>
+
+                        </div>
+
+                        <span class="bg-red-50 text-red-600 px-3 py-1 rounded-full text-xs font-semibold">
+
+                            Total Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}
+
+                        </span>
+
                     </div>
-                    <div class="divide-y divide-gray-100 dark:divide-gray-700">
+
+                    <div class="divide-y divide-gray-200">
+
                         @foreach ($transaksi->detailTransaksi as $detail)
-                            <div class="p-4 flex items-center gap-4">
+                            <div class="p-6 flex flex-col md:flex-row gap-5 hover:bg-gray-50 transition">
 
-                                <img src="{{ asset('storage/' . $detail->produk->gambar) }}"
-                                    class="w-16 h-16 rounded-lg object-cover">
+                                <div class="flex-shrink-0">
 
-                                <div class="flex-1">
-
-                                    <p class="font-semibold">
-
-                                        {{ $detail->produk->nama_produk }}
-
-                                    </p>
-
-                                    <p class="text-sm text-gray-500">
-
-                                        {{ $detail->produk->brand }}
-
-                                    </p>
-
-                                    <p class="text-sm text-gray-500">
-
-                                        Qty {{ $detail->qty }}
-
-                                        ×
-
-                                        Rp {{ number_format($detail->harga, 0, ',', '.') }}
-
-                                    </p>
+                                    <img src="{{ asset('storage/' . $detail->produk->gambar) }}"
+                                        alt="{{ $detail->produk->nama_produk }}"
+                                        class="w-24 h-24 rounded-xl border object-cover">
 
                                 </div>
 
-                                <div class="font-bold">
+                                {{-- Informasi Produk --}}
+                                <div class="flex-1 min-w-0">
 
-                                    Rp {{ number_format($detail->subtotal, 0, ',', '.') }}
+                                    <h3
+                                        class="font-semibold text-gray-900 text-lg overflow-hidden text-ellipsis whitespace-nowrap">
+
+                                        {{ $detail->produk->nama_produk }}
+
+                                    </h3>
+
+                                    <div class="mt-2 flex flex-wrap gap-2">
+
+                                        <span
+                                            class="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full truncate max-w-[160px]">
+
+                                            {{ $detail->produk->brand }}
+
+                                        </span>
+
+                                        @if (!empty($detail->produk->kode_produk))
+                                            <span
+                                                class="bg-blue-50 text-blue-600 text-xs px-3 py-1 rounded-full truncate max-w-[170px]">
+
+                                                {{ $detail->produk->kode_produk }}
+
+                                            </span>
+                                        @endif
+
+                                    </div>
+
+                                    @if (!empty($detail->produk->deskripsi))
+                                        <p
+                                            class="mt-3 text-sm text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap break-words">
+
+                                            {{ $detail->produk->deskripsi }}
+
+                                        </p>
+                                    @endif
+
+                                </div>
+
+                                <div
+                                    class="md:w-60 flex flex-row md:flex-col justify-between md:justify-center md:items-end gap-4">
+
+                                    <div>
+
+                                        <p class="text-xs text-gray-400">
+
+                                            Harga
+
+                                        </p>
+
+                                        <p class="font-semibold text-gray-800">
+
+                                            Rp {{ number_format($detail->harga, 0, ',', '.') }}
+
+                                        </p>
+
+                                    </div>
+
+                                    <div>
+
+                                        <p class="text-xs text-gray-400">
+
+                                            Qty
+
+                                        </p>
+
+                                        <span
+                                            class="inline-flex items-center px-3 py-1 rounded-full bg-red-50 text-red-600 font-semibold">
+
+                                            x{{ $detail->qty }}
+
+                                        </span>
+
+                                    </div>
+
+                                    <div class="text-right">
+
+                                        <p class="text-xs text-gray-400">
+
+                                            Subtotal
+
+                                        </p>
+
+                                        <p class="font-bold text-xl text-red-600">
+
+                                            Rp {{ number_format($detail->subtotal, 0, ',', '.') }}
+
+                                        </p>
+
+                                    </div>
 
                                 </div>
 
                             </div>
                         @endforeach
+
                     </div>
+
+                    {{-- Footer --}}
+                    <div class="border-t border-gray-200 bg-gray-50 rounded-b-2xl">
+
+                        <div class="px-6 py-5 flex flex-col md:flex-row justify-between gap-6">
+
+                            <div>
+
+                                <p class="text-sm text-gray-500">
+
+                                    Total Produk
+
+                                </p>
+
+                                <p class="font-semibold text-lg text-gray-900">
+
+                                    {{ $transaksi->detailTransaksi->count() }} Produk
+
+                                </p>
+
+                            </div>
+
+                            <div>
+
+                                <p class="text-sm text-gray-500">
+
+                                    Total Item
+
+                                </p>
+
+                                <p class="font-semibold text-lg text-gray-900">
+
+                                    {{ $transaksi->total_qty }} Item
+
+                                </p>
+
+                            </div>
+
+                            <div class="md:text-right">
+
+                                <p class="text-sm text-gray-500">
+
+                                    Total Pembayaran
+
+                                </p>
+
+                                <p class="font-bold text-2xl text-red-600">
+
+                                    Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
 
             {{-- Sidebar --}}
             <div class="space-y-6">
-                {{-- Info Pembeli --}}
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                        Data Pembeli
-                    </h3>
-                    <div class="space-y-3 text-sm">
-                        <div class="flex justify-between">
-                            <span class="text-gray-500 dark:text-gray-400">Nama</span>
-                            <span class="text-gray-900 dark:text-white font-medium">{{ $transaksi->user->username }}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-500 dark:text-gray-400">Email</span>
-                            <span class="text-gray-900 dark:text-white">{{ $transaksi->user->email }}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-500 dark:text-gray-400">Telepon</span>
-                            <span class="text-gray-900 dark:text-white">{{ $transaksi->user->telepon }}</span>
-                        </div>
-                        <div class="pt-3 border-t border-gray-100 dark:border-gray-700">
-                            <p class="text-gray-500 dark:text-gray-400 mb-1">Alamat Pengiriman</p>
-                            <p class="text-gray-900 dark:text-white">{{ $transaksi->alamat_tujuan }}</p>
-                        </div>
+                <div class="bg-white rounded-2xl shadow border border-gray-200">
+
+                    <div class="px-6 py-5 border-b border-gray-200">
+
+                        <h2 class="font-bold text-gray-900">
+                            Data Pembeli
+                        </h2>
+
                     </div>
-                </div>
 
-                {{-- Ringkasan Pembayaran --}}
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                        Ringkasan Pembayaran
-                    </h3>
-                    <div class="space-y-3 text-sm">
-                        <div class="flex justify-between">
-                            <span class="text-gray-500 dark:text-gray-400">Subtotal</span>
-                            <span class="text-gray-900 dark:text-white">Rp
-                                {{ number_format($transaksi->total_harga, 0, ',', '.') }}</span>
-                        </div>
+                    <div class="p-6 space-y-5">
 
-                        <div class="pt-3 border-t border-gray-100 dark:border-gray-700 flex justify-between">
-                            <span class="font-semibold text-gray-900 dark:text-white">Total</span>
-                            <span class="font-bold text-lg text-red-600 dark:text-red-400">Rp
-                                {{ number_format($transaksi->total_harga, 0, ',', '.') }}</span>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Metode Pembayaran --}}
-                <div
-                    class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                    <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                        </svg>
-                        Metode Pembayaran
-                    </h3>
-                    <div class="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50">
-                        <div
-                            class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                            </svg>
-                        </div>
                         <div>
-                            <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $transaksi->metode_bayar }}
-                            </p>
-                            <p class="text-xs text-gray-500">
 
-                                {{ $transaksi->payment_type }}
-
+                            <p class="text-xs uppercase tracking-wide text-gray-400">
+                                Nama
                             </p>
+
+                            <p class="font-semibold text-gray-900 truncate">
+                                {{ $transaksi->user->username }}
+                            </p>
+
                         </div>
+
+                        <div>
+
+                            <p class="text-xs uppercase tracking-wide text-gray-400">
+                                Email
+                            </p>
+
+                            <p class="text-gray-700 break-all">
+                                {{ $transaksi->user->email }}
+                            </p>
+
+                        </div>
+
+                        <div>
+
+                            <p class="text-xs uppercase tracking-wide text-gray-400">
+                                Nomor Telepon
+                            </p>
+
+                            <p class="text-gray-700">
+
+                                {{ $transaksi->user->telepon ?? '-' }}
+
+                            </p>
+
+                        </div>
+
+                        <div class="pt-5 border-t border-gray-200">
+
+                            <p class="text-xs uppercase tracking-wide text-gray-400 mb-2">
+
+                                Alamat Pengiriman
+
+                            </p>
+
+                            <p class="text-gray-700 break-words leading-relaxed">
+
+                                {{ $transaksi->alamat_tujuan }}
+
+                            </p>
+
+                        </div>
+
                     </div>
-                    <div
-                        class="mt-3 p-3 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/30">
-                        <div class="flex items-center gap-2">
+
+                </div>
+
+                <div class="bg-white rounded-2xl shadow border border-gray-200">
+
+                    <div class="px-6 py-5 border-b">
+
+                        <h2 class="font-bold text-gray-900">
+
+                            Ringkasan Pembayaran
+
+                        </h2>
+
+                    </div>
+
+                    <div class="p-6 space-y-4">
+
+                        <div class="flex justify-between">
+
+                            <span class="text-gray-500">
+
+                                Subtotal
+
+                            </span>
+
+                            <span class="font-medium">
+
+                                Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}
+
+                            </span>
+
+                        </div>
+
+                        <div class="flex justify-between">
+
+                            <span class="text-gray-500">
+
+                                Ongkos Kirim
+
+                            </span>
+
+                            <span class="text-green-600 font-medium">
+
+                                Gratis
+
+                            </span>
+
+                        </div>
+
+                        <div class="border-t pt-4 flex justify-between">
+
+                            <span class="font-semibold">
+
+                                Total
+
+                            </span>
+
+                            <span class="text-red-600 font-bold text-xl">
+
+                                Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="bg-white rounded-2xl shadow border border-gray-200">
+
+                    <div class="px-6 py-5 border-b">
+
+                        <h2 class="font-bold">
+
+                            Pembayaran
+
+                        </h2>
+
+                    </div>
+
+                    <div class="p-6">
+
+                        <div class="bg-gray-50 rounded-xl p-4 border">
+
+                            <p class="text-xs text-gray-400">
+
+                                Metode
+
+                            </p>
+
+                            <p class="font-semibold text-lg truncate">
+
+                                {{ $transaksi->metode_bayar }}
+
+                            </p>
+
+                            @if ($transaksi->payment_type)
+                                <p class="text-sm text-gray-500 truncate mt-1">
+
+                                    {{ strtoupper($transaksi->payment_type) }}
+
+                                </p>
+                            @endif
+
+                        </div>
+
+                        <div class="mt-5">
+
                             @if ($transaksi->payment_status == 'paid')
-                                <span class="text-green-600">
+                                <span class="inline-flex px-4 py-2 rounded-full bg-green-100 text-green-700 font-semibold">
+
                                     Pembayaran Berhasil
+
                                 </span>
                             @elseif($transaksi->payment_status == 'pending')
-                                <span class="text-yellow-600">
+                                <span
+                                    class="inline-flex px-4 py-2 rounded-full bg-yellow-100 text-yellow-700 font-semibold">
+
                                     Menunggu Pembayaran
+
                                 </span>
                             @elseif($transaksi->payment_status == 'expire')
-                                <span class="text-red-600">
-                                    Pembayaran Kedaluwarsa
+                                <span class="inline-flex px-4 py-2 rounded-full bg-red-100 text-red-700 font-semibold">
+
+                                    Pembayaran Kadaluwarsa
+
                                 </span>
                             @else
-                                <span class="text-red-600">
+                                <span class="inline-flex px-4 py-2 rounded-full bg-red-100 text-red-700 font-semibold">
+
                                     Pembayaran Gagal
+
                                 </span>
                             @endif
+
                         </div>
+
                     </div>
+
                 </div>
 
-                {{-- Tombol Aksi --}}
-                <div class="space-y-3">
-                    <a href="#"
-                        class="w-full inline-flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 transition text-white px-5 py-2.5 rounded-lg font-medium shadow-md hover:shadow-lg text-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                        Hubungi CS
-                    </a>
-                    <a href="#"
-                        class="w-full inline-flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-lg font-medium text-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                        Unduh Invoice
-                    </a>
+                <div class="bg-white rounded-2xl shadow border border-gray-200">
+
+                    <div class="px-6 py-5 border-b">
+
+                        <h2 class="font-bold">
+
+                            Resi Pengiriman
+
+                        </h2>
+
+                    </div>
+
+                    <div class="p-6">
+
+                        @if ($transaksi->status == 'dikirim' || $transaksi->status == 'selesai')
+                            <div class="bg-blue-50 rounded-xl border border-blue-100 p-4">
+
+                                <p class="text-xs text-gray-500">
+
+                                    Nomor Resi
+
+                                </p>
+
+                                <p class="font-mono font-bold text-blue-700 mt-2 break-all">
+
+                                    {{ $transaksi->resi }}
+
+                                </p>
+
+                                <button onclick="copyResi('{{ $transaksi->resi }}')"
+                                    class="mt-4 w-full bg-blue-600 hover:bg-blue-700 transition text-white rounded-lg py-2">
+
+                                    Copy Resi
+
+                                </button>
+
+                            </div>
+                        @else
+                            <div class="rounded-xl bg-yellow-50 border border-yellow-200 p-4">
+
+                                <p class="font-semibold text-yellow-700">
+
+                                    Resi Belum Tersedia
+
+                                </p>
+
+                                <p class="text-sm text-yellow-600 mt-2 leading-relaxed">
+
+                                    Nomor resi akan dibuat otomatis ketika pesanan telah dikirim.
+
+                                </p>
+
+                            </div>
+                        @endif
+
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function copyResi(resi) {
 
+            navigator.clipboard.writeText(resi)
+                .then(() => {
+
+                    showCopyAlert(
+                        'success',
+                        'Resi Berhasil Disalin',
+                        'Nomor resi berhasil disalin ke clipboard.'
+                    );
+
+                })
+                .catch(() => {
+
+                    showCopyAlert(
+                        'error',
+                        'Gagal',
+                        'Nomor resi gagal disalin.'
+                    );
+
+                });
+
+        }
+
+        function showCopyAlert(type, title, message) {
+
+            const container = document.getElementById('copy-alert-container');
+
+            const bg = type === 'success' ?
+                'bg-green-600' :
+                'bg-red-600';
+
+            const alert = document.createElement('div');
+
+            alert.className =
+                `${bg} text-white rounded-lg shadow-lg p-4 flex justify-between items-start`;
+
+            alert.innerHTML = `
+        <div>
+            <h3 class="font-semibold">${title}</h3>
+            <p class="text-sm mt-1">${message}</p>
+        </div>
+
+        <button class="ml-4 font-bold">
+            ✕
+        </button>
+    `;
+
+            container.appendChild(alert);
+
+            const btn = alert.querySelector('button');
+
+            btn.onclick = () => alert.remove();
+
+            setTimeout(() => {
+
+                alert.remove();
+
+            }, 3000);
+
+        }
+    </script>
 @endsection

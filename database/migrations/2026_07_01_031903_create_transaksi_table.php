@@ -27,11 +27,7 @@ return new class extends Migration
 
             $table->text('catatan')->nullable();
 
-            $table->enum('metode_bayar', [
-                'Virtual Account',
-                'QRIS',
-                'COD'
-            ]);
+            $table->string('metode_bayar')->nullable();
 
             $table->enum('status', [
                 'diproses',

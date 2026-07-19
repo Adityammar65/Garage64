@@ -50,7 +50,6 @@ class TransaksiController extends Controller
                 'total_harga'     => $totalHarga,
                 'alamat_tujuan'   => $user->alamat,
                 'catatan'         => $request->catatan,
-                'metode_bayar'    => 'Virtual Account',
                 'payment_status'  => 'pending',
                 'status'          => 'diproses',
                 'resi'            => null,
@@ -102,8 +101,6 @@ class TransaksiController extends Controller
                     'subtotal' => $item->subtotal,
                 ]);
             }
-
-            KeranjangModel::where('id_user', $idUser)->delete();
 
             DB::commit();
 
@@ -162,29 +159,26 @@ class TransaksiController extends Controller
                 ], 404);
             }
 
-            switch ($transactionStatus) {
+            if (
+                $transaksi->payment_status === 'paid' &&
+                in_array($transactionStatus, ['capture', 'settlement'])
+            ) {
+                DB::commit();
 
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Callback sudah diproses.'
+                ]);
+            }
+
+            switch ($transactionStatus) {
                 case 'capture':
                 case 'settlement':
-
                     $transaksi->payment_status = 'paid';
                     $transaksi->payment_type = $paymentType;
                     $transaksi->transaction_id = $transactionId;
                     $transaksi->dibayar_pada = now();
-
-                    switch ($paymentType) {
-
-                        case 'bank_transfer':
-                        case 'echannel':
-                            $transaksi->metode_bayar = 'Virtual Account';
-                            break;
-
-                        case 'qris':
-                            $transaksi->metode_bayar = 'QRIS';
-                            break;
-
-                    }
-
+                    $transaksi->metode_bayar = $this->getPaymentMethod($notification);
                     $transaksi->save();
 
                     foreach ($transaksi->detailTransaksi as $detail) {
@@ -242,14 +236,57 @@ class TransaksiController extends Controller
             ]);
 
         } catch (\Exception $e) {
-
             DB::rollBack();
 
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage()
             ], 500);
+        }
+    }
 
+    // GET METODE BAYAR
+    private function getPaymentMethod(Notification $notification): string
+    {
+        switch ($notification->payment_type) {
+            case 'bank_transfer':
+                if (!empty($notification->va_numbers)) {
+                    $bank = strtoupper($notification->va_numbers[0]->bank);
+                    return "{$bank} Virtual Account";
+                }
+
+                return 'Virtual Account';
+
+            case 'echannel':
+                return 'Mandiri Bill Payment';
+
+            case 'credit_card':
+                return 'Kartu Kredit / Debit';
+
+            case 'qris':
+                return 'QRIS';
+
+            case 'gopay':
+                return 'GoPay';
+
+            case 'shopeepay':
+                return 'ShopeePay';
+
+            case 'cstore':
+                if (!empty($notification->store)) {
+                    return ucfirst($notification->store);
+                }
+
+                return 'Convenience Store';
+
+            case 'akulaku':
+                return 'Akulaku';
+
+            case 'kredivo':
+                return 'Kredivo';
+
+            default:
+                return ucfirst(str_replace('_', ' ', $notification->payment_type));
         }
     }
 
@@ -272,5 +309,37 @@ class TransaksiController extends Controller
     {
         return back()
             ->with('error', 'Pembayaran gagal.');
+    }
+
+    // GENERATE RESI
+    private function generateResi()
+    {
+        return 'GRG-' .
+            now()->format('Ymd') .
+            '-' .
+            strtoupper(\Illuminate\Support\Str::random(8));
+    }
+
+    public function updateStatusOrder(Request $request, $id)
+    {
+        $transaksi = TransaksiModel::findOrFail($id);
+
+        if ($transaksi->payment_status != 'paid') {
+            return back()->with('error', 'Pesanan belum dibayar.');
+        }
+
+        if (
+            $request->status == 'dikirim'
+            && empty($transaksi->resi)
+        ) {
+
+            $transaksi->resi = $this->generateResi();
+        }
+
+        $transaksi->status = $request->status;
+
+        $transaksi->save();
+
+        return back()->with('success', 'Status berhasil diperbarui.');
     }
 }
