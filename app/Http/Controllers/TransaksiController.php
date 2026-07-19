@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Midtrans\Notification;
@@ -15,6 +16,7 @@ use App\Models\UserModel;
 
 class TransaksiController extends Controller
 {
+    // MIDTRANS
     // CHECKOUT
     public function checkout(Request $request)
     {
@@ -320,6 +322,7 @@ class TransaksiController extends Controller
             strtoupper(\Illuminate\Support\Str::random(8));
     }
 
+    // UPDATE STATUS ORDER
     public function updateStatusOrder(Request $request, $id)
     {
         $transaksi = TransaksiModel::findOrFail($id);
@@ -341,5 +344,25 @@ class TransaksiController extends Controller
         $transaksi->save();
 
         return back()->with('success', 'Status berhasil diperbarui.');
+    }
+
+    // CUSTOMER
+    // SELESAIKAN ORDER
+    public function selesaikanOrder($id)
+    {
+        $transaksi = TransaksiModel::findOrFail($id);
+
+        if ($transaksi->id_user != Session::get('id_user')) {
+            abort(403);
+        }
+
+        if ($transaksi->status !== 'dikirim') {
+            return back()->with('error', 'Pesanan belum dapat diselesaikan.');
+        }
+
+        $transaksi->status = 'selesai';
+        $transaksi->save();
+
+        return back()->with('success', 'Terima kasih! Pesanan berhasil diselesaikan.');
     }
 }

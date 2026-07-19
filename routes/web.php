@@ -34,7 +34,6 @@ Route::post('/support-center/store', [ServiceController::class, 'store']);
 
 Route::post('/midtrans/callback', [TransaksiController::class, 'callback']);
 
-
 // POST-LOGIN ROUTES (CUSTOMER)
 Route::get('/auth/google', [GoogleController::class, 'redirect']);
 Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
@@ -46,6 +45,7 @@ Route::middleware('cek.login')->group(function(){
     // ORDER
     Route::get('/order-saya', [CustomerController::class, 'order_saya']);
     Route::get('/order/{id}', [CustomerController::class, 'detailOrder']);
+    Route::post('/order/{id}/selesai', [TransaksiController::class, 'selesaikanOrder']);
 
     // PRODUK
     Route::get('/produk', [CustomerController::class, 'produk']);

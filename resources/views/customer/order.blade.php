@@ -4,176 +4,473 @@
 
 @section('content')
 
+    @php
+
+        $statusConfig = [
+            'pending' => [
+                'step' => 1,
+                'label' => 'Pending',
+                'badge' => 'bg-yellow-100 text-yellow-700',
+            ],
+            'paid' => [
+                'step' => 2,
+                'label' => 'Dibayar',
+                'badge' => 'bg-green-100 text-green-700',
+            ],
+            'diproses' => [
+                'step' => 3,
+                'label' => 'Diproses',
+                'badge' => 'bg-blue-100 text-blue-700',
+            ],
+            'dikirim' => [
+                'step' => 4,
+                'label' => 'Dikirim',
+                'badge' => 'bg-purple-100 text-purple-700',
+            ],
+            'selesai' => [
+                'step' => 5,
+                'label' => 'Selesai',
+                'badge' => 'bg-green-100 text-green-700',
+            ],
+        ];
+
+    @endphp
+
     <section class="max-w-7xl mx-auto px-4 py-10">
 
+        {{-- Header --}}
         <div class="mb-10">
 
-            <h1 class="text-4xl font-bold">
+            <h1 class="text-4xl font-bold text-gray-900">
+
                 Order Saya
+
             </h1>
 
             <p class="text-gray-500 mt-2">
-                Lihat seluruh riwayat transaksi dan status pesanan Anda.
+
+                Pantau seluruh transaksi dan perkembangan pesanan Anda.
+
             </p>
 
         </div>
 
         @forelse($orders as $order)
 
-            <div class="bg-white rounded-3xl border border-gray-200 shadow-sm hover:shadow-lg transition p-6 mb-6">
+            @php
 
-                <div class="flex justify-between items-center">
+                $status = $statusConfig[$order->status] ?? [
+                    'step' => 1,
+                    'label' => ucfirst($order->status),
+                    'badge' => 'bg-gray-100 text-gray-700',
+                ];
+
+                $step = $status['step'];
+
+                $jumlahProduk = $order->detailTransaksi->count();
+
+                $jumlahItem = $order->detailTransaksi->sum('qty');
+
+            @endphp
+
+            <div
+                class="bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 overflow-hidden mb-8">
+
+                <div
+                    class="px-7 py-6 border-b border-gray-200 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
 
                     <div>
 
-                        <h2 class="font-bold text-xl">
+                        <div class="flex items-center gap-3 flex-wrap">
 
-                            {{ $order->kode_transaksi }}
+                            <h2 class="text-2xl font-bold text-gray-900">
 
-                        </h2>
+                                {{ $order->order_id }}
 
-                        <p class="text-gray-500 text-sm">
+                            </h2>
 
-                            {{ $order->created_at->format('d M Y H:i') }}
+                            <span class="px-4 py-1.5 rounded-full text-sm font-semibold {{ $status['badge'] }}">
+
+                                {{ $status['label'] }}
+
+                            </span>
+
+                        </div>
+
+                        <div class="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-500">
+
+                            <span>
+
+                                {{ $order->created_at->format('d M Y • H:i') }}
+
+                            </span>
+
+                            <span>
+
+                                {{ $jumlahProduk }} Produk
+
+                            </span>
+
+                            <span>
+
+                                {{ $jumlahItem }} Item
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="text-left lg:text-right">
+
+                        <p class="text-sm text-gray-500">
+
+                            Total Pembayaran
+
+                        </p>
+
+                        <p class="text-3xl font-bold text-red-600">
+
+                            Rp {{ number_format($order->total_harga, 0, ',', '.') }}
 
                         </p>
 
                     </div>
 
-                    <div>
+                </div>
 
-                        @switch($order->status)
-                            @case('pending')
-                                <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full font-semibold">
-                                    Pending
-                                </span>
-                            @break
+                {{-- Timeline --}}
+                <div class="px-7 py-7 bg-gray-50">
 
-                            @case('paid')
-                                <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full font-semibold">
-                                    Dibayar
-                                </span>
-                            @break
+                    <div class="relative">
 
-                            @case('diproses')
-                                <span class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-semibold">
-                                    Diproses
-                                </span>
-                            @break
+                        <div class="absolute left-0 right-0 top-5 h-1 bg-gray-200 rounded-full">
 
-                            @case('dikirim')
-                                <span class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full font-semibold">
-                                    Dikirim
-                                </span>
-                            @break
+                        </div>
 
-                            @case('selesai')
-                                <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full font-semibold">
-                                    Selesai
-                                </span>
-                            @break
+                        <div class="absolute left-0 top-5 h-1 bg-red-500 rounded-full transition-all duration-500"
+                            style="width: {{ (($step - 1) / 4) * 100 }}%">
 
-                            @default
-                                <span class="bg-red-100 text-red-700 px-4 py-2 rounded-full font-semibold">
-                                    {{ ucfirst($order->status) }}
-                                </span>
-                        @endswitch
+                        </div>
+
+                        <div class="relative grid grid-cols-5">
+
+                            @foreach (['Pending', 'Dibayar', 'Diproses', 'Dikirim', 'Selesai'] as $i => $label)
+                                @php
+                                    $active = $i + 1 <= $step;
+                                @endphp
+
+                                <div class="text-center">
+
+                                    <div
+                                        class="mx-auto w-10 h-10 rounded-full flex items-center justify-center font-bold border-4
+                                    {{ $active ? 'bg-red-600 border-red-600 text-white' : 'bg-white border-gray-300 text-gray-400' }}">
+
+                                        {{ $i + 1 }}
+
+                                    </div>
+
+                                    <p
+                                        class="mt-3 text-sm font-medium
+                                    {{ $active ? 'text-red-600' : 'text-gray-400' }}">
+
+                                        {{ $label }}
+
+                                    </p>
+
+                                </div>
+                            @endforeach
+
+                        </div>
 
                     </div>
 
                 </div>
 
-                <div class="border-t my-5"></div>
+                {{-- Produk --}}
+                <div class="divide-y divide-gray-200">
+                    @php
+                        $produkPertama = $order->detailTransaksi->first();
+                    @endphp
 
-                @foreach ($order->detailTransaksi as $detail)
-                    <div class="flex items-center gap-5 py-4">
+                    @if ($produkPertama)
+                        <div class="p-7 flex gap-6 items-center">
 
-                        <img src="{{ asset('storage/' . $detail->produk->gambar) }}"
-                            class="w-20 h-20 rounded-xl object-cover">
+                            <img src="{{ asset('storage/' . $produkPertama->produk->gambar) }}"
+                                class="w-28 h-28 rounded-2xl object-cover border">
 
-                        <div class="flex-1">
+                            <div class="flex-1 min-w-0">
 
-                            <h3 class="font-semibold">
+                                <h3 class="font-bold text-lg text-gray-900 truncate">
 
-                                {{ $detail->produk->nama_produk }}
+                                    {{ $produkPertama->produk->nama_produk }}
 
-                            </h3>
+                                </h3>
 
-                            <p class="text-gray-500">
+                                <div class="flex flex-wrap gap-2 mt-2">
 
-                                Qty {{ $detail->qty }}
+                                    @if ($produkPertama->produk->brand)
+                                        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">
+
+                                            {{ $produkPertama->produk->brand }}
+
+                                        </span>
+                                    @endif
+
+                                    <span class="px-3 py-1 rounded-full bg-red-50 text-red-600 text-xs">
+
+                                        Qty {{ $produkPertama->qty }}
+
+                                    </span>
+
+                                </div>
+
+                                @if ($jumlahProduk > 1)
+                                    <p class="mt-3 text-sm text-gray-500">
+
+                                        +{{ $jumlahProduk - 1 }}
+                                        produk lainnya
+
+                                    </p>
+                                @endif
+
+                            </div>
+
+                            <div class="text-right">
+
+                                <p class="text-xs text-gray-400">
+
+                                    Subtotal
+
+                                </p>
+
+                                <p class="text-2xl font-bold text-red-600">
+
+                                    Rp {{ number_format($produkPertama->subtotal, 0, ',', '.') }}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+                    @endif
+
+                </div>
+
+                <div class="bg-gray-50 border-t border-gray-200">
+
+                    <div class="px-7 py-6 flex flex-col lg:flex-row justify-between gap-6">
+
+                        <div class="grid grid-cols-2 gap-8">
+
+                            <div>
+
+                                <p class="text-sm text-gray-500">
+
+                                    Total Produk
+
+                                </p>
+
+                                <p class="font-bold text-lg text-gray-900">
+
+                                    {{ $jumlahProduk }}
+
+                                </p>
+
+                            </div>
+
+                            <div>
+
+                                <p class="text-sm text-gray-500">
+
+                                    Total Item
+
+                                </p>
+
+                                <p class="font-bold text-lg text-gray-900">
+
+                                    {{ $jumlahItem }}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="lg:text-right">
+
+                            <p class="text-sm text-gray-500">
+
+                                Total Pembayaran
+
+                            </p>
+
+                            <p class="text-3xl font-bold text-red-600">
+
+                                Rp {{ number_format($order->total_harga, 0, ',', '.') }}
 
                             </p>
 
                         </div>
 
-                        <div class="font-bold">
-
-                            Rp {{ number_format($detail->subtotal, 0, ',', '.') }}
-
-                        </div>
-
                     </div>
-                @endforeach
 
-                <div class="border-t my-5"></div>
+                </div>
 
-                <div class="flex justify-between items-center">
+                {{-- Action --}}
+                <div
+                    class="px-7 py-6 border-t border-gray-200 bg-white flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-sm text-gray-500">
 
-                    <div>
-
-                        <span class="text-gray-500">
-
-                            Total Pembayaran
-
-                        </span>
-
-                        <div class="text-2xl font-bold text-yellow-500">
-
-                            Rp {{ number_format($order->total_harga, 0, ',', '.') }}
-
-                        </div>
+                        @if ($order->status == 'pending')
+                            Menunggu pembayaran untuk melanjutkan proses pesanan.
+                        @elseif($order->status == 'paid')
+                            Pembayaran telah diterima dan pesanan akan segera diproses.
+                        @elseif($order->status == 'diproses')
+                            Pesanan sedang diproses oleh tim Garage64.
+                        @elseif($order->status == 'dikirim')
+                            Pesanan sedang dalam perjalanan menuju alamat Anda.
+                        @elseif($order->status == 'selesai')
+                            Terima kasih telah berbelanja di Garage64.
+                        @else
+                            Status pesanan: {{ ucfirst($order->status) }}
+                        @endif
 
                     </div>
 
-                    <a href="{{ url('/order/' . $order->id_transaksi) }}"
-                        class="px-6 py-3 bg-yellow-500 hover:bg-yellow-400 rounded-xl font-semibold transition">
+                    <div class="flex flex-wrap items-center gap-3">
 
-                        Detail
+                        <a href="{{ url('/order/' . $order->id_transaksi) }}"
+                            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-gray-300 bg-white hover:bg-gray-100 transition font-semibold text-gray-700">
 
-                    </a>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12H9m12 0A9 9 0 1112 3a9 9 0 019 9zm-9 4h.01m-.01-8h.01" />
+
+                            </svg>
+
+                            Detail Order
+
+                        </a>
+
+                        @if ($order->status == 'dikirim')
+                            <form action="{{ url('/order/' . $order->id_transaksi . '/selesai') }}" method="POST">
+
+                                @csrf
+
+                                <button type="submit" onclick="return confirm('Konfirmasi bahwa pesanan telah diterima?')"
+                                    class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold transition">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+
+                                    </svg>
+
+                                    Pesanan Diterima
+
+                                </button>
+
+                            </form>
+                        @endif
+
+                        @if ($order->status == 'selesai')
+                            <a href="{{ url('/produk') }}"
+                                class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold transition">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4m1.6 8L5.4 5M7 13l-1.5 6M17 13l1.5 6M9 19a1 1 0 100 2 1 1 0 000-2zm8 0a1 1 0 100 2 1 1 0 000-2" />
+
+                                </svg>
+
+                                Beli Lagi
+
+                            </a>
+                        @endif
+
+                    </div>
+
+                </div>
+
+            </div>
+        @empty
+
+            <div class="bg-white border border-gray-200 rounded-3xl shadow-sm overflow-hidden">
+
+                <div class="px-8 py-20 flex flex-col items-center text-center">
+
+                    <div class="w-28 h-28 rounded-full bg-red-50 flex items-center justify-center mb-8">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 text-red-500" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                d="M3 3h2l.4 2m0 0L7 13h10l4-8H5.4M7 13l-1.5 6M17 13l1.5 6M9 19a1 1 0 100 2 1 1 0 000-2zm8 0a1 1 0 100 2 1 1 0 000-2" />
+
+                        </svg>
+
+                    </div>
+
+                    <h2 class="text-3xl font-bold text-gray-900">
+
+                        Belum Ada Pesanan
+
+                    </h2>
+
+                    <p class="mt-4 text-gray-500 max-w-lg leading-relaxed">
+
+                        Semua transaksi yang Anda lakukan akan muncul di halaman ini.
+                        Yuk mulai koleksi diecast favorit Anda sekarang juga!
+
+                    </p>
+
+                    <div class="mt-10 flex flex-wrap justify-center gap-4">
+
+                        <a href="{{ url('/produk') }}"
+                            class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold transition shadow-md hover:shadow-lg">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4m1.6 8L5.4 5M7 13l-1.5 6M17 13l1.5 6" />
+
+                            </svg>
+
+                            Mulai Belanja
+
+                        </a>
+
+                        <a href="{{ url('/') }}"
+                            class="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-gray-300 bg-white hover:bg-gray-100 text-gray-700 font-semibold transition">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7m-9 2v8m0-8H5" />
+
+                            </svg>
+
+                            Kembali ke Beranda
+
+                        </a>
+
+                    </div>
 
                 </div>
 
             </div>
 
-            @empty
+        @endforelse
 
-                <div class="bg-white rounded-3xl shadow p-20 text-center">
+    </section>
 
-                    <h2 class="text-3xl font-bold">
-
-                        Belum ada transaksi
-
-                    </h2>
-
-                    <p class="text-gray-500 mt-3">
-
-                        Semua transaksi yang Anda lakukan akan muncul di sini.
-
-                    </p>
-
-                    <a href="{{ url('/produk') }}"
-                        class="inline-block mt-8 bg-red-600 hover:bg-red-700 px-8 py-4 rounded-xl font-bold text-white">
-
-                        Mulai Belanja
-
-                    </a>
-
-                </div>
-
-            @endforelse
-
-        </section>
-
-    @endsection
+@endsection

@@ -1,319 +1,797 @@
 @extends('template.admin')
+
 @section('title', 'Dashboard Admin')
 @section('page_title', 'Dashboard')
+
 @section('content')
-    <div class="flex flex-col p-2 gap-3">
-        <div class="flex gap-3">
 
-            <!-- Best Seller Product -->
-            <div
-                class="w-1/2 flex items-center justify-center py-2 bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700">
-                <img src="{{ asset('assets/products/showcases/MGT-Penske.png') }}" alt="Produk Terlaris" class="w-1/2 rounded">
-                <div class="flex flex-col">
-                    <h2 class="text-2xl font-bold ml-4 text-white">Produk Terlaris:</h2>
-                    <h2 class="text-2xl font-bold ml-4 text-white">MiniGT Porsche 963 #7</h2>
-                    <br>
-                    <p class="ml-4 font-medium text-white">
-                        Total Produk Terjual: 20 unit<br>
-                        Total Pendapatan: Rp 1.500.000<br>
-                    </p>
+    <div class="space-y-6">
+
+        {{-- Card Statistik --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+
+            {{-- Produk --}}
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow">
+
+                <p class="text-gray-400 text-sm">
+                    Total Produk
+                </p>
+
+                <h2 class="text-4xl font-bold text-white mt-3">
+                    {{ $totalProduk }}
+                </h2>
+
+            </div>
+
+            {{-- Order --}}
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow">
+
+                <p class="text-gray-400 text-sm">
+                    Total Order
+                </p>
+
+                <h2 class="text-4xl font-bold text-white mt-3">
+                    {{ $totalOrder }}
+                </h2>
+
+            </div>
+
+            {{-- Pendapatan --}}
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow">
+
+                <p class="text-gray-400 text-sm">
+                    Pendapatan
+                </p>
+
+                <h2 class="text-3xl font-bold text-green-400 mt-3">
+
+                    Rp {{ number_format($totalPendapatan, 0, ',', '.') }}
+
+                </h2>
+
+            </div>
+
+            {{-- Support --}}
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow">
+
+                <p class="text-gray-400 text-sm">
+                    Tiket Support
+                </p>
+
+                <h2 class="text-4xl font-bold text-yellow-400 mt-3">
+                    {{ $totalSupport }}
+                </h2>
+
+            </div>
+
+        </div>
+
+        {{-- Produk Terlaris & Status Order --}}
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+            {{-- Produk Terlaris --}}
+            <div class="xl:col-span-2 bg-gray-800 rounded-xl border border-gray-700 p-6">
+
+                <h2 class="text-xl font-bold text-white mb-5">
+                    Produk Terlaris
+                </h2>
+
+                @if ($topProduct)
+                    <div class="flex flex-col md:flex-row gap-6">
+
+                        <div class="w-full md:w-56">
+
+                            <img src="{{ asset('storage/' . $topProduct->gambar) }}" alt="{{ $topProduct->nama_produk }}"
+                                class="w-full h-60 object-cover rounded-lg border border-gray-700">
+
+                        </div>
+
+                        <div class="flex-1">
+
+                            <span class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+
+                                BEST SELLER
+
+                            </span>
+
+                            <h2 class="text-3xl font-bold text-white mt-4">
+
+                                {{ $topProduct->nama_produk }}
+
+                            </h2>
+
+                            <p class="text-gray-400 mt-2">
+
+                                Brand :
+                                <span class="text-white">
+
+                                    {{ $topProduct->brand }}
+
+                                </span>
+
+                            </p>
+
+                            <p class="text-gray-400">
+
+                                Harga :
+                                <span class="text-green-400 font-semibold">
+
+                                    Rp {{ number_format($topProduct->harga, 0, ',', '.') }}
+
+                                </span>
+
+                            </p>
+
+                            <p class="text-gray-400">
+
+                                Stok :
+                                <span class="text-white">
+
+                                    {{ $topProduct->stok }}
+
+                                </span>
+
+                            </p>
+
+                            <div class="grid grid-cols-2 gap-4 mt-6">
+
+                                <div class="bg-gray-900 rounded-lg p-4">
+
+                                    <p class="text-gray-400 text-sm">
+
+                                        Total Terjual
+
+                                    </p>
+
+                                    <h3 class="text-3xl font-bold text-red-500">
+
+                                        {{ $topProduct->total_terjual }}
+
+                                    </h3>
+
+                                </div>
+
+                                <div class="bg-gray-900 rounded-lg p-4">
+
+                                    <p class="text-gray-400 text-sm">
+
+                                        Pendapatan
+
+                                    </p>
+
+                                    <h3 class="text-2xl font-bold text-green-400">
+
+                                        Rp
+                                        {{ number_format($topProduct->harga * $topProduct->total_terjual, 0, ',', '.') }}
+
+                                    </h3>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                @else
+                    <div class="text-center py-16 text-gray-400">
+
+                        Belum ada transaksi.
+
+                    </div>
+                @endif
+
+            </div>
+
+            {{-- Status Order --}}
+            <div class="bg-gray-800 rounded-xl border border-gray-700 p-6">
+
+                <h2 class="text-xl font-bold text-white mb-5">
+
+                    Status Pesanan
+
+                </h2>
+
+                <div class="space-y-4">
+
+                    <div
+                        class="flex justify-between items-center bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-4 py-4">
+
+                        <span class="text-yellow-300">
+
+                            Pending
+
+                        </span>
+
+                        <span class="text-2xl font-bold text-yellow-400">
+
+                            {{ $pending }}
+
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="flex justify-between items-center bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-4">
+
+                        <span class="text-blue-300">
+
+                            Diproses
+
+                        </span>
+
+                        <span class="text-2xl font-bold text-blue-400">
+
+                            {{ $diproses }}
+
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="flex justify-between items-center bg-green-500/10 border border-green-500/20 rounded-lg px-4 py-4">
+
+                        <span class="text-green-300">
+
+                            Selesai
+
+                        </span>
+
+                        <span class="text-2xl font-bold text-green-400">
+
+                            {{ $selesai }}
+
+                        </span>
+
+                    </div>
+
                 </div>
+
             </div>
 
-            <!-- Total Sales and Revenue -->
-            <div
-                class="w-1/2 flex flex-col items-center justify-center py-2 bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700">
-                <h2 class="text-white font-bold text-2xl">Total Penjualan</h2>
-                <h2 class="text-white font-bold text-2xl">100</h2>
-                <br>
-                <h2 class="text-white font-bold text-2xl">Total Pendapatan</h2>
-                <h2 class="text-white font-bold text-2xl">Rp100.000.000</h2>
-                <br>
-                <p class="text-white/60 decoration-none text-sm hover:underline">
-                    <a href="{{ url('/admin/laporan') }}" class="flex items-center">Lihat Laporan Penjualan
-                        <svg width="20px" height="20px" viewBox="0 -0.5 25 25" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M12.5 6.25C12.9142 6.25 13.25 5.91421 13.25 5.5C13.25 5.08579 12.9142 4.75 12.5 4.75V6.25ZM20.25 12.5C20.25 12.0858 19.9142 11.75 19.5 11.75C19.0858 11.75 18.75 12.0858 18.75 12.5H20.25ZM19.5 6.25C19.9142 6.25 20.25 5.91421 20.25 5.5C20.25 5.08579 19.9142 4.75 19.5 4.75V6.25ZM15.412 4.75C14.9978 4.75 14.662 5.08579 14.662 5.5C14.662 5.91421 14.9978 6.25 15.412 6.25V4.75ZM20.25 5.5C20.25 5.08579 19.9142 4.75 19.5 4.75C19.0858 4.75 18.75 5.08579 18.75 5.5H20.25ZM18.75 9.641C18.75 10.0552 19.0858 10.391 19.5 10.391C19.9142 10.391 20.25 10.0552 20.25 9.641H18.75ZM20.0303 6.03033C20.3232 5.73744 20.3232 5.26256 20.0303 4.96967C19.7374 4.67678 19.2626 4.67678 18.9697 4.96967L20.0303 6.03033ZM11.9697 11.9697C11.6768 12.2626 11.6768 12.7374 11.9697 13.0303C12.2626 13.3232 12.7374 13.3232 13.0303 13.0303L11.9697 11.9697ZM12.5 4.75H9.5V6.25H12.5V4.75ZM9.5 4.75C6.87665 4.75 4.75 6.87665 4.75 9.5H6.25C6.25 7.70507 7.70507 6.25 9.5 6.25V4.75ZM4.75 9.5V15.5H6.25V9.5H4.75ZM4.75 15.5C4.75 18.1234 6.87665 20.25 9.5 20.25V18.75C7.70507 18.75 6.25 17.2949 6.25 15.5H4.75ZM9.5 20.25H15.5V18.75H9.5V20.25ZM15.5 20.25C18.1234 20.25 20.25 18.1234 20.25 15.5H18.75C18.75 17.2949 17.2949 18.75 15.5 18.75V20.25ZM20.25 15.5V12.5H18.75V15.5H20.25ZM19.5 4.75H15.412V6.25H19.5V4.75ZM18.75 5.5V9.641H20.25V5.5H18.75ZM18.9697 4.96967L11.9697 11.9697L13.0303 13.0303L20.0303 6.03033L18.9697 4.96967Z"
-                                    fill="#fff"></path>
-                            </g>
-                        </svg>
-                    </a>
-                </p>
-            </div>
         </div>
 
-        <!-- Best Seller Table -->
-        <div class="w-full flex items-center justify-center p-2 bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700 gap-3">
-            <div class="w-1/2 hover:bg-gray-700 transition duration-150 text-center rounded-lg">
-                <h2 class="text-white font-bold text-xl">Produk Terlaris:</h2>
-                <table class="min-w-full text-center text-sm text-white">
-                    <thead class="uppercase tracking-wider bg-gray-700/50">
-                        <tr class="text-center">
-                            <th scope="col" class="px-6 py-4">
-                                ID-Produk
-                            </th>
-                            <th scope="col" class="px-6 py-4">
-                                Nama Produk
-                            </th>
-                            <th scope="col" class="px-6 py-4">
-                                Harga
-                            </th>
-                            <th scope="col" class="px-6 py-4">
-                                Stok
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                            <th scope="row" class="px-6 py-4">
-                                MGT-001
-                            </th>
-                            <td class="px-6 py-4">
-                                Porsche 963 #7
-                            </td>
-                            <td class="px-6 py-4">Rp240.000</td>
-                            <td class="px-6 py-4">30</td>
-                        </tr>
-                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                            <th scope="row" class="px-6 py-4">
-                                MGT-001
-                            </th>
-                            <td class="px-6 py-4">
-                                Porsche 963 #7
-                            </td>
-                            <td class="px-6 py-4">Rp240.000</td>
-                            <td class="px-6 py-4">30</td>
-                        </tr>
-                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                            <th scope="row" class="px-6 py-4">
-                                MGT-001
-                            </th>
-                            <td class="px-6 py-4">
-                                Porsche 963 #7
-                            </td>
-                            <td class="px-6 py-4">Rp240.000</td>
-                            <td class="px-6 py-4">30</td>
-                        </tr>
-                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                            <th scope="row" class="px-6 py-4">
-                                MGT-001
-                            </th>
-                            <td class="px-6 py-4">
-                                Porsche 963 #7
-                            </td>
-                            <td class="px-6 py-4">Rp240.000</td>
-                            <td class="px-6 py-4">30</td>
-                        </tr>
-                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                            <th scope="row" class="px-6 py-4">
-                                MGT-001
-                            </th>
-                            <td class="px-6 py-4">
-                                Porsche 963 #7
-                            </td>
-                            <td class="px-6 py-4">Rp240.000</td>
-                            <td class="px-6 py-4">30</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p class="text-white/60 decoration-none text-sm hover:underline pt-4 pb-2 pl-10">
-                    <a href="{{ url('/admin/laporan') }}" class="flex items-center w-full">Lihat Seluruh Produk
-                        <svg width="20px" height="20px" viewBox="0 -0.5 25 25" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M12.5 6.25C12.9142 6.25 13.25 5.91421 13.25 5.5C13.25 5.08579 12.9142 4.75 12.5 4.75V6.25ZM20.25 12.5C20.25 12.0858 19.9142 11.75 19.5 11.75C19.0858 11.75 18.75 12.0858 18.75 12.5H20.25ZM19.5 6.25C19.9142 6.25 20.25 5.91421 20.25 5.5C20.25 5.08579 19.9142 4.75 19.5 4.75V6.25ZM15.412 4.75C14.9978 4.75 14.662 5.08579 14.662 5.5C14.662 5.91421 14.9978 6.25 15.412 6.25V4.75ZM20.25 5.5C20.25 5.08579 19.9142 4.75 19.5 4.75C19.0858 4.75 18.75 5.08579 18.75 5.5H20.25ZM18.75 9.641C18.75 10.0552 19.0858 10.391 19.5 10.391C19.9142 10.391 20.25 10.0552 20.25 9.641H18.75ZM20.0303 6.03033C20.3232 5.73744 20.3232 5.26256 20.0303 4.96967C19.7374 4.67678 19.2626 4.67678 18.9697 4.96967L20.0303 6.03033ZM11.9697 11.9697C11.6768 12.2626 11.6768 12.7374 11.9697 13.0303C12.2626 13.3232 12.7374 13.3232 13.0303 13.0303L11.9697 11.9697ZM12.5 4.75H9.5V6.25H12.5V4.75ZM9.5 4.75C6.87665 4.75 4.75 6.87665 4.75 9.5H6.25C6.25 7.70507 7.70507 6.25 9.5 6.25V4.75ZM4.75 9.5V15.5H6.25V9.5H4.75ZM4.75 15.5C4.75 18.1234 6.87665 20.25 9.5 20.25V18.75C7.70507 18.75 6.25 17.2949 6.25 15.5H4.75ZM9.5 20.25H15.5V18.75H9.5V20.25ZM15.5 20.25C18.1234 20.25 20.25 18.1234 20.25 15.5H18.75C18.75 17.2949 17.2949 18.75 15.5 18.75V20.25ZM20.25 15.5V12.5H18.75V15.5H20.25ZM19.5 4.75H15.412V6.25H19.5V4.75ZM18.75 5.5V9.641H20.25V5.5H18.75ZM18.9697 4.96967L11.9697 11.9697L13.0303 13.0303L20.0303 6.03033L18.9697 4.96967Z"
-                                    fill="#fff"></path>
-                            </g>
-                        </svg>
-                    </a>
-                </p>
-            </div>
+        {{-- Top 5 Produk Terlaris --}}
+        <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
 
-            <!-- New Order Table -->
-            <div class="w-1/2 hover:bg-gray-700 transition duration-150 text-center rounded-lg">
-                <h2 class="text-white font-bold text-xl">Pesanan Terbaru:</h2>
-                <table class="min-w-full text-center text-sm text-white">
-                    <thead class="uppercase tracking-wider bg-gray-700/50">
-                        <tr class="text-center">
-                            <th scope="col" class="px-6 py-4">
-                                ID-Produk
-                            </th>
-                            <th scope="col" class="px-6 py-4">
-                                Nama Produk
-                            </th>
-                            <th scope="col" class="px-6 py-4">
-                                Harga
-                            </th>
-                            <th scope="col" class="px-6 py-4">
-                                Stok
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                            <th scope="row" class="px-6 py-4">
-                                MGT-001
-                            </th>
-                            <td class="px-6 py-4">
-                                Porsche 963 #7
-                            </td>
-                            <td class="px-6 py-4">Rp240.000</td>
-                            <td class="px-6 py-4">30</td>
-                        </tr>
-                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                            <th scope="row" class="px-6 py-4">
-                                MGT-001
-                            </th>
-                            <td class="px-6 py-4">
-                                Porsche 963 #7
-                            </td>
-                            <td class="px-6 py-4">Rp240.000</td>
-                            <td class="px-6 py-4">30</td>
-                        </tr>
-                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                            <th scope="row" class="px-6 py-4">
-                                MGT-001
-                            </th>
-                            <td class="px-6 py-4">
-                                Porsche 963 #7
-                            </td>
-                            <td class="px-6 py-4">Rp240.000</td>
-                            <td class="px-6 py-4">30</td>
-                        </tr>
-                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                            <th scope="row" class="px-6 py-4">
-                                MGT-001
-                            </th>
-                            <td class="px-6 py-4">
-                                Porsche 963 #7
-                            </td>
-                            <td class="px-6 py-4">Rp240.000</td>
-                            <td class="px-6 py-4">30</td>
-                        </tr>
-                        <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                            <th scope="row" class="px-6 py-4">
-                                MGT-001
-                            </th>
-                            <td class="px-6 py-4">
-                                Porsche 963 #7
-                            </td>
-                            <td class="px-6 py-4">Rp240.000</td>
-                            <td class="px-6 py-4">30</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p class="text-white/60 decoration-none text-sm hover:underline pt-4 pb-2 pl-10">
-                    <a href="{{ url('/admin/laporan') }}" class="flex items-center">Lihat Seluruh Pesanan
-                        <svg width="20px" height="20px" viewBox="0 -0.5 25 25" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path
-                                    d="M12.5 6.25C12.9142 6.25 13.25 5.91421 13.25 5.5C13.25 5.08579 12.9142 4.75 12.5 4.75V6.25ZM20.25 12.5C20.25 12.0858 19.9142 11.75 19.5 11.75C19.0858 11.75 18.75 12.0858 18.75 12.5H20.25ZM19.5 6.25C19.9142 6.25 20.25 5.91421 20.25 5.5C20.25 5.08579 19.9142 4.75 19.5 4.75V6.25ZM15.412 4.75C14.9978 4.75 14.662 5.08579 14.662 5.5C14.662 5.91421 14.9978 6.25 15.412 6.25V4.75ZM20.25 5.5C20.25 5.08579 19.9142 4.75 19.5 4.75C19.0858 4.75 18.75 5.08579 18.75 5.5H20.25ZM18.75 9.641C18.75 10.0552 19.0858 10.391 19.5 10.391C19.9142 10.391 20.25 10.0552 20.25 9.641H18.75ZM20.0303 6.03033C20.3232 5.73744 20.3232 5.26256 20.0303 4.96967C19.7374 4.67678 19.2626 4.67678 18.9697 4.96967L20.0303 6.03033ZM11.9697 11.9697C11.6768 12.2626 11.6768 12.7374 11.9697 13.0303C12.2626 13.3232 12.7374 13.3232 13.0303 13.0303L11.9697 11.9697ZM12.5 4.75H9.5V6.25H12.5V4.75ZM9.5 4.75C6.87665 4.75 4.75 6.87665 4.75 9.5H6.25C6.25 7.70507 7.70507 6.25 9.5 6.25V4.75ZM4.75 9.5V15.5H6.25V9.5H4.75ZM4.75 15.5C4.75 18.1234 6.87665 20.25 9.5 20.25V18.75C7.70507 18.75 6.25 17.2949 6.25 15.5H4.75ZM9.5 20.25H15.5V18.75H9.5V20.25ZM15.5 20.25C18.1234 20.25 20.25 18.1234 20.25 15.5H18.75C18.75 17.2949 17.2949 18.75 15.5 18.75V20.25ZM20.25 15.5V12.5H18.75V15.5H20.25ZM19.5 4.75H15.412V6.25H19.5V4.75ZM18.75 5.5V9.641H20.25V5.5H18.75ZM18.9697 4.96967L11.9697 11.9697L13.0303 13.0303L20.0303 6.03033L18.9697 4.96967Z"
-                                    fill="#fff"></path>
-                            </g>
-                        </svg>
-                    </a>
-                </p>
-            </div>
-        </div>
+            <div class="flex justify-between items-center px-6 py-4 border-b border-gray-700">
 
-        <!-- Complaint Table -->
-        <div
-            class="w-full flex flex-col items-center justify-center p-2 bg-gray-800 rounded-xl shadow-xl overflow-hidden border border-gray-700">
-            <h2 class="text-white font-bold text-xl">Keluhan Terbaru:</h2>
-            <table class="min-w-full text-center text-sm text-white">
-                <thead class="uppercase tracking-wider bg-gray-700/50">
-                    <tr class="text-center">
-                        <th scope="col" class="px-6 py-4">
-                            ID-Produk
-                        </th>
-                        <th scope="col" class="px-6 py-4">
-                            Nama Produk
-                        </th>
-                        <th scope="col" class="px-6 py-4">
-                            Harga
-                        </th>
-                        <th scope="col" class="px-6 py-4">
-                            Stok
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                    <tr class="border-b border-gray-700 hover:bg-gray-700/40 transition">
-                        <th scope="row" class="px-6 py-4">
-                            MGT-001
-                        </th>
-                        <td class="px-6 py-4">
-                            Porsche 963 #7
-                        </td>
-                        <td class="px-6 py-4">Rp240.000</td>
-                        <td class="px-6 py-4">30</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class="text-white/60 decoration-none text-sm hover:underline pt-4 pb-2">
-                <a href="{{ url('/admin/laporan') }}" class="flex items-center">Lihat Seluruh Keluhan
-                    <svg width="20px" height="20px" viewBox="0 -0.5 25 25" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path
-                                d="M12.5 6.25C12.9142 6.25 13.25 5.91421 13.25 5.5C13.25 5.08579 12.9142 4.75 12.5 4.75V6.25ZM20.25 12.5C20.25 12.0858 19.9142 11.75 19.5 11.75C19.0858 11.75 18.75 12.0858 18.75 12.5H20.25ZM19.5 6.25C19.9142 6.25 20.25 5.91421 20.25 5.5C20.25 5.08579 19.9142 4.75 19.5 4.75V6.25ZM15.412 4.75C14.9978 4.75 14.662 5.08579 14.662 5.5C14.662 5.91421 14.9978 6.25 15.412 6.25V4.75ZM20.25 5.5C20.25 5.08579 19.9142 4.75 19.5 4.75C19.0858 4.75 18.75 5.08579 18.75 5.5H20.25ZM18.75 9.641C18.75 10.0552 19.0858 10.391 19.5 10.391C19.9142 10.391 20.25 10.0552 20.25 9.641H18.75ZM20.0303 6.03033C20.3232 5.73744 20.3232 5.26256 20.0303 4.96967C19.7374 4.67678 19.2626 4.67678 18.9697 4.96967L20.0303 6.03033ZM11.9697 11.9697C11.6768 12.2626 11.6768 12.7374 11.9697 13.0303C12.2626 13.3232 12.7374 13.3232 13.0303 13.0303L11.9697 11.9697ZM12.5 4.75H9.5V6.25H12.5V4.75ZM9.5 4.75C6.87665 4.75 4.75 6.87665 4.75 9.5H6.25C6.25 7.70507 7.70507 6.25 9.5 6.25V4.75ZM4.75 9.5V15.5H6.25V9.5H4.75ZM4.75 15.5C4.75 18.1234 6.87665 20.25 9.5 20.25V18.75C7.70507 18.75 6.25 17.2949 6.25 15.5H4.75ZM9.5 20.25H15.5V18.75H9.5V20.25ZM15.5 20.25C18.1234 20.25 20.25 18.1234 20.25 15.5H18.75C18.75 17.2949 17.2949 18.75 15.5 18.75V20.25ZM20.25 15.5V12.5H18.75V15.5H20.25ZM19.5 4.75H15.412V6.25H19.5V4.75ZM18.75 5.5V9.641H20.25V5.5H18.75ZM18.9697 4.96967L11.9697 11.9697L13.0303 13.0303L20.0303 6.03033L18.9697 4.96967Z"
-                                fill="#fff"></path>
-                        </g>
-                    </svg>
+                <div>
+
+                    <h2 class="text-xl font-bold text-white">
+                        Top 5 Produk Terlaris
+                    </h2>
+
+                    <p class="text-sm text-gray-400">
+                        Produk dengan penjualan tertinggi
+                    </p>
+
+                </div>
+
+                <a href="{{ url('/admin/produk') }}" class="text-red-500 hover:text-red-400 text-sm font-medium">
+
+                    Lihat Semua →
+
                 </a>
-            </p>
+
+            </div>
+
+            <div class="overflow-x-auto">
+
+                <table class="w-full">
+
+                    <thead class="bg-gray-900">
+
+                        <tr class="text-gray-300 text-sm">
+
+                            <th class="px-6 py-4 text-left">Produk</th>
+                            <th class="px-6 py-4 text-center">Kode</th>
+                            <th class="px-6 py-4 text-center">Harga</th>
+                            <th class="px-6 py-4 text-center">Terjual</th>
+                            <th class="px-6 py-4 text-center">Stok</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @forelse($bestSeller as $produk)
+                            <tr class="border-t border-gray-700 hover:bg-gray-700/40 transition">
+
+                                <td class="px-6 py-4">
+
+                                    <div class="flex items-center gap-4">
+
+                                        <img src="{{ asset('storage/' . $produk->gambar) }}"
+                                            class="w-14 h-14 rounded-lg object-cover border border-gray-700">
+
+                                        <div>
+
+                                            <h3 class="font-semibold text-white">
+
+                                                {{ $produk->nama_produk }}
+
+                                            </h3>
+
+                                            <p class="text-sm text-gray-400">
+
+                                                {{ $produk->brand }}
+
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+                                <td class="text-center text-white">
+
+                                    {{ $produk->kode_produk }}
+
+                                </td>
+
+                                <td class="text-center text-green-400 font-semibold">
+
+                                    Rp {{ number_format($produk->harga, 0, ',', '.') }}
+
+                                </td>
+
+                                <td class="text-center">
+
+                                    <span class="bg-red-500/20 text-red-400 px-3 py-1 rounded-full">
+
+                                        {{ $produk->total_terjual }}
+
+                                    </span>
+
+                                </td>
+
+                                <td class="text-center">
+
+                                    @if ($produk->stok <= 5)
+                                        <span class="bg-red-500/20 text-red-400 px-3 py-1 rounded-full">
+
+                                            {{ $produk->stok }}
+
+                                        </span>
+                                    @elseif($produk->stok <= 15)
+                                        <span class="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full">
+
+                                            {{ $produk->stok }}
+
+                                        </span>
+                                    @else
+                                        <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full">
+
+                                            {{ $produk->stok }}
+
+                                        </span>
+                                    @endif
+
+                                </td>
+
+                            </tr>
+
+                        @empty
+
+                            <tr>
+
+                                <td colspan="5" class="text-center py-10 text-gray-400">
+
+                                    Belum ada data penjualan.
+
+                                </td>
+
+                            </tr>
+                        @endforelse
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
         </div>
-    </div>
-@endsection
+
+        {{-- Pesanan Terbaru --}}
+        <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+
+            <div class="flex justify-between items-center px-6 py-4 border-b border-gray-700">
+
+                <div>
+
+                    <h2 class="text-xl font-bold text-white">
+                        Pesanan Terbaru
+                    </h2>
+
+                    <p class="text-sm text-gray-400">
+                        5 transaksi terbaru pelanggan
+                    </p>
+
+                </div>
+
+                <a href="{{ url('/admin/order') }}" class="text-red-500 hover:text-red-400 text-sm font-medium">
+
+                    Lihat Semua →
+
+                </a>
+
+            </div>
+
+            <div class="overflow-x-auto">
+
+                <table class="w-full">
+
+                    <thead class="bg-gray-900">
+
+                        <tr class="text-gray-300 text-sm">
+
+                            <th class="px-6 py-4 text-left">
+                                Order ID
+                            </th>
+
+                            <th class="px-6 py-4 text-left">
+                                Customer
+                            </th>
+
+                            <th class="px-6 py-4 text-center">
+                                Total
+                            </th>
+
+                            <th class="px-6 py-4 text-center">
+                                Pembayaran
+                            </th>
+
+                            <th class="px-6 py-4 text-center">
+                                Status
+                            </th>
+
+                            <th class="px-6 py-4 text-center">
+                                Aksi
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @forelse($latestOrders as $order)
+                            <tr class="border-t border-gray-700 hover:bg-gray-700/40 transition">
+
+                                <td class="px-6 py-4">
+
+                                    <div>
+
+                                        <h3 class="text-white font-semibold">
+
+                                            {{ $order->order_id }}
+
+                                        </h3>
+
+                                        <p class="text-xs text-gray-400">
+
+                                            {{ $order->created_at->format('d M Y H:i') }}
+
+                                        </p>
+
+                                    </div>
+
+                                </td>
+
+                                <td class="px-6 py-4">
+
+                                    <div>
+
+                                        <h3 class="text-white">
+
+                                            {{ $order->user->username }}
+
+                                        </h3>
+
+                                        <p class="text-gray-400 text-sm">
+
+                                            {{ $order->user->email }}
+
+                                        </p>
+
+                                    </div>
+
+                                </td>
+
+                                <td class="px-6 py-4 text-center">
+
+                                    <span class="text-green-400 font-semibold">
+
+                                        Rp {{ number_format($order->total_harga, 0, ',', '.') }}
+
+                                    </span>
+
+                                </td>
+
+                                <td class="px-6 py-4 text-center">
+
+                                    @switch($order->payment_status)
+                                        @case('paid')
+                                            <span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs">
+
+                                                Paid
+
+                                            </span>
+                                        @break
+
+                                        @case('pending')
+                                            <span class="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-xs">
+
+                                                Pending
+
+                                            </span>
+                                        @break
+
+                                        @case('expire')
+                                            <span class="px-3 py-1 rounded-full bg-red-500/20 text-red-400 text-xs">
+
+                                                Expired
+
+                                            </span>
+                                        @break
+
+                                        @default
+                                            <span class="px-3 py-1 rounded-full bg-gray-600 text-white text-xs">
+
+                                                {{ ucfirst($order->payment_status) }}
+
+                                            </span>
+                                    @endswitch
+
+                                </td>
+
+                                <td class="px-6 py-4 text-center">
+
+                                    @switch($order->status)
+                                        @case('diproses')
+                                            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs">
+
+                                                Diproses
+
+                                            </span>
+                                        @break
+
+                                        @case('dikirim')
+                                            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-xs">
+
+                                                Dikirim
+
+                                            </span>
+                                        @break
+
+                                        @case('selesai')
+                                            <span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs">
+
+                                                Selesai
+
+                                            </span>
+                                        @break
+
+                                        @case('dibatalkan')
+                                            <span class="px-3 py-1 rounded-full bg-red-500/20 text-red-400 text-xs">
+
+                                                Dibatalkan
+
+                                            </span>
+                                        @break
+
+                                        @default
+                                            <span class="px-3 py-1 rounded-full bg-gray-600 text-white text-xs">
+
+                                                {{ ucfirst($order->status) }}
+
+                                            </span>
+                                    @endswitch
+
+                                </td>
+
+                                <td class="px-6 py-4 text-center">
+
+                                    <a href="{{ url('/admin/order/' . $order->id_transaksi) }}"
+                                        class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-white text-sm transition">
+
+                                        Detail
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                            @empty
+
+                                <tr>
+
+                                    <td colspan="6" class="py-10 text-center text-gray-400">
+
+                                        Belum ada transaksi.
+
+                                    </td>
+
+                                </tr>
+                            @endforelse
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            {{-- Keluhan Terbaru --}}
+            <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+
+                <div class="flex justify-between items-center px-6 py-4 border-b border-gray-700">
+
+                    <div>
+
+                        <h2 class="text-xl font-bold text-white">
+                            Keluhan Terbaru
+                        </h2>
+
+                        <p class="text-sm text-gray-400">
+                            Tiket support terbaru dari pelanggan
+                        </p>
+
+                    </div>
+
+                    <a href="{{ url('/admin/support') }}" class="text-red-500 hover:text-red-400 text-sm font-medium">
+
+                        Lihat Semua →
+
+                    </a>
+
+                </div>
+
+                <div class="overflow-x-auto">
+
+                    <table class="w-full">
+
+                        <thead class="bg-gray-900">
+
+                            <tr class="text-gray-300 text-sm">
+
+                                <th class="px-6 py-4 text-left">
+                                    User
+                                </th>
+
+                                <th class="px-6 py-4 text-left">
+                                    Keluhan
+                                </th>
+
+                                <th class="px-6 py-4 text-center">
+                                    Status
+                                </th>
+
+                                <th class="px-6 py-4 text-center">
+                                    Tanggal
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @forelse($latestServices as $service)
+                                <tr class="border-t border-gray-700 hover:bg-gray-700/40 transition">
+
+                                    {{-- User --}}
+                                    <td class="px-6 py-4">
+
+                                        <div>
+
+                                            <h3 class="font-semibold text-white">
+
+                                                {{ $service->user->username }}
+
+                                            </h3>
+
+                                            <p class="text-gray-400 text-sm">
+
+                                                {{ $service->user->email }}
+
+                                            </p>
+
+                                        </div>
+
+                                    </td>
+
+                                    {{-- Subjek & Pesan --}}
+                                    <td class="px-6 py-4">
+
+                                        <div>
+
+                                            <h3 class="font-semibold text-white">
+
+                                                {{ $service->subjek }}
+
+                                            </h3>
+
+                                            <p class="text-sm text-gray-400 mt-1">
+
+                                                {{ \Illuminate\Support\Str::limit($service->pesan, 70) }}
+
+                                            </p>
+
+                                        </div>
+
+                                    </td>
+
+                                    {{-- Status --}}
+                                    <td class="px-6 py-4 text-center">
+
+                                        @if ($service->status == 'Menunggu')
+                                            <span class="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-xs">
+
+                                                Menunggu
+
+                                            </span>
+                                        @elseif($service->status == 'Diproses')
+                                            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs">
+
+                                                Diproses
+
+                                            </span>
+                                        @elseif($service->status == 'Selesai')
+                                            <span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs">
+
+                                                Selesai
+
+                                            </span>
+                                        @else
+                                            <span class="px-3 py-1 rounded-full bg-gray-500/20 text-gray-300 text-xs">
+
+                                                {{ $service->status }}
+
+                                            </span>
+                                        @endif
+
+                                    </td>
+
+                                    {{-- Tanggal --}}
+                                    <td class="px-6 py-4 text-center text-gray-300">
+
+                                        @if ($service->dibalas_pada)
+                                            {{ $service->dibalas_pada->format('d M Y H:i') }}
+                                        @else
+                                            {{ $service->created_at->format('d M Y H:i') }}
+                                        @endif
+
+                                    </td>
+
+                                </tr>
+
+                            @empty
+
+                                <tr>
+
+                                    <td colspan="4" class="text-center py-10 text-gray-400">
+
+                                        Belum ada tiket support.
+
+                                    </td>
+
+                                </tr>
+                            @endforelse
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    @endsection

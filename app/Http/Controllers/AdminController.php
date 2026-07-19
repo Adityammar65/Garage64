@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use App\Models\ProdukModel;
 use App\Models\KategoriModel;
 use App\Models\ServiceModel;
@@ -11,9 +12,69 @@ use App\Models\TransaksiModel;
 
 class AdminController extends Controller
 {
+    // DASHBOARD
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $totalProduk = ProdukModel::count();
+
+        $totalOrder = TransaksiModel::count();
+
+        $totalPendapatan = TransaksiModel::where('payment_status', 'paid')
+            ->sum('total_harga');
+
+        $totalSupport = ServiceModel::where('status', 'menunggu')->count();
+
+        $bestSeller = ProdukModel::withSum('detailTransaksi as total_terjual', 'qty')
+            ->orderByDesc('total_terjual')
+            ->take(5)
+            ->get();
+
+        $topProduct = $bestSeller->first();
+
+        $pending = TransaksiModel::where('payment_status', 'pending')->count();
+
+        $diproses = TransaksiModel::where('status', 'diproses')->count();
+
+        $selesai = TransaksiModel::where('status', 'selesai')->count();
+
+        $topProduct = $bestSeller->first();
+
+        $topProduct = $bestSeller->first();
+
+        $latestOrders = TransaksiModel::with('user')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $latestServices = ServiceModel::with('user')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $salesChart = TransaksiModel::select(
+                DB::raw('DATE(created_at) as tanggal'),
+                DB::raw('SUM(total_harga) as total')
+            )
+            ->where('payment_status', 'paid')
+            ->whereDate('created_at', '>=', now()->subDays(6))
+            ->groupBy('tanggal')
+            ->orderBy('tanggal')
+            ->get();
+
+        return view('admin.dashboard', compact(
+            'totalProduk',
+            'totalOrder',
+            'totalPendapatan',
+            'totalSupport',
+            'pending',
+            'diproses',
+            'selesai',
+            'bestSeller',
+            'topProduct',
+            'latestOrders',
+            'latestServices',
+            'salesChart'
+        ));
     }
 
     // PRODUK
