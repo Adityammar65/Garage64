@@ -6,42 +6,46 @@ Garage64 adalah aplikasi **e-commerce diecast** berbasis **Laravel** yang diranc
 
 ### Customer
 
-* Landing page
-* Katalog produk
-* Detail produk
-* Pencarian produk
-* Keranjang belanja
-* Checkout
-* Riwayat transaksi
-* Profil pengguna
-* Login & Register
+- Landing page
+- Katalog produk
+- Detail produk
+- Pencarian produk
+- Keranjang belanja
+- Checkout
+- Riwayat transaksi
+- Profil pengguna
+- Login & Register
 
 ### Admin
 
-* Dashboard Admin
-* Manajemen Produk (Create, Read, Update, Delete)
-* Manajemen Kategori
-* Manajemen Transaksi
-* Aktivasi / Nonaktif Produk
-* Pelaporan Penjualan
-* Manajemen Profil Admin
+- Dashboard Admin
+- Manajemen Produk (Create, Read, Update, Delete)
+- Manajemen Kategori
+- Manajemen Transaksi
+- Aktivasi / Nonaktif Produk
+- Pelaporan Penjualan
+- Manajemen Profil Admin
 
 ## Tech Stack
 
 ### Bahasa:
 
-* Php 8.2
-* JavaScript
-* CSS
+- Php 8.2
+- JavaScript
+- CSS
 
 ### Framework:
 
-* Laravel 12
-* Tailwind CSS 4
+- Laravel 12
+- Tailwind CSS 4
 
-### Module & Library:
+### Module, Library, Perangkat Tambahan:
 
-* Vite
+- Vite
+- npm
+- xampp/local web server
+- midtrans
+- ngrok
 
 ---
 
@@ -108,7 +112,7 @@ php artisan key:generate
 
 ---
 
-## 6. Konfigurasi Database
+## 6. Konfigurasi Database, Google API, dan Midtrans
 
 Edit file `.env`
 
@@ -121,8 +125,24 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
+```env
+MIDTRANS_SERVER_KEY=your_server_key
+MIDTRANS_CLIENT_KEY=your_client_key
+MIDTRANS_IS_PRODUCTION=false
+MIDTRANS_IS_SANITIZED=true
+MIDTRANS_IS_3DS=true
+```
+
+```env
+GOOGLE_CLIENT_ID=your_client_id
+GOOGLE_CLIENT_SECRET=your_client_secret
+GOOGLE_REDIRECT_URI=your_redirect_URI
+```
+
 Jika belum ada database di phpmyadmin silahkan membuat database baru,
 jika sudah ada sesuaikan dengan konfigurasi database yang digunakan.
+
+Isi konfigurasi midtrans dan google API dengan konfigurasi akun anda.
 
 ---
 
@@ -144,11 +164,12 @@ php artisan storage:link
 
 ---
 
-## 9. Copy/Move Konfigurasi Data Toko (Pilih Salah 1)
+## 9. Copy/Move Konfigurasi Data Toko dan Data Test Produk
 
 ```bash
-cp /public/assets/blueprints/store.json /storage/app/private/store.json
-mv /public/assets/blueprints/store.json /storage/app/private/store.json
+cp /public/assets/blueprints/* /storage/app/
+mv /storage/app/store.json /storage/app/private/store.json
+mv /storage/app/* /storage/app/public/produk/*
 ```
 
 ---
@@ -161,7 +182,7 @@ npm run dev
 
 ---
 
-## 11. Jalankan Server
+## 11. Setup Server
 
 Jika menggunakan xampp akses melalui:
 
@@ -181,6 +202,20 @@ Aplikasi dapat diakses melalui:
 http://127.0.0.1:8000
 ```
 
+Jalankan server ngrok untuk mengakses callback pada midtrans:
+
+```
+ngrok http 80
+```
+
+Server ngrok dapat di akses melalui:
+
+```
+http://127.0.0.1:4040
+```
+
+Copy forwarding url dari terminal ngrok dan paste ke payment URI midtrans, tambahkan /Garage64/midtrans/callback di belakang url
+
 ---
 
 # Langkah Tambahan Bagi Perangkat Linux:
@@ -197,6 +232,11 @@ Set ownership
 
 ```bash
 sudo chown -R $USER:daemon /Garage64
+```
+
+```bash
+cd /Garage64
+sudo chown -R $USER:daemon storage
 ```
 
 Set permission
@@ -232,7 +272,7 @@ storage/app/public/foto-profil
 
 # Akun
 
-Apabila project menggunakan seeder, jalankan:
+Jalankan seeder untuk mendapatkan data template:
 
 ```bash
 php artisan db:seed
@@ -244,10 +284,10 @@ Kemudian login menggunakan akun yang tersedia pada seeder.
 
 # Catatan
 
-* Pastikan ekstensi PHP yang dibutuhkan Laravel telah aktif.
-* Jalankan `php artisan storage:link` agar asset dapat ditampilkan.
-* Jalankan `npm run dev` selama proses development.
-* Pastikan konfigurasi database pada file `.env` sudah benar sebelum menjalankan migration.
+- Pastikan ekstensi PHP yang dibutuhkan Laravel telah aktif.
+- Jalankan `php artisan storage:link` agar asset dapat ditampilkan.
+- Jalankan `npm run dev` selama proses development.
+- Pastikan konfigurasi database pada file `.env` sudah benar sebelum menjalankan migration.
 
 ---
 

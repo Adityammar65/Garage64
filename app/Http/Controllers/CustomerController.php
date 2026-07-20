@@ -38,6 +38,12 @@ class CustomerController extends Controller
     // VIEW ORDER
     public function order_saya()
     {
+        $store = [];
+    
+        if (Storage::exists('store.json')) {
+            $store = json_decode(Storage::get('store.json'), true);
+        }
+
         $idUser = session('id_user');
 
         $orders = TransaksiModel::with('detailTransaksi.produk')
@@ -49,6 +55,7 @@ class CustomerController extends Controller
             ->sum('jumlah');
 
         return view('customer.order', compact(
+            'store',
             'orders',
             'cartCount'
         ));
@@ -57,6 +64,12 @@ class CustomerController extends Controller
     // VIEW PRODUK
     public function produk()
     {
+        $store = [];
+    
+        if (Storage::exists('store.json')) {
+            $store = json_decode(Storage::get('store.json'), true);
+        }
+
         $produk = ProdukModel::latest()->get();
 
         $marqueeProduk = ProdukModel::inRandomOrder()
@@ -69,6 +82,7 @@ class CustomerController extends Controller
             ->sum('jumlah');
 
         return view('customer.produk', compact(
+            'store',
             'produk',
             'marqueeProduk',
             'cartCount'
@@ -127,6 +141,12 @@ class CustomerController extends Controller
 
     public function detailOrder($id)
     {
+        $store = [];
+    
+        if (Storage::exists('store.json')) {
+            $store = json_decode(Storage::get('store.json'), true);
+        }
+
         $transaksi = TransaksiModel::with([
             'user',
             'detailTransaksi.produk'
@@ -135,18 +155,18 @@ class CustomerController extends Controller
         ->where('id_user', session('id_user'))
         ->firstOrFail();
 
-        return view('customer.order_detail', compact('transaksi'));
+        return view('customer.order_detail', compact('store', 'transaksi'));
     }
     
     public function search(Request $request)
     {
-    $keyword = $request->q;
+        $keyword = $request->q;
 
-    $produk = ProdukModel::where('nama_produk', 'like', "%{$keyword}%")
-        ->orWhere('brand', 'like', "%{$keyword}%")
-        ->latest()
-        ->get();
+        $produk = ProdukModel::where('nama_produk', 'like', "%{$keyword}%")
+            ->orWhere('brand', 'like', "%{$keyword}%")
+            ->latest()
+            ->get();
 
-    return response()->json($produk);
+        return response()->json($produk);
     }
 }
